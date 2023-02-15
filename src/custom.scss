@@ -1,0 +1,89 @@
+$theme-colors: (
+    "primary": #181823,
+    "info": #537FE7,
+    "success": #C0EEF2,
+    "secondary": #E9F8F9,
+    "gray": #979799,
+    "black": #333,
+    "red": #EE4B2B,
+    "orange": #ffbf00,
+    "border-gray": #ddd
+);
+
+.txt--gray {
+    color: map-get($theme-colors, "gray");
+}
+
+.txt--black {
+    color: map-get($theme-colors, "black")
+}
+
+.txt--orange {
+    color: map-get($theme-colors, "orange");
+}
+
+.txt--red {
+    color: map-get($theme-colors, "red");
+}
+
+.border-bottom-lt {
+    border-bottom: 1px solid map-get($theme-colors, "border-gray");
+}
+
+.carousel-item {
+    width: 80%;
+}
+
+.carousel-image {
+    margin: auto;
+    width: 100%;
+}
+
+.carousel-with-caption {
+    display: none;
+}
+
+.carousel-indicators {
+    bottom: -1rem !important;
+}
+
+.carousel-inner-container {
+    display: flex;
+    padding: 2rem;
+    margin: initial;
+    gap: 12px;
+
+    .container {
+        display: inline;
+        p {
+            display: inherit;
+        }
+    }
+}
+
+.price-container {
+    display: flex;
+    flex-direction: column;
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 840px) {
+    .carousel-inner-container {
+        display: none;
+    }
+
+    .carousel-with-caption {
+        display: block;
+    }
+
+    .carousel-item {
+        margin: auto;
+    }
+}
+
+
+@import "~bootstrap/scss/bootstrap";

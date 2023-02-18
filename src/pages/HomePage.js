@@ -23,7 +23,7 @@ const HomePage = () => {
           <Carousel.Item key={product.id}>
             <div className="carousel-inner-container">
               <Image
-                src={product.image}
+                src={product.image1}
                 alt={product.name}
                 fluid
                 className="carousel-image"
@@ -48,7 +48,7 @@ const HomePage = () => {
 
             <div className="carousel-with-caption">
               <Image
-                src={product.image}
+                src={product.image1}
                 alt={product.name}
                 fluid
                 className="carousel-image"

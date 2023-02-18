@@ -33,7 +33,11 @@ const Rating = ({ ratingNum, reviewCount }) => {
         </span>
       )}
       {emptyStars}
-      <p className="txt--gray">{ratingNum} out of {reviewCount} reviews</p>
+      {reviewCount && (
+        <p className="txt--gray">
+          {ratingNum} out of {reviewCount} reviews
+        </p>
+      )}
     </div>
   );
 };

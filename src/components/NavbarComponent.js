@@ -14,24 +14,20 @@ const NavbarComponent = () => {
               <h4>Brand</h4>
             </Nav.Link>
             <div style={{display:'flex'}}>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link href="#link"><i className="fa fa-shopping-cart fa-2x"></i></Nav.Link> {/* Add the number of items in the cart here */}
             </div>
             <div style={{display:'flex'}}>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
+              <Nav.Link href="#link">Products</Nav.Link> {/* Links should be blocks in smaller screens */}
+              <Nav.Link href="#link">Some_Dude@gmail.com</Nav.Link>
+              <NavDropdown title="Admin" id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Users</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">
+                  Products
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">
+                  Orders
+                </NavDropdown.Item>
+              </NavDropdown>
             </div>
           </Nav>
         </Navbar.Collapse>

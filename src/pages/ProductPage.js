@@ -11,8 +11,10 @@ import Rating from "../components/Rating";
 import Price from "../components/Price";
 import Fade from "react-bootstrap/Fade";
 import ListGroup from "react-bootstrap/ListGroup";
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/slices/cartSlice";
 
 const ProductPage = () => {
   const config = {
@@ -23,11 +25,17 @@ const ProductPage = () => {
   };
   const { productId } = useParams();
   const [error, setError] = useState(null);
-  const [product, setProduct] = useState([]);
+  const [productDetail, setProductDetail] = useState([]);
   const [detailOpen, setDetailOpen] = useState(true);
   const [reviewOpen, setReviewOpen] = useState(false);
   const [writeReviewOpen, setWriteReviewOpen] = useState(false);
-  const [userReview, setUserReview] = useState('')
+  const [userReview, setUserReview] = useState("");
+  const [qty, setQty] = useState(1);
+  const dispatch = useDispatch();
+  const addToCartHandler = () => {
+    dispatch(addToCart({ productDetail, qty }));
+  };
+
   // const [proceedBuyOpen, setProceedBuyOpen] = useState(false);
 
   const infoCollapseManager = (setState) => {
@@ -40,7 +48,7 @@ const ProductPage = () => {
   const fetchProduct = async () => {
     try {
       const { data } = await axios.get(`products/${productId}`, config);
-      setProduct(data);
+      setProductDetail(data);
     } catch (err) {
       setError(err.message);
     }
@@ -65,31 +73,31 @@ const ProductPage = () => {
       <Row className="mt-2 p-2">
         <Col xl={6} lg={6} md={6} sm={12}>
           <Carousel pause="hover" keyboard="true">
-            {product.image1 && (
+            {productDetail.image1 && (
               <Carousel.Item>
                 <Image
-                  src={product.image1}
-                  alt={product.name}
+                  src={productDetail.image1}
+                  alt={productDetail.name}
                   fluid
                   className="carousel-image"
                 />
               </Carousel.Item>
             )}
-            {product.image2 && (
+            {productDetail.image2 && (
               <Carousel.Item>
                 <Image
-                  src={product.image2}
-                  alt={product.name}
+                  src={productDetail.image2}
+                  alt={productDetail.name}
                   fluid
                   className="carousel-image"
                 />
               </Carousel.Item>
             )}
-            {product.image3 && (
+            {productDetail.image3 && (
               <Carousel.Item>
                 <Image
-                  src={product.image3}
-                  alt={product.name}
+                  src={productDetail.image3}
+                  alt={productDetail.name}
                   fluid
                   className="carousel-image"
                 />
@@ -100,18 +108,48 @@ const ProductPage = () => {
         </Col>
         <Col xl={6} lg={6} md={6} sm={12}>
           <Container id="product-detail__container">
-            <p className="txt--black mt-2" style={{ maxWidth: "450px" }}>
-              {product.description}
+            <p className="txt--black mt-2 mb-4" style={{ maxWidth: "450px" }}>
+              {productDetail.description}
             </p>
             <Rating
-              ratingNum={product.rating}
-              reviewCount={product.numReviews}
+              ratingNum={productDetail.rating}
+              reviewCount={productDetail.numReviews}
             />
             <Price
-              hasDiscount={product.hasDiscount}
-              discount={product.discount}
-              price={Number(product.price)}
+              hasDiscount={productDetail.hasDiscount}
+              discount={productDetail.discount}
+              price={Number(productDetail.price)}
             />
+            <Row className="mt-4">
+              <Col style={{flex: 'none', width: 'fit-content'}}>
+                <Button
+                  variant="primary"
+                  onClick={addToCartHandler}
+                  disabled={productDetail.countInStock === 0}
+                >
+                  {productDetail.countInStock === 0
+                    ? "Out of Stock"
+                    : "Add to cart"}
+                </Button>
+              </Col>
+              {productDetail.countInStock > 0 && (
+                <Col>
+                  <Form.Control
+                    as="select"
+                    value={qty}
+                    onChange={(e) => setQty(Number(e.target.value))}
+                    style={{width: 'fit-content'}}
+                    className="d-inline-block"
+                  >
+                    {[...Array(productDetail.countInStock).keys()].map((x) => (
+                      <option key={x + 1} value={x + 1}>
+                        {x + 1}
+                      </option>
+                    ))}
+                  </Form.Control>
+                </Col>
+              )}
+            </Row>
           </Container>
         </Col>
       </Row>
@@ -152,14 +190,16 @@ const ProductPage = () => {
         <Fade in={detailOpen} className="position-absolute top-0 left-0">
           <div id="detail-fade-text">
             <p className="txt--black p-4 border-top-lt">
-              {product.moreDetails}
+              {productDetail.moreDetails}
             </p>
           </div>
         </Fade>
         <Fade in={reviewOpen} className="position-absolute top-0 left-0">
           <Container id="review-fade">
             <div className="d-flex justify-content-between w-100 align-items-center p-4">
-              <h4 className="txt--black">Reviews({product.numReviews})</h4>
+              <h4 className="txt--black">
+                Reviews({productDetail.numReviews})
+              </h4>
               <p
                 id="add-review"
                 onClick={() => {
@@ -170,22 +210,48 @@ const ProductPage = () => {
                 <span>Write your review</span>
               </p>
             </div>
-            {product.reviews ? (
+            {productDetail.reviews ? (
               <ListGroup variant="flush" className="border-top-lt">
-                {writeReviewOpen && <ListGroup.Item>
+                {writeReviewOpen && (
+                  <ListGroup.Item>
                     <Form>
                       <Form.Group className="mb-2">
-                        <p onClick={() => {setWriteReviewOpen(false)}} className="txt--gray m-0 p-0" style={{textAlign:"right", fontSize:'20px'}}><i className="fa fa-close" style={{cursor:"pointer"}}></i></p>
-                        <Form.Control onChange={(e) => {setUserReview(e.target.value)}} as="textarea" placeholder="Your review..." className="p-2" style={{fontSize: '14px'}}></Form.Control>
+                        <p
+                          onClick={() => {
+                            setWriteReviewOpen(false);
+                          }}
+                          className="txt--gray m-0 p-0"
+                          style={{ textAlign: "right", fontSize: "20px" }}
+                        >
+                          <i
+                            className="fa fa-close"
+                            style={{ cursor: "pointer" }}
+                          ></i>
+                        </p>
+                        <Form.Control
+                          onChange={(e) => {
+                            setUserReview(e.target.value);
+                          }}
+                          as="textarea"
+                          placeholder="Your review..."
+                          className="p-2"
+                          style={{ fontSize: "14px" }}
+                        ></Form.Control>
                       </Form.Group>
                       <div className="d-flex justify-content-start">
-                      <Button type="submit" variant="success" style={{color: "white", backgroundColor: "#0096f6"}} disabled={userReview.length === 0}>
-                        Submit
-                      </Button>
+                        <Button
+                          type="submit"
+                          variant="success"
+                          style={{ color: "white", backgroundColor: "#0096f6" }}
+                          disabled={userReview.length === 0}
+                        >
+                          Submit
+                        </Button>
                       </div>
                     </Form>
-                  </ListGroup.Item>}
-                {product.reviews.map((review) => (
+                  </ListGroup.Item>
+                )}
+                {productDetail.reviews.map((review) => (
                   <ListGroup.Item
                     key={review.id}
                     className="d-flex flex-column pb-0"

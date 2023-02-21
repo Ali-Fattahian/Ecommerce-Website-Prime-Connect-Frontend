@@ -115,6 +115,33 @@ body {
     font-weight: 600;
 }
 
+$shopping-cart-red: #DF0000;
+
+.fa-shopping-cart:before {
+    background-color: map-get($theme-colors, 'primary');
+}
+
+.fa-stack[data-count]:after{
+  position:absolute;
+  right:0%;
+  top:0%;
+  content: attr(data-count);
+  font-size:40%;
+  padding:.6em;
+  border-radius:999px;
+  line-height:.75em;
+  color:map-get($theme-colors, "black");
+  text-align:center;
+  min-width:2em;
+  font-weight:bold;
+  background: white;
+  border-style:solid;
+}
+
+.red-cart {
+    background-color: transparent;
+}
+
 @media screen and (max-width: 840px) {
     .carousel-inner-container {
         display: none;

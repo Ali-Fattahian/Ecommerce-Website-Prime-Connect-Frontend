@@ -23,7 +23,7 @@ const NavbarComponent = () => {
               <h4>Brand</h4>
             </Nav.Link>
             <div style={{ display: "flex" }}>
-              <Nav.Link href="#link">
+              <Nav.Link href="/cart">
                 <span className="fa-stack fa-2x has-badge" data-count={`${cartItemsNumber}`}>
                   <i className="fa fa-circle fa-stack-2x"></i>
                   <i

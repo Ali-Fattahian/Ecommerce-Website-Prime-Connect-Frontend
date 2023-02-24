@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { login } from "../store/slices/userSlice";
 import FormContainer from "../components/FormContainer";
-
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -27,7 +24,7 @@ const LoginPage = () => {
     if (userInfo) {
       navigate("/");
     }
-  }, [userInfo]);
+  }, [userInfo, navigate]);
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -36,42 +33,68 @@ const LoginPage = () => {
 
   return (
     <FormContainer>
-      <h1>Sign In</h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
-      <Form onSubmit={formSubmitHandler}>
+      <Form
+        onSubmit={formSubmitHandler}
+        id="login-form"
+        className="p-4 border-lt mt-4"
+      >
+        <h1
+          className="font-family-secondary txt--black text-center"
+          style={{ fontSize: "3rem" }}
+        >
+          Sign In
+        </h1>
         <Form.Group controlId="email">
-          <Form.Label>Email Address</Form.Label>
+          <Form.Label
+            className="font-family-secondary"
+            style={{ fontSize: "1.5rem" }}
+          >
+            Email Address
+          </Form.Label>
           <Form.Control
             autoComplete="true"
             type="email"
             placeholder="Enter Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="font-family-secondary"
+            style={{ fontSize: "1.5rem" }}
           ></Form.Control>
         </Form.Group>
         <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
+          <Form.Label
+            className="font-family-secondary"
+            style={{ fontSize: "1.5rem" }}
+          >
+            Password
+          </Form.Label>
           <Form.Control
             autoComplete="true"
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="font-family-secondary"
+            style={{ fontSize: "1.5rem" }}
           ></Form.Control>
         </Form.Group>
-        <Button type="submit" variant="primary">
+        <p style={{ fontSize: '1.2rem' }} className="txt--gray font-family-secondary d-inline-block">
+          New Customer?
+          <Link to={redirect ? `/register?redirect=${redirect}` : "/register"} className="font-family-secondary px-2" style={{fontSize: "1.2rem"}}>
+            Register
+          </Link>
+        </p>
+        <Button
+          type="submit"
+          variant="primary"
+          className="w-100"
+          style={{ backgroundColor: "#0095f6" }}
+        >
           Sign In
         </Button>
       </Form>
-      <Row className="py-3">
-        <Col>
-          New Customer?
-          <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
-            Register
-          </Link>
-        </Col>
-      </Row>
     </FormContainer>
   );
 };

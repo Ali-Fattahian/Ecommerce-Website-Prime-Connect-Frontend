@@ -172,6 +172,26 @@ $shopping-cart-red: #DF0000;
     margin: 1.5rem 0;
 }
 
+#login-form > div {
+    margin: 1.5rem 0;
+}
+
+#shipping-form > div {
+    margin: 1.5rem 0;
+}
+
+#checkout-steps a {
+    color: map-get($theme-colors, "black");
+    font-size: 1.2rem;
+}
+
+#checkout-steps{
+    a[disabled] {
+        color: map-get($theme-colors, "gray");
+    }
+} 
+
+
 @media screen and (max-width: 840px) {
     .carousel-inner-container {
         display: none;

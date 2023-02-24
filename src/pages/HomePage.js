@@ -5,7 +5,7 @@ import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import products from "./products";
 import NavbarComponent from "../components/NavbarComponent";
 import Product from "../components/Product";
@@ -53,7 +53,7 @@ const HomePage = () => {
                 fluid
                 className="carousel-image"
               />
-              <Carousel.Caption>{product.name}</Carousel.Caption>
+              <Carousel.Caption style={{fontSize:'12px'}}>{product.name}</Carousel.Caption>
             </div>
           </Carousel.Item>
         ))}

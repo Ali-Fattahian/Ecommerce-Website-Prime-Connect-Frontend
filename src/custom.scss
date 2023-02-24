@@ -31,6 +31,10 @@ $theme-colors: (
     color: map-get($theme-colors, "danger");
 }
 
+.border-lt {
+    border: 1px solid map-get($theme-colors, "border-gray");
+}
+
 .border-bottom-lt {
     border-bottom: 1px solid map-get($theme-colors, "border-gray");
 }
@@ -140,6 +144,32 @@ $shopping-cart-red: #DF0000;
 
 .red-cart {
     background-color: transparent;
+}
+
+.loader:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 60px;
+    width: 60px;
+    margin-top: -30px;
+    margin-left: -30px;
+    border-radius: 50%;
+    border: 3px dotted #222;
+    border-top-color: var(--blue-primary);
+    border-right-color: var(--blue-primary);
+    animation: loader 0.7s ease-in-out infinite;
+  }
+  
+  @keyframes loader {
+    to {
+        transform: rotate(360deg);
+    }
+  }
+
+#register-form > div {
+    margin: 1.5rem 0;
 }
 
 @media screen and (max-width: 840px) {

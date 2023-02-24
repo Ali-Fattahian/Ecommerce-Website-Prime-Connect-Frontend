@@ -9,8 +9,8 @@ const Rating = ({ ratingNum, reviewCount }) => {
   const filledStars = [];
   for (let i = 0; i < intPart; i++) {
     filledStars.push(
-      <span className="star">
-        <i className="fa fa-star txt--orange" key={i}></i>
+      <span className="star" key={i}>
+        <i className="fa fa-star txt--orange"></i>
       </span>
     );
   }
@@ -18,8 +18,8 @@ const Rating = ({ ratingNum, reviewCount }) => {
   const emptyStars = [];
   for (let i = 0; i < remaning; i++) {
     emptyStars.push(
-      <span className="star">
-        <i className="fa fa-star-o txt--orange" key={i}></i>
+      <span className="star" key={i}>
+        <i className="fa fa-star-o txt--orange"></i>
       </span>
     );
   }
@@ -28,7 +28,7 @@ const Rating = ({ ratingNum, reviewCount }) => {
     <div>
       {filledStars}
       {decimalPart > 0 && (
-        <span className="star">
+        <span className="star" key={decimalPart}>
           <i className="fa fa-star-half-full txt--orange"></i>
         </span>
       )}

@@ -19,7 +19,7 @@ const NavbarComponent = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto d-flex justify-content-between w-100 align-items-center">
-            <Nav.Link href="#link">
+            <Nav.Link href="/">
               <h4>Brand</h4>
             </Nav.Link>
             <div style={{ display: "flex" }}>

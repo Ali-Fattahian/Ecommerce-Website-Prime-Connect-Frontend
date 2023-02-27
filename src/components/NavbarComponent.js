@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/slices/userSlice";
-import Button from "react-bootstrap/esm/Button";
+
 
 const NavbarComponent = () => {
   const cart = useSelector((state) => state.cart);
@@ -42,10 +42,10 @@ const NavbarComponent = () => {
               </Nav.Link>
             </div>
             <div style={{ display: "flex" }}>
-              <Nav.Link href="#link">Products</Nav.Link>
+              <Nav.Link href="/all-products/">Products</Nav.Link>
               {/* Links should be blocks in smaller screens */}
               {userInfo ? (
-                <NavDropdown title={userInfo.fullname} id="basic-nav-dropdown">
+                <NavDropdown title={userInfo.fullname} id="user-dropdown-menu">
                   <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                   <NavDropdown.Item as="button" onClick={() => {dispatch(logout())}}>
                     Log out
@@ -54,11 +54,11 @@ const NavbarComponent = () => {
               ) : (
                 <Nav.Link href="/login">Login</Nav.Link>
               )}
-              <NavDropdown title="Admin" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Users</NavDropdown.Item>
+              {userInfo && userInfo.isAdmin && <NavDropdown title="Admin" id="admin-dropdown-menu">
+                <NavDropdown.Item href="/admin/user-list">Users</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Products</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">Orders</NavDropdown.Item>
-              </NavDropdown>
+              </NavDropdown>}
             </div>
           </Nav>
         </Navbar.Collapse>

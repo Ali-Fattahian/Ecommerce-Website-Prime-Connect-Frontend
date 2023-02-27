@@ -12,7 +12,7 @@ const Product = ({ product }) => {
             <Price
               hasDiscount={product.hasDiscount}
               discount={product.discount}
-              price={product.price}
+              price={Number(product.price)}
               noIcon
             />
           </Card.Text>

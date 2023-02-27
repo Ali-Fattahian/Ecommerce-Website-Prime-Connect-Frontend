@@ -10,6 +10,7 @@ const initialState = {
   userProfile: localStorage.getItem("userProfile")
     ? JSON.parse(localStorage.getItem("userProfile"))
     : null,
+  usersList: localStorage.getItem("usersList") ? JSON.parse(localStorage.getItem("usersList")) : []
 };
 
 const config = {
@@ -49,6 +50,24 @@ export const register = createAsyncThunk(
     return data;
   }
 );
+
+
+export const getUserList = createAsyncThunk(
+  "user/getUserList",
+  async (token) => {
+    const { data } = await axios.get(
+      "api/users", {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `JWT ${token}`
+        },
+        baseURL: "http://localhost:8000"
+      }
+    );
+    return data;
+  }
+);
+
 
 export const getUserProfile = createAsyncThunk(
   "user/getUserProfile",
@@ -142,7 +161,16 @@ const userSlice = createSlice({
       .addCase(updateUserProfile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      });
+      }).addCase(getUserList.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getUserList.fulfilled, (state, action) => {
+        state.usersList = action.payload
+      })
+      .addCase(getUserList.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
   },
 });
 

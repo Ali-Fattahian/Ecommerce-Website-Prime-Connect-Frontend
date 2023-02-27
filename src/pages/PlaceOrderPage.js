@@ -93,7 +93,7 @@ const PlaceOrderPage = () => {
                           />
                         </Col>
                         <Col>
-                          <Link to={`/product/${item._id}`}>{item.name}</Link>
+                          <Link to={`/product/${item.id}`}>{item.name}</Link>
                         </Col>
                         <Col md={4}>
                           {item.productQuantity} * ${item.price} = $

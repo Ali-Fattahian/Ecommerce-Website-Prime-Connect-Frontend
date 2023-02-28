@@ -13,7 +13,6 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/esm/Button";
-import Container from "react-bootstrap/esm/Container";
 import Product from "../components/Product";
 import Message from "../components/Message";
 
@@ -154,17 +153,17 @@ const AllProductsPage = () => {
             </Form>
           </NavDropdown>
         </Col>
-        <Col>
-          <Container>
-            {allProducts.length > 0 ? (
-              allProducts.map((product) => (
-                <Product product={product} key={product.id} />
-              ))
-            ) : (
-              <Message variant="info">No product was found</Message>
-            )}
-          </Container>
-        </Col>
+      </Row>
+      <Row className="p-4 pt-0">
+        {allProducts.length > 0 ? (
+          allProducts.map((product) => (
+            <Col sm={12} md={6} lg={4} xl={3} key={product.id}>
+              <Product product={product} key={product.id} />
+            </Col>
+          ))
+        ) : (
+          <Message variant="info">No product was found</Message>
+        )}
       </Row>
     </>
   );

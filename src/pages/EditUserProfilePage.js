@@ -22,6 +22,12 @@ const EditUserProfilePage = () => {
     userProfile ? userProfile.isAdmin : false
   );
 
+  const resetStateHandler = () => {
+    setEmail(userProfile ? userProfile.email : "");
+    setFullname(userProfile ? userProfile.fullname : "");
+    setIsAdmin(userProfile ? userProfile.isAdmin : false);
+  };
+
   useEffect(() => {
     if (userInfo) {
       if (!userProfile) {
@@ -57,7 +63,17 @@ const EditUserProfilePage = () => {
           id="register-form"
           className="p-4 border-lt mt-2"
         >
-          <strong><p className="txt--blue" style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => {navigate(-1)}}>Go Back</p></strong>
+          <strong>
+            <p
+              className="txt--blue"
+              style={{ textDecoration: "underline", cursor: "pointer" }}
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
+              Go Back
+            </p>
+          </strong>
           <h1
             className="font-family-secondary txt--black text-center p-4"
             style={{ fontSize: "3rem" }}
@@ -114,6 +130,7 @@ const EditUserProfilePage = () => {
             type="reset" // Not working
             className="w-100 border-lt mt-2"
             style={{ backgroundColor: "white", color: "black" }}
+            onClick={resetStateHandler}
           >
             Reset
           </Button>

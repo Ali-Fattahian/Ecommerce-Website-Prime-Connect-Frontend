@@ -25,12 +25,13 @@ const NavbarComponent = () => {
     <Navbar bg="primary" expand="lg" variant="dark" fixed="top">
       <Container>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <h4 id="website-brand-1">Brand</h4>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto d-flex justify-content-between w-100 align-items-center">
+          <Nav className="me-auto d-flex justify-content-between w-100 align-items-center" id="nav-link__container">
             <Nav.Link href="/">
-              <h4>Brand</h4>
+              <h4 id="website-brand-2">Brand</h4>
             </Nav.Link>
-            <div style={{ display: "flex" }}>
+            <div id="shopping-cart-icon__container">
               <Nav.Link href="/cart">
                 <span
                   className="fa-stack fa-2x has-badge"
@@ -41,8 +42,8 @@ const NavbarComponent = () => {
                 </span>
               </Nav.Link>
             </div>
-            <div style={{ display: "flex" }}>
-              <Nav.Link href="/all-products/">Products</Nav.Link>
+            <div id="nav-item__container">
+              <Nav.Link id="nav-link" href="/all-products/">Products</Nav.Link>
               {/* Links should be blocks in smaller screens */}
               {userInfo ? (
                 <NavDropdown title={userInfo.fullname} id="user-dropdown-menu">

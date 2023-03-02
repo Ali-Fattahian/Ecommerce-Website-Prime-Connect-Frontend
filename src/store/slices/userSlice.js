@@ -155,8 +155,14 @@ const userSlice = createSlice({
       })
       .addCase(updateUserProfile.fulfilled, (state, action) => {
         state.loading = false;
-        const { email, password } = action.payload;
-        login({ email, password });
+        state.userInfo.email = action.payload.email;
+        state.userInfo.fullname = action.payload.fullname;
+        state.userInfo.isAdmin = action.payload.isAdmin;
+        state.userProfile.email = action.payload.email;
+        state.userProfile.fullname = action.payload.fullname;
+        state.userProfile.isAdmin = action.payload.isAdmin;
+        localStorage.setItem('userProfile', JSON.stringify(state.userProfile))
+        localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
       })
       .addCase(updateUserProfile.rejected, (state, action) => {
         state.loading = false;
@@ -166,6 +172,7 @@ const userSlice = createSlice({
       })
       .addCase(getUserList.fulfilled, (state, action) => {
         state.usersList = action.payload
+        state.loading = false;
       })
       .addCase(getUserList.rejected, (state, action) => {
         state.loading = false;

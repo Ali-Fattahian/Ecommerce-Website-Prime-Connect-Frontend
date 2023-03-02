@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearFetchProductsFilters,
@@ -11,7 +11,7 @@ import NavbarComponent from "../components/NavbarComponent";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/esm/Button";
 import Product from "../components/Product";
 import Message from "../components/Message";
@@ -26,12 +26,12 @@ const AllProductsPage = () => {
   );
   const [ordering, setOrdering] = useState(productFilters.orderBy);
   const [hasDiscount, setHasDiscount] = useState(productFilters.hasDiscount);
-  const searchRef = useRef("");
+  const [search, setSearch] = useState(productFilters.searchQuery)
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
     const filters = {
-      searchQuery: searchRef.current.value.trim(),
+      searchQuery: search,
       brandFilter: brand,
       subCategoryFilter: subCategory,
       orderBy: ordering,
@@ -55,103 +55,102 @@ const AllProductsPage = () => {
   return (
     <>
       <NavbarComponent />
-      <Row className="p-4">
+      <Row className="p-4" id="all-products__filter">
         <Col>
-          <NavDropdown title={<i className="fa fa-filter"></i>}>
-            <Form
-              id="products-form"
-              className="p-4 pt-2"
-              onSubmit={formSubmitHandler}
-            >
-              <p style={{ fontSize: "1.5rem" }} className="mb-1">
-                FILTERS
-              </p>
-              <Form.Group className="mt-2">
-                <Form.Label>Brand</Form.Label>
-                <Form.Select
-                  onChange={(e) => {
-                    setBrand(e.target.value);
-                  }}
-                  value={brand}
-                >
-                  <option value="">-------</option>
-                  {brands.map((x, index) => (
-                    <option value={x} key={index}>
-                      {x}
-                    </option>
-                  ))}
-                </Form.Select>
-              </Form.Group>
-              <Form.Group className="mt-2">
-                <Form.Label>Sub Category</Form.Label>
-                <Form.Select
-                  onChange={(e) => {
-                    setSubCategory(e.target.value);
-                  }}
-                  value={subCategory}
-                >
-                  <option value="">-------</option>{" "}
-                  {/* Empty string is the default value, gets chosen if there is nothing here */}
-                  {allSubCategories.map((x) => (
-                    <option value={x.name} key={x.id}>
-                      {x.name}
-                    </option>
-                  ))}
-                </Form.Select>
-              </Form.Group>
-              <p style={{ fontSize: "1.5rem" }} className="mb-1 mt-3">
-                SEARCH
-              </p>
-              <Form.Group className="mt-2">
-                <Form.Control
-                  type="search"
-                  placeholder="Search..."
-                  ref={searchRef}
-                />
-              </Form.Group>
-              <p style={{ fontSize: "1.5rem" }} className="mb-1 mt-3">
-                ORDERING
-              </p>
-              <Form.Group className="mt-2">
-                <Form.Label>Order By</Form.Label>
-                <Form.Select
-                  onChange={(e) => {
-                    setOrdering(e.target.value);
-                  }}
-                  value={ordering}
-                >
-                  <option value="">-------</option>
-                  <option value="name">Name - Ascending</option>
-                  <option value="-name">Name - Descending</option>
-                  <option value="price">Price - Ascending</option>
-                  <option value="-price">Price - Descending</option>
-                  <option value="rating">Rating - Ascending</option>
-                  <option value="-rating">Rating - Descending</option>
-                  <option value="createdAt">New products</option>
-                  <option value="-createdAt">Old products</option>
-                </Form.Select>
-              </Form.Group>
-              <Form.Check
-                label="Discount"
-                checked={hasDiscount}
-                onChange={(e) => {
-                  setHasDiscount(e.target.checked);
-                }}
-              />
-              <Button type="submit" variant="info">
-                Submit
-              </Button>
-              <Button
-                variant="primary"
-                onClick={() => {
-                  dispatch(clearFetchProductsFilters());
-                }}
-                type="reset"
+          <Accordion>
+            <Accordion.Header>
+              <i className="fa fa-filter" style={{fontSize: '25px'}}></i>
+            </Accordion.Header>
+            <Accordion.Body>
+              <Form
+                id="products-form"
+                className="p-4 pt-2"
+                onSubmit={formSubmitHandler}
               >
-                Clear
-              </Button>
-            </Form>
-          </NavDropdown>
+                <Form.Group className="mt-2">
+                  <Form.Select
+                    onChange={(e) => {
+                      setBrand(e.target.value);
+                    }}
+                    value={brand}
+                  >
+                    <option value="">Brand</option>
+                    {brands.map((x, index) => (
+                      <option value={x} key={index}>
+                        {x}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group className="mt-2">
+                  <Form.Select
+                    onChange={(e) => {
+                      setSubCategory(e.target.value);
+                    }}
+                    value={subCategory}
+                  >
+                    <option value="">Sub Category</option>{" "}
+                    {/* Empty string is the default value, gets chosen if there is nothing here */}
+                    {allSubCategories.map((x) => (
+                      <option value={x.name} key={x.id}>
+                        {x.name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group className="mt-4">
+                  <Form.Control
+                    value={search}
+                    type="search"
+                    placeholder="Search..."
+                    onChange={(e) => {setSearch(e.target.value.trim())}}
+                  />
+                </Form.Group>
+                <Form.Group className="mt-4">
+                  <Form.Label>Sort By</Form.Label>
+                  <Form.Select
+                    onChange={(e) => {
+                      setOrdering(e.target.value);
+                    }}
+                    value={ordering}
+                  >
+                    <option value="">-------</option>
+                    <option value="name">Name - Ascending</option>
+                    <option value="-name">Name - Descending</option>
+                    <option value="price">Price - Ascending</option>
+                    <option value="-price">Price - Descending</option>
+                    <option value="rating">Rating - Ascending</option>
+                    <option value="-rating">Rating - Descending</option>
+                    <option value="createdAt">New products</option>
+                    <option value="-createdAt">Old products</option>
+                  </Form.Select>
+                </Form.Group>
+                <Form.Check
+                className="mt-3"
+                  label="Discount"
+                  checked={hasDiscount}
+                  onChange={(e) => {
+                    setHasDiscount(e.target.checked);
+                  }}
+                />
+                <Button type="submit" style={{backgroundColor: "#0095f6", border: 'none'}} className="w-100 mt-4">
+                  Filter
+                </Button>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    setSearch('')
+                    dispatch(clearFetchProductsFilters());
+                  }}
+                  type="reset"
+                  style={{backgroundColor: 'transparent', color: "black"}}
+                  className="w-100 mt-2"
+                >
+                  Clear
+                </Button>
+              </Form>
+            </Accordion.Body>
+          </Accordion>
         </Col>
       </Row>
       <Row className="p-4 pt-0">

@@ -73,7 +73,7 @@ const CartPage = () => {
                       variant="light"
                       onClick={() => removeFromCartHandler(productDetail.id)}
                     >
-                      <i className="fas fa-trash"></i>
+                      <i className="fa fa-trash"></i>
                     </Button>
                   </Col>
                 </Row>

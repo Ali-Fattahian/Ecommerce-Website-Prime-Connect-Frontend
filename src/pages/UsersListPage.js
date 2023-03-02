@@ -29,7 +29,7 @@ const UsersListPage = () => {
   return (
     <div>
       <NavbarComponent />
-      <Container>
+      <Container id="user-list__container">
         <h1 className="mt-4 font-family-secondary txt--black">USERS</h1>
         <Table
           striped
@@ -55,22 +55,23 @@ const UsersListPage = () => {
                 <td>{user.email}</td>
                 <td>
                   {user.isAdmin ? (
-                    <i className="fas fa-check" style={{ color: "green" }}></i>
+                    <i className="fa fa-check" style={{ color: "green" }}></i>
                   ) : (
-                    <i className="fas fa-check" style={{ color: "red" }}></i>
+                    <i className="fa fa-check" style={{ color: "red" }}></i>
                   )}
                 </td>
                 <td>
                   <LinkContainer to={`/admin/user-list/${user.id}/edit`}>
                     <Button variant="light" className="btn-sm">
-                      <i className="fas fa-edit"></i>
+                      <i className="fa fa-edit" style={{fontSize: "20px"}}></i>
                     </Button>
                   </LinkContainer>
                   {!user.isAdmin && (
-                    <Button variant="danger" className="btn-sm">
+                    <Button style={{color: "black", backgroundColor: "transparent", border: "none"}} className="btn-sm">
                       <i
-                        className="fas fa-trash"
+                        className="fa fa-trash"
                         onClick={() => deleteUserHandler(user.id)}
+                        style={{fontSize: "20px"}}
                       ></i>
                     </Button>
                   )}

@@ -69,7 +69,7 @@ const productSlice = createSlice({
           orderBy: "",
           brandFilter: "",
           subCategoryFilter: "",
-          hasDiscount: false,
+          hasDiscount: null,
         },
   },
   reducers: {
@@ -83,10 +83,11 @@ const productSlice = createSlice({
         orderBy: "",
         brandFilter: "",
         subCategoryFilter: "",
-        hasDiscount: false,
+        hasDiscount: null,
       }
       state.productFilters = initialFilter
       localStorage.setItem('productFilters', JSON.stringify(initialFilter))
+      window.location.reload()
     }
   },
   extraReducers(builder) {

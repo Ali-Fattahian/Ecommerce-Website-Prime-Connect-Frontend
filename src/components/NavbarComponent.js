@@ -22,7 +22,7 @@ const NavbarComponent = () => {
   useEffect(() => {}, [cart]);
 
   return (
-    <Navbar bg="primary" expand="lg" variant="dark">
+    <Navbar bg="primary" expand="lg" variant="dark" fixed="top">
       <Container>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -46,7 +46,8 @@ const NavbarComponent = () => {
               {/* Links should be blocks in smaller screens */}
               {userInfo ? (
                 <NavDropdown title={userInfo.fullname} id="user-dropdown-menu">
-                  <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                  {/* <NavDropdown.Item href={`/users/${userInfo.id}/edit`}>Profile</NavDropdown.Item> */}
+                  <NavDropdown.Item href={`/profile`}>Profile</NavDropdown.Item>
                   <NavDropdown.Item as="button" onClick={() => {dispatch(logout())}}>
                     Log out
                   </NavDropdown.Item>

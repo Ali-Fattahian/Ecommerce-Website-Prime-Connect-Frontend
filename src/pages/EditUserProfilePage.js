@@ -1,50 +1,70 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import { register } from "../store/slices/userSlice";
+import { getUserProfile, updateUserProfile } from "../store/slices/userSlice";
 import FormContainer from "../components/FormContainer";
 
 const EditUserProfilePage = () => {
-  const [email, setEmail] = useState("");
-  const [fullname, setFullname] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const { error, loading } = user;
+  const { error, loading, userProfile, userInfo } = user;
+  const [email, setEmail] = useState(userProfile ? userProfile.email : "");
+  const [fullname, setFullname] = useState(
+    userProfile ? userProfile.fullname : ""
+  );
+  const [isAdmin, setIsAdmin] = useState(
+    userProfile ? userProfile.isAdmin : false
+  );
+
+  useEffect(() => {
+    if (userInfo) {
+      if (!userProfile) {
+        dispatch(getUserProfile(userInfo.token));
+      }
+    } else {
+      setMessage("You are unauthorized, please log in first");
+    }
+  }, [userInfo, userProfile, dispatch]);
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
+    const data = {
+      fullname,
+      email,
+      isAdmin,
+      token: userInfo.token,
+    };
+    dispatch(updateUserProfile(data));
   };
 
   return (
     <div>
-        <Link to="/admin/user-list/">
-            Go Back
-        </Link>
       <FormContainer>
-        {message && <Message variant="danger">{message}</Message>}
-        {error && <Message variant="danger">{error}</Message>}
-        {/* {loading && <Loader />} Loader appears for no reason (loading is true) */}
+        <div className="mt-2">
+          {message && <Message variant="danger">{message}</Message>}
+          {error && <Message variant="danger">{error}</Message>}
+        </div>
+        {loading && <Loader />}{" "}
+        {/* Loader appears for no reason (loading is true) */}
         <Form
           onSubmit={formSubmitHandler}
           id="register-form"
-          className="p-4 border-lt mt-4"
+          className="p-4 border-lt mt-2"
         >
+          <strong><p className="txt--blue" style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => {navigate(-1)}}>Go Back</p></strong>
           <h1
-            className="font-family-secondary txt--black text-center"
+            className="font-family-secondary txt--black text-center p-4"
             style={{ fontSize: "3rem" }}
           >
-            Register
+            EDIT YOUR ACCOUNT
           </h1>
-          <Form.Group controlId="name">
+          <Form.Group controlId="name" className="mt-4">
             <Form.Label
               className="font-family-secondary"
               style={{ fontSize: "1.5rem" }}
@@ -86,9 +106,16 @@ const EditUserProfilePage = () => {
           <Button
             type="submit"
             className="w-100"
-            style={{ backgroundColor: "#0095f6" }}
+            style={{ backgroundColor: "#0095f6", border: "none" }}
           >
             Edit
+          </Button>
+          <Button
+            type="reset" // Not working
+            className="w-100 border-lt mt-2"
+            style={{ backgroundColor: "white", color: "black" }}
+          >
+            Reset
           </Button>
         </Form>
       </FormContainer>

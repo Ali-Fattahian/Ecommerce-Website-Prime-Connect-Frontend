@@ -17,7 +17,7 @@ const HomePage = () => {
   return (
     <>
       <NavbarComponent />
-      <h2 className="mx-4 mt-4 w-100">Our Popular Products</h2>
+      <h2 className="mx-4 mt-4 w-100" id="popular-products__header">Our Popular Products</h2>
       <Carousel pause="hover" className="bg-dark mt-2" variant="dark">
         {products.map((product) => (
           <Carousel.Item key={product.id}>

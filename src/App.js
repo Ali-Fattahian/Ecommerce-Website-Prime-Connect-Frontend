@@ -34,6 +34,7 @@ function App() {
         {/* <Route path="/order/:orderId" element={<OrderPage />} /> */}
         <Route path="/admin/user-list/" element={<UsersListPage />} />
         <Route path="/admin/user-list/:userId/edit" element={<EditUserProfilePage />} />
+        <Route path="profile" element={<EditUserProfilePage />} />
         <Route path="*" element={<NoMatchPage />} />
       </Routes>
       </Suspense>

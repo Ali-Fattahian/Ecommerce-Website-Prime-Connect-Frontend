@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -9,11 +9,35 @@ import { getUserProfile, updateUserProfile } from "../store/slices/userSlice";
 import FormContainer from "../components/FormContainer";
 
 const EditUserProfilePage = () => {
+
+  const user = useSelector((state) => state.user);
+  const { loading, userInfo, userProfile, error } = user;
   const [message, setMessage] = useState("");
+  const { userId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const { error, loading, userProfile, userInfo } = user;
+
+  useEffect(() => {
+    if (userInfo) {
+      const token = userInfo.token
+      dispatch(getUserProfile({userId, token}))
+    } else {
+      setMessage("You are not authorized");
+    }
+  }, [userInfo, dispatch]);
+
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
+    const data = {
+      fullname,
+      email,
+      isAdmin,
+      token: userInfo.token,
+      id: userId,
+    };
+    dispatch(updateUserProfile(data));
+  };
+
   const [email, setEmail] = useState(userProfile ? userProfile.email : "");
   const [fullname, setFullname] = useState(
     userProfile ? userProfile.fullname : ""
@@ -28,26 +52,7 @@ const EditUserProfilePage = () => {
     setIsAdmin(userProfile ? userProfile.isAdmin : false);
   };
 
-  useEffect(() => {
-    if (userInfo) {
-      if (!userProfile) {
-        dispatch(getUserProfile(userInfo.token));
-      }
-    } else {
-      setMessage("You are unauthorized, please log in first");
-    }
-  }, [userInfo, userProfile, dispatch]);
-
-  const formSubmitHandler = (e) => {
-    e.preventDefault();
-    const data = {
-      fullname,
-      email,
-      isAdmin,
-      token: userInfo.token,
-    };
-    dispatch(updateUserProfile(data));
-  };
+  if (!userProfile) window.location.reload();
 
   return (
     <div>
@@ -56,9 +61,9 @@ const EditUserProfilePage = () => {
           {message && <Message variant="danger">{message}</Message>}
           {error && <Message variant="danger">{error}</Message>}
         </div>
-        {loading && <Loader />}{" "}
+        {loading && <Loader />}
         {/* Loader appears for no reason (loading is true) */}
-        <Form
+        {userProfile && !error && userInfo && userProfile ? <Form
           onSubmit={formSubmitHandler}
           id="register-form"
           className="p-4 border-lt mt-2"
@@ -110,15 +115,17 @@ const EditUserProfilePage = () => {
               onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Form.Group controlId="isAdmin">
-            <Form.Check
-              autoComplete="true"
-              type="checkbox"
-              label="Is Admin"
-              checked={isAdmin}
-              onChange={(e) => setIsAdmin(e.target.checked)}
-            ></Form.Check>
-          </Form.Group>
+          {userInfo.isAdmin && userInfo.id !== userProfile.id && (
+            <Form.Group controlId="isAdmin">
+              <Form.Check
+                autoComplete="true"
+                type="checkbox"
+                label="Is Admin"
+                checked={isAdmin}
+                onChange={(e) => setIsAdmin(e.target.checked)}
+              ></Form.Check>
+            </Form.Group>
+          )}
           <Button
             type="submit"
             className="w-100"
@@ -134,7 +141,9 @@ const EditUserProfilePage = () => {
           >
             Reset
           </Button>
-        </Form>
+        </Form> : (
+          <Message variant='info'>There was a problem loading the page</Message>
+        )}
       </FormContainer>
     </div>
   );

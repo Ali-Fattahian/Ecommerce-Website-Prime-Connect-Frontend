@@ -19,6 +19,16 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+export const fetchProduct = createAsyncThunk(
+  "products/fetchProduct",
+  async (id) => {
+    const { data } = await axios.get(
+      `http://localhost:8000/api/products/${id}`
+    );
+    return data;
+  }
+);
+
 export const fetchSubCategories = createAsyncThunk(
   "products/fetchSubCategories",
   async () => {
@@ -47,6 +57,19 @@ export const fetchBrands = createAsyncThunk(
   }
 );
 
+export const deleteProduct = createAsyncThunk(
+  "user/deleteProduct",
+  async ({id, token}) => {
+    const { data } = await axios.delete(`http://localhost:8000/api/products/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `JWT ${token}`
+      }
+    })
+    return data;
+  }
+);
+
 const productSlice = createSlice({
   name: "product",
   initialState: {
@@ -62,6 +85,7 @@ const productSlice = createSlice({
     brands: localStorage.getItem("brands")
       ? JSON.parse(localStorage.getItem("brands"))
       : [],
+    product: localStorage.getItem("product") ? JSON.parse(localStorage.getItem("product")) : null,
     productFilters: localStorage.getItem("productFilters")
       ? JSON.parse(localStorage.getItem("productFilters"))
       : {
@@ -136,7 +160,31 @@ const productSlice = createSlice({
         state.loading = false;
         state.success = false;
         state.error = action.error.message;
-      });
+      }).addCase(fetchProduct.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.product = action.payload;
+        localStorage.setItem("product", JSON.stringify(action.payload));
+      })
+      .addCase(fetchProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.error.message;
+      }).addCase(deleteProduct.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteProduct.fulfilled, (state) => {
+        state.loading = false;
+        state.success = true;
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.error.message;
+      })
   },
 });
 

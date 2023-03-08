@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Carousel from "react-bootstrap/Carousel";
 import Image from "react-bootstrap/Image";
@@ -6,19 +6,35 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-import products from "./products";
 import NavbarComponent from "../components/NavbarComponent";
 import Product from "../components/Product";
 import Rating from "../components/Rating";
 import Price from "../components/Price";
+import axios from "axios";
+import Message from '../components/Message';
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [products, setProducts] = useState([])
+  const [error, setError] = useState(null)
+
+  const fetchProducts = async () => {
+    try {
+      const { data } = await axios.get('http://localhost:8000/api/products') 
+      setProducts(data)
+    } catch(err) {
+      setError(err)
+    }
+  }
+
+  useEffect(() => {
+    fetchProducts()
+  }, [])
   return (
     <>
       <NavbarComponent />
       <h2 className="mx-4 mt-4 w-100" id="popular-products__header">Our Popular Products</h2>
-      <Carousel pause="hover" className="bg-dark mt-2" variant="dark">
+      {products.length > 0 ? <Carousel pause="hover" className="bg-dark mt-2" variant="dark">
         {products.map((product) => (
           <Carousel.Item key={product.id}>
             <div className="carousel-inner-container">
@@ -33,7 +49,7 @@ const HomePage = () => {
                   <h6 className="txt--black">{product.name}</h6>
                   <p className="txt--gray">{product.description}</p>
                   </div>
-                <Price price={product.price} hasDiscount={product.hasDiscount} discount={product.discount} />
+                <Price price={Number(product.price)} hasDiscount={product.hasDiscount} discount={product.discount} />
                 <Rating ratingNum={product.rating} reviewCount={product.numReviews} />
                 <Button
                   variant="primary"
@@ -57,16 +73,20 @@ const HomePage = () => {
             </div>
           </Carousel.Item>
         ))}
-      </Carousel>
+      </Carousel> : (
+        <Message variant='info'>No popular product was found</Message>
+      )}
       <h2 className="txt--black mt-4 mx-4"> {/* add more margin to this */}
         What's New?
       </h2>
       <Row className="p-4 pt-0">
-        {products.map((product) => (
+        {products.length > 0 ? products.map((product) => (
           <Col sm={12} md={6} lg={4} xl={3} key={product.id}>
             <Product product={product} />
           </Col>
-        ))}
+        )) : (
+          <Message variant='info'>No new product was found</Message>
+        )}
       </Row>
     </>
   );

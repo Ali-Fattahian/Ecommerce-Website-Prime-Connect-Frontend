@@ -71,13 +71,13 @@ export const getUserList = createAsyncThunk(
 
 export const getUserProfile = createAsyncThunk(
   "user/getUserProfile",
-  async (token) => {
-    const { data } = await axios.get("api/users/profile", {
+  async ({token, userId}) => {
+    const { data } = await axios.get(`api/users/get-profile/${userId}`, {
       headers: {
         Authorization: `JWT ${token}`,
         "Content-Type": "application/json",
       },
-      baseURL: "http://localhost:8000",
+      baseURL: "http://localhost:8000/",
     });
     return data;
   }
@@ -88,13 +88,26 @@ export const updateUserProfile = createAsyncThunk(
   async (updateData) => {
     const token = updateData.token;
     delete updateData.token;
-    const { data } = await axios.put("api/users/profile", updateData, {
+    const { data } = await axios.put(`api/users/get-profile/${updateData.id}`, updateData, {
       headers: {
         Authorization: `JWT ${token}`,
         "Content-Type": "application/json",
       },
       baseURL: "http://localhost:8000",
     });
+    return data;
+  }
+);
+
+export const deleteUserProfile = createAsyncThunk(
+  "user/deleteUserProfile",
+  async ({id, token}) => {
+    const { data } = await axios.delete(`http://localhost:8000/api/users/get-profile/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `JWT ${token}`
+      }
+    })
     return data;
   }
 );
@@ -173,8 +186,19 @@ const userSlice = createSlice({
       .addCase(getUserList.fulfilled, (state, action) => {
         state.usersList = action.payload
         state.loading = false;
+        localStorage.setItem('usersList', JSON.stringify(action.payload))
       })
       .addCase(getUserList.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      }).addCase(deleteUserProfile.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteUserProfile.fulfilled, (state) => {
+        getUserList(state.userInfo.token)
+        state.loading = false;
+      })
+      .addCase(deleteUserProfile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })

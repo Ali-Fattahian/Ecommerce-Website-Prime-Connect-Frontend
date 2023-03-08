@@ -13,7 +13,7 @@ import Fade from "react-bootstrap/Fade";
 import ListGroup from "react-bootstrap/ListGroup";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/slices/cartSlice";
 
 const ProductPage = () => {
@@ -30,7 +30,10 @@ const ProductPage = () => {
   const [reviewOpen, setReviewOpen] = useState(false);
   const [writeReviewOpen, setWriteReviewOpen] = useState(false);
   const [userReview, setUserReview] = useState("");
+  const [rating, setRating] = useState("")
   const [qty, setQty] = useState(1);
+  const user = useSelector(state => state.user)
+  const { userInfo } = user
   const dispatch = useDispatch();
   const addToCartHandler = () => {
     dispatch(addToCart({ productDetail, qty }));
@@ -44,6 +47,28 @@ const ProductPage = () => {
     // setProceedBuyOpen(false);
     setState(true);
   };
+
+  const reviewCreateHandler = async (review) => {
+    config.headers = {
+      "Content-Type": "application/json",
+      "Authorization": `JWT ${userInfo.token}`
+    }
+    await axios.post(`products/create-review/${productId}`, {
+      comment: review,
+      rating: rating,
+    }, config)
+  }
+
+  const reviewFormHandler = (e) => {
+    e.preventDefault()
+    if (userReview.trim().length < 1) {
+      setError('Please write something in the area below')
+    }
+    if (!userInfo) {
+      setError("Please log in first")
+    }
+    reviewCreateHandler(userReview.trim())
+  }
 
   const fetchProduct = async () => {
     try {
@@ -70,7 +95,7 @@ const ProductPage = () => {
   return (
     <div>
       <NavbarComponent />
-      <Row className="mt-2 p-2">
+      <Row className="p-2" id="product-page-top">
         <Col xl={6} lg={6} md={6} sm={12}>
           <Carousel pause="hover" keyboard="true">
             {productDetail.image1 && (
@@ -161,9 +186,10 @@ const ProductPage = () => {
           onClick={() => infoCollapseManager(setDetailOpen)}
           aria-controls="detail-fade-text"
           aria-expanded={detailOpen}
-          className={`m-0 txt--gray border-right-lt px-2 pb-2 ${
+          className={`m-0 txt--gray border-right-lt pb-2 ${
             detailOpen ? "collapse-item--active" : "collapse-item"
           }`}
+          style={{paddingLeft: "1rem", paddingRight: '.5rem'}}
         >
           Detail
         </p>
@@ -189,14 +215,16 @@ const ProductPage = () => {
       <Row className="position-relative">
         <Fade in={detailOpen} className="position-absolute top-0 left-0">
           <div id="detail-fade-text">
-            <p className="txt--black p-4 border-top-lt">
+            {productDetail.moreDetails ? <p className="txt--black p-4 border-top-lt">
               {productDetail.moreDetails}
-            </p>
+            </p> : (
+              <p className="txt--gray p-2 border-top-lt">No detail was provided</p>
+            )}
           </div>
         </Fade>
         <Fade in={reviewOpen} className="position-absolute top-0 left-0">
           <Container id="review-fade">
-            <div className="d-flex justify-content-between w-100 align-items-center p-4">
+            <div className="d-flex justify-content-between w-100 align-items-center p-4 border-top-lt">
               <h4 className="txt--black">
                 Reviews({productDetail.numReviews})
               </h4>
@@ -211,10 +239,10 @@ const ProductPage = () => {
               </p>
             </div>
             {productDetail.reviews ? (
-              <ListGroup variant="flush" className="border-top-lt">
+              <ListGroup variant="flush" style={{borderTop: "1px dotted #ddd"}}>
                 {writeReviewOpen && (
                   <ListGroup.Item>
-                    <Form>
+                    <Form onSubmit={reviewFormHandler}>
                       <Form.Group className="mb-2">
                         <p
                           onClick={() => {
@@ -233,17 +261,27 @@ const ProductPage = () => {
                             setUserReview(e.target.value);
                           }}
                           as="textarea"
-                          placeholder="Your review..."
+                          placeholder="Replaces your previous review if you already have one"
                           className="p-2"
                           style={{ fontSize: "14px" }}
                         ></Form.Control>
+                      </Form.Group>
+                      <Form.Group>
+                        <Form.Select className="mb-2" aria-label="Rate the product" value={rating} onChange={(e) => {setRating(e.target.value)}}>
+                          <option>Rate the product</option>
+                          <option value={1}>1</option>
+                          <option value={2}>2</option>
+                          <option value={3}>3</option>
+                          <option value={4}>4</option>
+                          <option value={5}>5</option>
+                        </Form.Select>
                       </Form.Group>
                       <div className="d-flex justify-content-start">
                         <Button
                           type="submit"
                           variant="success"
                           style={{ color: "white", backgroundColor: "#0096f6" }}
-                          disabled={userReview.length === 0}
+                          disabled={userReview.length === 0 || rating.length !== 1}
                         >
                           Submit
                         </Button>

@@ -14,6 +14,9 @@ import Loader from "./components/Loader";
 import NoMatchPage from "./pages/NoMatchPage";
 import UsersListPage from "./pages/UsersListPage";
 import EditUserProfilePage from "./pages/EditUserProfilePage";
+import ProductsListPage from "./pages/ProductsListPage";
+import EditProductPage from "./pages/EditProductPage";
+import OrderListPage from "./pages/OrderListPage";
 
 function App() {
   return (
@@ -27,14 +30,16 @@ function App() {
         <Route path="/login/" element={<LoginPage />} />
         <Route path="/register/" element={<RegisterPage />} />
         <Route path="/all-products/" element={<AllProductsPage />} />
+        <Route path="/edit-products/:productId" element={<EditProductPage />} />
         {/* <Route path="/profile/" element={<ProfilePage />} /> */}
         <Route path="/shipping/" element={<ShippingPage />} />
         <Route path="/payment/" element={<PaymentPage />} />
         <Route path="/placeorder/" element={<PlaceOrderPage />} />
         {/* <Route path="/order/:orderId" element={<OrderPage />} /> */}
         <Route path="/admin/user-list/" element={<UsersListPage />} />
-        <Route path="/admin/user-list/:userId/edit" element={<EditUserProfilePage />} />
-        <Route path="profile" element={<EditUserProfilePage />} />
+        <Route path="/admin/product-list/" element={<ProductsListPage />} />
+        <Route path="/admin/order-list/" element={<OrderListPage />} />
+        <Route path="/users/:userId/edit" element={<EditUserProfilePage />} />
         <Route path="*" element={<NoMatchPage />} />
       </Routes>
       </Suspense>

@@ -21,7 +21,7 @@ const OrderListPage = () => {
 
   const fetchOrders = async (token) => {
     try{
-        const { data } = await axios.get('http://localhost:8000/api/products/orders', {
+        const { data } = await axios.get('http://localhost:8000/api/orders', {
             headers: {
                 'Authorization': `JWT ${token}`,
                 'Content-Type': 'application/json'

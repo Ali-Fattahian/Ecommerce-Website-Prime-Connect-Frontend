@@ -17,7 +17,7 @@ const PlaceOrderPage = () => {
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const lastOrderId = localStorage.getItem("lastOrderId");
+  const lastOrder = JSON.parse(localStorage.getItem("lastOrder"));
 
   const itemsPrice = cart.cartItems
     .reduce((acc, item) => acc + item.price * item.productQuantity, 0)
@@ -31,7 +31,7 @@ const PlaceOrderPage = () => {
   ).toFixed(2);
   useEffect(() => {
     if (success) {
-      navigate(`/order/${lastOrderId}`);
+      navigate(`/orders/${lastOrder.id}`);
     }
   }, [success, navigate]);
 

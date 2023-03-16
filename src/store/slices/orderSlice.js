@@ -17,16 +17,72 @@ export const orderCreate = createAsyncThunk(
   }
 );
 
-export const getOrderDetail = createAsyncThunk(
-  "orders/getOrderDetail",
-  async ({orderId, token}) => {
+export const orderDelete = createAsyncThunk(
+  "orders/orderDelete",
+  async ({ orderId, token }) => {
     const config = {
       headers: {
         Authorization: `JWT ${token}`,
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axios.get(`http://localhost:8000/api/orders/get-order/${orderId}`, config);
+    const { data } = await axios.delete(
+      `http://localhost:8000/api/orders/delete-order/${orderId}`,
+      config
+    );
+    return data;
+  }
+);
+
+export const updateOrderToDelivered = createAsyncThunk(
+  "orders/updateOrderToDelivered",
+  async ({ orderId, token }) => {
+    const config = {
+      headers: {
+        Authorization: `JWT ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axios.put(
+      `http://localhost:8000/api/orders/deliver-order/${orderId}`,
+      {},
+      config
+    );
+    return data;
+  }
+);
+
+export const updateOrderToPaid = createAsyncThunk(
+  "orders/updateOrderToPaid",
+  async ({ orderId, token, totalPrice }) => {
+    const config = {
+      headers: {
+        Authorization: `JWT ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axios.put(
+      `http://localhost:8000/api/orders/pay/${orderId}`,
+      { totalPrice },
+      config
+    );
+    return data;
+  }
+);
+
+export const getOrderDetail = createAsyncThunk(
+  "orders/getOrderDetail",
+  async ({ orderId, token }) => {
+    const config = {
+      headers: {
+        Authorization: `JWT ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axios.get(
+      `http://localhost:8000/api/orders/get-order/${orderId}`,
+      config
+    );
     return data;
   }
 );
@@ -37,7 +93,9 @@ const orderSlice = createSlice({
     loading: false,
     success: false,
     error: null,
-    orderDetail: localStorage.getItem('orderDetail') ? JSON.parse(localStorage.getItem('orderDetail')): null,
+    orderDetail: localStorage.getItem("orderDetail")
+      ? JSON.parse(localStorage.getItem("orderDetail"))
+      : null,
   },
   reducers: {},
   extraReducers(builder) {
@@ -49,7 +107,7 @@ const orderSlice = createSlice({
         state.loading = false;
         state.success = true;
         localStorage.removeItem("cartItems");
-        localStorage.setItem('lastOrder', JSON.stringify(action.payload))
+        localStorage.setItem("lastOrder", JSON.stringify(action.payload));
       })
       .addCase(orderCreate.rejected, (state, action) => {
         state.loading = false;
@@ -63,9 +121,50 @@ const orderSlice = createSlice({
         state.loading = false;
         state.success = true;
         state.orderDetail = action.payload;
-        localStorage.setItem('orderDetail', JSON.stringify(action.payload))
+        localStorage.setItem("orderDetail", JSON.stringify(action.payload));
       })
       .addCase(getOrderDetail.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateOrderToPaid.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateOrderToPaid.fulfilled, (state) => {
+        state.loading = false;
+        state.success = true;
+        state.orderDetail = null;
+        localStorage.removeItem("orderDetail");
+        state.orderDetail = null;
+      })
+      .addCase(updateOrderToPaid.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.error.message;
+      })
+      .addCase(orderDelete.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(orderDelete.fulfilled, (state) => {
+        state.loading = false;
+        state.success = true;
+      })
+      .addCase(orderDelete.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateOrderToDelivered.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateOrderToDelivered.fulfilled, (state) => {
+        state.loading = false;
+        state.success = true;
+        localStorage.removeItem("orderDetail");
+        state.orderDetail = null;
+      })
+      .addCase(updateOrderToDelivered.rejected, (state, action) => {
         state.loading = false;
         state.success = false;
         state.error = action.error.message;

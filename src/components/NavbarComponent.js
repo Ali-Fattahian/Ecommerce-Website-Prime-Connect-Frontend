@@ -25,11 +25,11 @@ const NavbarComponent = () => {
     <Navbar bg="primary" expand="lg" variant="dark" fixed="top">
       <Container>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <h4 id="website-brand-1">Brand</h4>
+        <h4 id="website-brand-1">PrimeConnect</h4>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto d-flex justify-content-between w-100 align-items-center" id="nav-link__container">
             <Nav.Link href="/">
-              <h4 id="website-brand-2">Brand</h4>
+              <h4 id="website-brand-2">PrimeConnect</h4>
             </Nav.Link>
             <div id="shopping-cart-icon__container">
               <Nav.Link href="/cart">

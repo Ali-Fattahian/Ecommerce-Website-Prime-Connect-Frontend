@@ -6,17 +6,20 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Button, Container } from "react-bootstrap";
 import NavbarComponent from "../components/NavbarComponent";
 import { useNavigate } from "react-router-dom";
+import Message from "../components/Message";
 
 const UsersListPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const { usersList, userInfo, error } = user;
+  const [refreshPage, setRefreshPage] = useState(null)
 
   const deleteUserHandler = (id) => {
     const token = userInfo.token;
     if (window.confirm("Are you sure you want to delete this user?")) {
       dispatch(deleteUserProfile({id, token}))
+      setRefreshPage(new Date())
     }
   };
 
@@ -26,13 +29,14 @@ const UsersListPage = () => {
     } else {
       navigate("/login");
     }
-  }, [dispatch, usersList]);
+  }, [dispatch, usersList, refreshPage]);
 
   return (
     <div>
       <NavbarComponent />
       <Container id="user-list__container">
         <h1 className="mt-4 font-family-secondary txt--black">USERS</h1>
+        {error && <Message variant="danger" className="m-2">{error}</Message>}
         <Table
           striped
           bordered

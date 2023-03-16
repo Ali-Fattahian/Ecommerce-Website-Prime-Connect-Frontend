@@ -88,7 +88,7 @@ export const updateUserProfile = createAsyncThunk(
   async (updateData) => {
     const token = updateData.token;
     delete updateData.token;
-    const { data } = await axios.put(`api/users/get-profile/${updateData.id}`, updateData, {
+    const { data } = await axios.put(`api/users/update-profile/${updateData.id}`, updateData, {
       headers: {
         Authorization: `JWT ${token}`,
         "Content-Type": "application/json",

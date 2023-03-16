@@ -161,7 +161,7 @@ const AllProductsPage = () => {
             </Col>
           ))
         ) : (
-          <Message variant="info">No product was found</Message>
+          <Message variant="info">No product was found with the current filters</Message>
         )}
       </Row>
     </>

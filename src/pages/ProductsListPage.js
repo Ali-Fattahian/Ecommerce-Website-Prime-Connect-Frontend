@@ -17,6 +17,7 @@ const ProductsListPage = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
+  const [refreshPage, setRefreshPage] = useState(null);
 
   const fetchProducts = async (token) => {
     try {
@@ -36,7 +37,7 @@ const ProductsListPage = () => {
     const token = userInfo.token;
     if (window.confirm("Are you sure you want to delete this product?"))
       dispatch(deleteProduct({ id, token }));
-    window.location.reload();
+    setRefreshPage(new Date());
   };
 
   useEffect(() => {
@@ -45,7 +46,7 @@ const ProductsListPage = () => {
     } else {
       navigate("/login");
     }
-  }, [userInfo]);
+  }, [userInfo, refreshPage]);
   return (
     <>
       <NavbarComponent />

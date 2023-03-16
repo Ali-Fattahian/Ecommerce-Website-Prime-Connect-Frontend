@@ -76,6 +76,10 @@ body {
     display: flex;
 }
 
+.dropdown-menu {
+    position: absolute !important;
+}
+
 .nav-flex-row {
     flex-direction: row !important;
     justify-content: center;
@@ -221,9 +225,13 @@ $shopping-cart-red: #DF0000;
         font-size: 20px;
     }
 
+    th {
+        padding-left: 12px;
+    }
+
     td {
-        text-align: center;
         vertical-align: middle;
+        padding-left: 12px;
     }
 }  
   

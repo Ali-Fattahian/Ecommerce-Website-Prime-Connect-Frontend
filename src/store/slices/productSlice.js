@@ -58,14 +58,39 @@ export const fetchBrands = createAsyncThunk(
 );
 
 export const deleteProduct = createAsyncThunk(
-  "user/deleteProduct",
-  async ({id, token}) => {
-    const { data } = await axios.delete(`http://localhost:8000/api/products/${id}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `JWT ${token}`
+  "products/deleteProduct",
+  async ({ id, token }) => {
+    const { data } = await axios.delete(
+      `http://localhost:8000/api/products/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${token}`,
+        },
       }
-    })
+    );
+    return data;
+  }
+);
+
+export const updateProduct = createAsyncThunk(
+  "products/updateProduct",
+  async (updateData) => {
+    const token = updateData.token;
+    const { formData } =  updateData
+    delete updateData.token;
+
+    const { data } = await axios.put(
+      `api/products/${updateData.id}`,
+      formData,
+      {
+        headers: {
+          Authorization: `JWT ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+        baseURL: "http://localhost:8000",
+      }
+    );
     return data;
   }
 );
@@ -85,7 +110,9 @@ const productSlice = createSlice({
     brands: localStorage.getItem("brands")
       ? JSON.parse(localStorage.getItem("brands"))
       : [],
-    product: localStorage.getItem("product") ? JSON.parse(localStorage.getItem("product")) : null,
+    product: localStorage.getItem("product")
+      ? JSON.parse(localStorage.getItem("product"))
+      : null,
     productFilters: localStorage.getItem("productFilters")
       ? JSON.parse(localStorage.getItem("productFilters"))
       : {
@@ -108,11 +135,11 @@ const productSlice = createSlice({
         brandFilter: "",
         subCategoryFilter: "",
         hasDiscount: null,
-      }
-      state.productFilters = initialFilter
-      localStorage.setItem('productFilters', JSON.stringify(initialFilter))
-      window.location.reload()
-    }
+      };
+      state.productFilters = initialFilter;
+      localStorage.setItem("productFilters", JSON.stringify(initialFilter));
+      window.location.reload();
+    },
   },
   extraReducers(builder) {
     builder
@@ -160,7 +187,8 @@ const productSlice = createSlice({
         state.loading = false;
         state.success = false;
         state.error = action.error.message;
-      }).addCase(fetchProduct.pending, (state) => {
+      })
+      .addCase(fetchProduct.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchProduct.fulfilled, (state, action) => {
@@ -173,7 +201,8 @@ const productSlice = createSlice({
         state.loading = false;
         state.success = false;
         state.error = action.error.message;
-      }).addCase(deleteProduct.pending, (state) => {
+      })
+      .addCase(deleteProduct.pending, (state) => {
         state.loading = true;
       })
       .addCase(deleteProduct.fulfilled, (state) => {
@@ -185,8 +214,21 @@ const productSlice = createSlice({
         state.success = false;
         state.error = action.error.message;
       })
+      .addCase(updateProduct.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateProduct.fulfilled, (state) => {
+        state.loading = false;
+        state.success = true;
+      })
+      .addCase(updateProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.error.message;
+      });
   },
 });
 
 export default productSlice.reducer;
-export const { updateFetchProductsFilters, clearFetchProductsFilters } = productSlice.actions;
+export const { updateFetchProductsFilters, clearFetchProductsFilters } =
+  productSlice.actions;

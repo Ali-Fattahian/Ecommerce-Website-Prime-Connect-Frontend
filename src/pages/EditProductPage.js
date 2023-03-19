@@ -24,16 +24,6 @@ const EditProductPage = () => {
 
   // if (!product) window.location.reload(); // I realized no matter what, it's not loading quick enough, but it gets created in localhost anyways, so i decided to reload the page and fetch it from localhost so it gets loaded really fast
 
-  //   const formSubmitHandler = (e) => {
-  //     e.preventDefault();
-  //     if (password !== confirmPassword) {
-  //       setMessage("Passwords do not match");
-  //     } else {
-  //       dispatch(register({ fullname, email, password }));
-  //       navigate("/");
-  //     }
-  //   };
-
   return (
     <Container>
       {loading && <Loader />}

@@ -34,7 +34,7 @@ const HomePage = () => {
     <>
       <NavbarComponent />
       <h2 className="mx-4 mt-4 w-100" id="popular-products__header">Our Popular Products</h2>
-      {products.length > 0 ? <Carousel pause="hover" className="bg-dark mt-2" variant="dark">
+      {products.length > 0 ? <Carousel pause="hover" className="bg-dark mt-2" variant="dark" keyboard="true">
         {products.map((product) => (
           <Carousel.Item key={product.id}>
             <div className="carousel-inner-container">

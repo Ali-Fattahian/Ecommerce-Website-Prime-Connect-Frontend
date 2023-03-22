@@ -17,8 +17,8 @@ const EditProductForm = ({ product, error, userInfo, loading }) => {
   const [description, setDescription] = useState(product.description);
   const [moreDetails, setMoreDetails] = useState(product.moreDetails);
   const [price, setPrice] = useState(product.price);
-  const [hasDiscount, setHasDiscount] = useState(product.hasDiscount);
   const [discount, setDiscount] = useState(product.discount);
+  const [hasDiscount, setHasDiscount] = useState(Number(product.discount) > 0 ? true : false);
   const [image1, setImage1] = useState(product.image1);
   const [countInStock, setCountInStock] = useState(product.countInStock);
   const navigate = useNavigate();
@@ -34,9 +34,9 @@ const EditProductForm = ({ product, error, userInfo, loading }) => {
     formData.append("description", description);
     formData.append("moreDetails", moreDetails);
     formData.append("price", price);
-    formData.append("hasDiscount", hasDiscount);
     formData.append("discount", discount);
     formData.append("countInStock", countInStock);
+    formData.append("hasDiscount", hasDiscount);
 
     unique.forEach(
       (obj) => formData.append(`image${obj.id}`, obj.image) // Exp: Object with image1 has id: 1
@@ -46,6 +46,7 @@ const EditProductForm = ({ product, error, userInfo, loading }) => {
     const token = userInfo.token;
 
     dispatch(updateProduct({ formData, token, id }));
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -181,15 +182,6 @@ const EditProductForm = ({ product, error, userInfo, loading }) => {
               onChange={(e) => setCountInStock(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Form.Group controlId="hasDiscount">
-            <Form.Check
-              autoComplete="true"
-              type="checkbox"
-              label="Discount"
-              value={hasDiscount}
-              onChange={(e) => setHasDiscount(e.target.checked)}
-            ></Form.Check>
-          </Form.Group>
           <Form.Group controlId="discount">
             <Form.Label
               className="font-family-secondary"
@@ -203,9 +195,16 @@ const EditProductForm = ({ product, error, userInfo, loading }) => {
               max={99}
               autoComplete="true"
               type="number"
-              placeholder="Discount Number"
+              placeholder="A number between 0 and 99"
               value={discount}
-              onChange={(e) => setDiscount(e.target.value)}
+              onChange={(e) => {
+                setDiscount(e.target.value);
+                if (Number(e.target.value) > 0) {
+                  setHasDiscount(true);
+                } else if (Number(e.target.value) === 0) {
+                  setHasDiscount(false);
+                }
+              }}
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="image1">
@@ -216,15 +215,15 @@ const EditProductForm = ({ product, error, userInfo, loading }) => {
               Change Image
             </Form.Label>
             <Form.Control
-              required
               type="file"
               accept="image/*"
-              onChange={(e) =>
+              onChange={(e) => {
                 setImages((currentState) => [
                   ...currentState,
                   { id: 1, image: e.target.files[0] },
-                ])
-              }
+                ]);
+                setImage1(URL.createObjectURL(e.target.files[0]));
+              }}
             />
           </Form.Group>
           <Form.Group controlId="image2">
@@ -237,12 +236,13 @@ const EditProductForm = ({ product, error, userInfo, loading }) => {
             <Form.Control
               type="file"
               accept="image/*"
-              onChange={(e) =>
+              onChange={(e) => {
                 setImages((currentState) => [
                   ...currentState,
                   { id: 2, image: e.target.files[0] },
-                ])
-              }
+                ]);
+                setImage2(URL.createObjectURL(e.target.files[0]));
+              }}
             />
           </Form.Group>
           <Form.Group controlId="image3">
@@ -255,17 +255,18 @@ const EditProductForm = ({ product, error, userInfo, loading }) => {
             <Form.Control
               type="file"
               accept="image/*"
-              onChange={(e) =>
+              onChange={(e) => {
                 setImages((currentState) => [
                   ...currentState,
                   { id: 3, image: e.target.files[0] },
-                ])
-              }
+                ]);
+                setImage3(URL.createObjectURL(e.target.files[0]));
+              }}
             />
           </Form.Group>
-          <Row className="w-100 gap-2">
+          <Row className="w-100 gap-4 justify-content-center">
             {image1 && (
-              <Col>
+              <Col lg={3} xl={3} md={12} sm={12}>
                 <Image
                   fluid={true}
                   alt={`${product.name} Image 1`}
@@ -276,7 +277,7 @@ const EditProductForm = ({ product, error, userInfo, loading }) => {
               </Col>
             )}
             {image2 && (
-              <Col>
+              <Col lg={3} xl={3} md={12} sm={12}>
                 <Image
                   fluid={true}
                   alt={`${product.name} Image 2`}
@@ -287,7 +288,7 @@ const EditProductForm = ({ product, error, userInfo, loading }) => {
               </Col>
             )}
             {image3 && (
-              <Col>
+              <Col lg={3} xl={3} md={12} sm={12}>
                 <Image
                   fluid={true}
                   alt={`${product.name} Image 3`}
@@ -301,7 +302,8 @@ const EditProductForm = ({ product, error, userInfo, loading }) => {
           <Button
             type="submit"
             className="w-100"
-            style={{ backgroundColor: "#0095f6" }}
+            style={{ backgroundColor: "#0095f6", color: "#fff" }}
+            variant="secondary"
           >
             {loading ? "Loading" : "Edit"}
           </Button>

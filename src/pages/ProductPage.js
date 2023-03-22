@@ -39,12 +39,9 @@ const ProductPage = () => {
     dispatch(addToCart({ productDetail, qty }));
   };
 
-  // const [proceedBuyOpen, setProceedBuyOpen] = useState(false);
-
   const infoCollapseManager = (setState) => {
     setDetailOpen(false);
     setReviewOpen(false);
-    // setProceedBuyOpen(false);
     setState(true);
   };
 
@@ -97,7 +94,7 @@ const ProductPage = () => {
       <NavbarComponent />
       <Row className="p-2" id="product-page-top">
         <Col xl={6} lg={6} md={6} sm={12}>
-          <Carousel pause="hover" keyboard="true">
+          <Carousel pause="hover" keyboard="true" className="bg-dark mt-2" variant="dark">
             {productDetail.image1 && (
               <Carousel.Item>
                 <Image

@@ -12,7 +12,7 @@ export const fetchProducts = createAsyncThunk(
       baseURL: "http://localhost:8000",
     };
     const { data } = await axios.get(
-      `api/products/?brand=${filters.brandFilter}&?subCategory__name=${filters.subCategoryFilter}&hasDiscount=${filters.hasDiscount}&search=${filters.searchQuery}&ordering=${filters.orderBy}`,
+      `api/products/?brand=${filters.brandFilter}&subCategory__name=${filters.subCategoryFilter}&hasDiscount=${filters.hasDiscount}&search=${filters.searchQuery}&ordering=${filters.orderBy}`,
       config
     );
     return data;

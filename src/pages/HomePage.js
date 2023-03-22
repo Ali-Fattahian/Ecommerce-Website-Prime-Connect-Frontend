@@ -50,7 +50,7 @@ const HomePage = () => {
                   <p className="txt--gray">{product.description}</p>
                   </div>
                 <Price price={Number(product.price)} hasDiscount={product.hasDiscount} discount={product.discount} />
-                <Rating ratingNum={product.rating} reviewCount={product.numReviews} />
+                {product.numReviews > 0 && <Rating ratingNum={product.rating} reviewCount={product.numReviews} />}
                 <Button
                   variant="primary"
                   onClick={() => {

@@ -133,10 +133,10 @@ const ProductPage = () => {
             <p className="txt--black mt-2 mb-4" style={{ maxWidth: "450px" }}>
               {productDetail.description}
             </p>
-            <Rating
+            {productDetail.numReviews > 0 && <Rating
               ratingNum={productDetail.rating}
               reviewCount={productDetail.numReviews}
-            />
+            />}
             <Price
               hasDiscount={productDetail.hasDiscount}
               discount={productDetail.discount}

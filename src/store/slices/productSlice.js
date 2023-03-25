@@ -77,11 +77,11 @@ export const updateProduct = createAsyncThunk(
   "products/updateProduct",
   async (updateData) => {
     const token = updateData.token;
-    const { formData } =  updateData
+    const { formData } = updateData;
     delete updateData.token;
 
     const { data } = await axios.put(
-      `api/products/${updateData.id}`,
+      `api/products/product-edit/${updateData.id}`,
       formData,
       {
         headers: {
@@ -89,6 +89,27 @@ export const updateProduct = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
         baseURL: "http://localhost:8000",
+      }
+    );
+    return data;
+  }
+);
+
+export const createProduct = createAsyncThunk(
+  "products/createProduct",
+  async (createData) => {
+    const token = createData.token;
+    const { formData } = createData;
+    delete createData.token;
+
+    const { data } = await axios.post(
+      "http://localhost:8000/api/products/create-product",
+      formData,
+      {
+        headers: {
+          Authorization: `JWT ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
       }
     );
     return data;
@@ -220,8 +241,22 @@ const productSlice = createSlice({
       .addCase(updateProduct.fulfilled, (state) => {
         state.loading = false;
         state.success = true;
+        state.error = false;
       })
       .addCase(updateProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.error.message;
+      })
+      .addCase(createProduct.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createProduct.fulfilled, (state) => {
+        state.loading = false;
+        state.success = true;
+        state.error = false;
+      })
+      .addCase(createProduct.rejected, (state, action) => {
         state.loading = false;
         state.success = false;
         state.error = action.error.message;

@@ -12,7 +12,7 @@ const EditProductPage = () => {
   const { productId } = useParams();
   const products = useSelector((state) => state.products);
   const user = useSelector((state) => state.user);
-  const { product, error, loading } = products;
+  const { product, error, loading, allSubCategories } = products;
   const { userInfo } = user;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,6 +38,7 @@ const EditProductPage = () => {
           error={error}
           loading={loading}
           userInfo={userInfo}
+          allSubCategories={allSubCategories}
         />
       )}
     </Container>

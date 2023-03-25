@@ -310,6 +310,12 @@ $shopping-cart-red: #DF0000;
     padding: .5rem 2rem !important;
 }
 
+#new-product-btn {
+    padding: .5rem 1rem !important;
+    color: #fff !important;
+    font-weight: 600;
+}
+
 @media screen and (max-width: 992px) {
     #website-brand-1 {
         display: inline-block;
@@ -398,6 +404,12 @@ $shopping-cart-red: #DF0000;
     #shopping-cart-icon__container {
         text-align: left;
         padding-left: 20px;
+    }
+}
+
+@media screen and (max-width: 230px) {
+    #website-brand-1 {
+        display: none;
     }
 }
 

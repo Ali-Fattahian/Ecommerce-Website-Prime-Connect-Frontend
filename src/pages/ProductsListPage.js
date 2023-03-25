@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/esm/Col";
+import Row from "react-bootstrap/esm/Row";
 import LinkContainer from "react-router-bootstrap/LinkContainer";
 import axios from "axios";
 import NavbarComponent from "../components/NavbarComponent";
@@ -52,7 +54,16 @@ const ProductsListPage = () => {
       <NavbarComponent />
       <Container id="user-list__container">
         {error && <Message variant="danger">{error.message}</Message>}
-        <h1 className="mt-4 font-family-secondary txt--black">PRODUCTS</h1>
+        <Row>
+          <Col xl={6} lg={6} md={6} sm={12} xs={12}>
+            <h1 className="mt-4 font-family-secondary txt--black">PRODUCTS</h1>
+          </Col>
+          <Col xl={6} lg={6} md={6} sm={12} xs={12} className="d-flex justify-content-end align-items-end">
+            <Button type="submit" variant="blue" className="font-family-secondary p-2" id="new-product-btn" onClick={() => navigate('/admin/create-product')}> 
+              NEW PRODUCT
+            </Button>
+          </Col>
+        </Row>
         <Table
           striped
           bordered
@@ -72,7 +83,7 @@ const ProductsListPage = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {products && products.map((product) => (
               <tr key={product.id}>
                 <td>{product.id}</td>
                 <td>{product.name}</td>

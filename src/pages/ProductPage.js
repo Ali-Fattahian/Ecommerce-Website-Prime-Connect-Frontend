@@ -102,6 +102,8 @@ const ProductPage = () => {
                   alt={productDetail.name}
                   fluid
                   className="carousel-image"
+                  onClick={()=> window.open(productDetail.image1, "_blank")}
+                  style={{ cursor: "pointer"}}
                 />
               </Carousel.Item>
             )}
@@ -112,6 +114,8 @@ const ProductPage = () => {
                   alt={productDetail.name}
                   fluid
                   className="carousel-image"
+                  onClick={()=> window.open(productDetail.image2, "_blank")}
+                  style={{ cursor: "pointer"}}
                 />
               </Carousel.Item>
             )}
@@ -122,6 +126,8 @@ const ProductPage = () => {
                   alt={productDetail.name}
                   fluid
                   className="carousel-image"
+                  onClick={()=> window.open(productDetail.image3, "_blank")}
+                  style={{ cursor: "pointer"}}
                 />
               </Carousel.Item>
               // put thumbnails for indicators

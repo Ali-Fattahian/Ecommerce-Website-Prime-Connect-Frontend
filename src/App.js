@@ -19,6 +19,7 @@ import EditProductPage from "./pages/EditProductPage";
 import OrderListPage from "./pages/OrderListPage";
 import OrderPage from "./pages/OrderPage";
 import EnterCardInformationPage from "./pages/EnterCardInformationPage";
+import CreateProductPage from "./pages/CreateProductPage";
 
 function App() {
   return (
@@ -49,6 +50,10 @@ function App() {
           <Route path="/admin/user-list/" element={<UsersListPage />} />
           <Route path="/admin/product-list/" element={<ProductsListPage />} />
           <Route path="/admin/order-list/" element={<OrderListPage />} />
+          <Route
+            path="/admin/create-product/"
+            element={<CreateProductPage />}
+          />
           <Route path="/users/:userId/edit" element={<EditUserProfilePage />} />
           <Route path="*" element={<NoMatchPage />} />
         </Routes>

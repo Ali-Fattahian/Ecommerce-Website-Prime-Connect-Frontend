@@ -1,41 +1,38 @@
 import React, { useState, useEffect } from "react";
 import Message from "../components/Message";
-import Image from "react-bootstrap/Image";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
-import {
-  fetchSubCategories,
-  updateProduct,
-} from "../store/slices/productSlice";
-import { useDispatch } from "react-redux";
-import Col from "react-bootstrap/esm/Col";
+import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Image from "react-bootstrap/Image";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createProduct,
+  fetchSubCategories,
+} from "../store/slices/productSlice";
 
-const EditProductForm = ({
-  product,
-  error,
-  userInfo,
-  loading,
-  allSubCategories,
-}) => {
-  const [image2, setImage2] = useState(product.image2);
-  const [image3, setImage3] = useState(product.image3);
-  const [name, setName] = useState(product.name);
-  const [brand, setBrand] = useState(product.brand);
-  const [description, setDescription] = useState(product.description);
-  const [moreDetails, setMoreDetails] = useState(product.moreDetails);
-  const [price, setPrice] = useState(product.price);
-  const [discount, setDiscount] = useState(product.discount);
-  const [hasDiscount, setHasDiscount] = useState(
-    Number(product.discount) > 0 ? true : false
-  );
-  const [image1, setImage1] = useState(product.image1);
-  const [countInStock, setCountInStock] = useState(product.countInStock);
+const CreateProductPage = () => {
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
+  const [image3, setImage3] = useState(null);
+  const [name, setName] = useState("");
+  const [brand, setBrand] = useState("");
+  const [description, setDescription] = useState("");
+  const [moreDetails, setMoreDetails] = useState("");
+  const [price, setPrice] = useState("");
+  const [discount, setDiscount] = useState("");
+  const [hasDiscount, setHasDiscount] = useState(false);
+  const [countInStock, setCountInStock] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [images, setImages] = useState([]);
-  const [subCategory, setSubCategory] = useState(product.subCategory ? product.subCategory.name : "");
+  const [subCategory, setSubCategory] = useState("");
+
+  const user = useSelector((state) => state.user);
+  const productState = useSelector((state) => state.products);
+  const { userInfo } = user;
+  const { loading, error, success, allSubCategories } = productState;
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -49,52 +46,37 @@ const EditProductForm = ({
     formData.append("discount", discount);
     formData.append("countInStock", countInStock);
     formData.append("hasDiscount", hasDiscount);
-    formData.append("subCategory", subCategory);
+    formData.append("subCategory", subCategory)
 
     unique.forEach(
       (obj) => formData.append(`image${obj.id}`, obj.image) // Exp: Object with image1 has id: 1
     );
 
-    const id = product.id;
     const token = userInfo.token;
 
-    dispatch(updateProduct({ formData, token, id }));
-    window.location.reload();
+    dispatch(createProduct({ formData, token }));
   };
 
   useEffect(() => {
-    if (userInfo.isAdmin === false || product.user !== userInfo.id)
-      navigate(`/products/${product.id}`);
+    if (userInfo.isAdmin === false) navigate("/login");
     if (allSubCategories.length === 0) dispatch(fetchSubCategories());
-  }, [
-    navigate,
-    product.id,
-    product.user,
-    userInfo.id,
-    userInfo.isAdmin,
-    dispatch,
-  ]);
+  }, [navigate, userInfo.id, userInfo.isAdmin, dispatch]);
 
   return (
-    <div>
-      {error && (
-        <Message variant="danger" className="mt-4">
-          {error}
-        </Message>
-      )}
+    <div className="p-4 w-100" style={{ maxWidth: "800px", margin: "auto" }}>
       {!error && (
         <Form
           onSubmit={formSubmitHandler}
           id="register-form"
           className="p-4 border-lt mt-4"
           encType="multipart/form-data"
-          method="PUT"
+          method="POST"
         >
           <h1
             className="font-family-secondary txt--black text-center"
             style={{ fontSize: "3rem" }}
           >
-            Edit Product
+            Create Product
           </h1>
           <Form.Group controlId="name">
             <Form.Label
@@ -131,7 +113,7 @@ const EditProductForm = ({
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="sub-categories">
-            <Form.Label
+          <Form.Label
               className="font-family-secondary"
               style={{ fontSize: "1.5rem" }}
             >
@@ -146,7 +128,6 @@ const EditProductForm = ({
               }}
             >
               <option>-----------</option>
-              {product.subCategory && <option disabled>{`Was set to ${product.subCategory.name}`}</option>}
               {allSubCategories.map((x) => (
                 <option key={x.id} value={x.id}>
                   {x.name}
@@ -250,7 +231,7 @@ const EditProductForm = ({
               className="font-family-secondary mb-2"
               style={{ fontSize: "1.5rem" }}
             >
-              Change Image
+              Add Image 1
             </Form.Label>
             <Form.Control
               type="file"
@@ -269,7 +250,7 @@ const EditProductForm = ({
               className="font-family-secondary mb-2"
               style={{ fontSize: "1.5rem" }}
             >
-              {product.image2 ? "Change" : "Add"} Image 2
+              Add Image 2
             </Form.Label>
             <Form.Control
               type="file"
@@ -288,7 +269,7 @@ const EditProductForm = ({
               className="font-family-secondary mb-2"
               style={{ fontSize: "1.5rem" }}
             >
-              {image3 ? "Change" : "Add"} Image 3
+              Add Image 3
             </Form.Label>
             <Form.Control
               type="file"
@@ -307,7 +288,7 @@ const EditProductForm = ({
               <Col lg={3} xl={3} md={12} sm={12}>
                 <Image
                   fluid={true}
-                  alt={`${product.name} Image 1`}
+                  alt={`Image 1`}
                   src={image1}
                   style={{ width: "100%" }}
                   className="mt-2"
@@ -318,7 +299,7 @@ const EditProductForm = ({
               <Col lg={3} xl={3} md={12} sm={12}>
                 <Image
                   fluid={true}
-                  alt={`${product.name} Image 2`}
+                  alt={`Image 2`}
                   src={image2}
                   style={{ width: "100%" }}
                   className="mt-2"
@@ -329,7 +310,7 @@ const EditProductForm = ({
               <Col lg={3} xl={3} md={12} sm={12}>
                 <Image
                   fluid={true}
-                  alt={`${product.name} Image 3`}
+                  alt={`Image 3`}
                   src={image3}
                   style={{ width: "100%" }}
                   className="mt-2"
@@ -337,13 +318,24 @@ const EditProductForm = ({
               </Col>
             )}
           </Row>
+          {success && (
+            <Message variant="success">
+              The product was made successfully
+            </Message>
+          )}
+          {error && (
+            <Message variant="danger">
+              There was a problem creating the product, Please make sure you
+              filled all the required fields.
+            </Message>
+          )}
           <Button
             type="submit"
             className="w-100"
             style={{ backgroundColor: "#0095f6", color: "#fff" }}
             variant="secondary"
           >
-            {loading ? "Loading" : "Edit"}
+            {loading ? "Loading" : "Create"}
           </Button>
         </Form>
       )}
@@ -351,4 +343,4 @@ const EditProductForm = ({
   );
 };
 
-export default EditProductForm;
+export default CreateProductPage;

@@ -16,24 +16,11 @@ const EnterCardInformationPage = () => {
   const [cvc, setCVC] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
-  const [expDate, setExpDate] = useState(1);
   const { orderId } = useParams();
   const [CardError, setCardError] = useState(null);
 
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
-
-  const getMaxDate = () => {
-    if (month) {
-      if (month > 3 && month < 10) {
-        return 31;
-      } else {
-        return 30;
-      }
-    } else {
-      return 31;
-    }
-  };
 
   const navigate = useNavigate();
   const orders = useSelector((state) => state.orders);
@@ -45,7 +32,7 @@ const EnterCardInformationPage = () => {
     setCardNumber(value);
     if (validator.isCreditCard(value)) {
       setCardError(false);
-      setFormError('')
+      setFormError("");
     } else {
       setCardError(true);
       setFormError("Please Enter a Valid Credit Card Number");
@@ -58,7 +45,6 @@ const EnterCardInformationPage = () => {
       cardNumber &&
       !CardError &&
       cvc &&
-      expDate &&
       month.length > 0 &&
       year.length > 0 &&
       userInfo
@@ -66,12 +52,12 @@ const EnterCardInformationPage = () => {
       const token = userInfo.token;
       const totalPrice = orderDetail.totalPrice;
       dispatch(updateOrderToPaid({ orderId, token, totalPrice }));
-      navigate(`/orders/${orderId}`)
+      navigate(`/orders/${orderId}`);
     }
   };
 
   useEffect(() => {
-    if (!userInfo) navigate('/login')
+    if (!userInfo) navigate("/login");
     if (!orderDetail || orderDetail.id !== Number(orderId)) {
       const token = userInfo.token;
       dispatch(getOrderDetail({ orderId, token }));
@@ -81,7 +67,7 @@ const EnterCardInformationPage = () => {
   return (
     <FormContainer>
       {loading && <Loader />}
-      {!userInfo && <Message variant='info'>Please Log in First</Message>}
+      {!userInfo && <Message variant="info">Please Log in First</Message>}
       {orderDetail && userInfo && (
         <Form
           onSubmit={formSubmitHandler}
@@ -126,7 +112,11 @@ const EnterCardInformationPage = () => {
                 cardNumberChangeHandler(e.target.value.trim());
               }}
             ></Form.Control>
-            {formError && <Message variant="danger" className='mt-3'>{formError}</Message>}
+            {formError && (
+              <Message variant="danger" className="mt-3">
+                {formError}
+              </Message>
+            )}
           </Form.Group>
           <Form.Group controlId="cvc">
             <Form.Label
@@ -184,25 +174,9 @@ const EnterCardInformationPage = () => {
               <option value={currentYear + 3}>{currentYear + 3}</option>
               <option value={currentYear + 4}>{currentYear + 4}</option>
               <option value={currentYear + 5}>{currentYear + 5}</option>
+              <option value={currentYear + 6}>{currentYear + 6}</option>
+              <option value={currentYear + 7}>{currentYear + 7}</option>
             </Form.Select>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label
-              className="font-family-secondary"
-              style={{ fontSize: "1.5rem" }}
-            >
-              Expire Date
-            </Form.Label>
-            <Form.Control
-              aria-label="Enter Exp.Date"
-              type="text"
-              value={expDate}
-              min={1}
-              max={getMaxDate()}
-              onChange={(e) => {
-                setExpDate(Number(e.target.value));
-              }}
-            ></Form.Control>
           </Form.Group>
           <Button
             type="submit"

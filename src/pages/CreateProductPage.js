@@ -46,7 +46,7 @@ const CreateProductPage = () => {
     formData.append("discount", discount);
     formData.append("countInStock", countInStock);
     formData.append("hasDiscount", hasDiscount);
-    formData.append("subCategory", subCategory)
+    formData.append("subCategory", subCategory);
 
     unique.forEach(
       (obj) => formData.append(`image${obj.id}`, obj.image) // Exp: Object with image1 has id: 1
@@ -87,7 +87,6 @@ const CreateProductPage = () => {
             </Form.Label>
             <Form.Control
               required
-              maxLength={200}
               autoComplete="true"
               type="text"
               placeholder="Enter Name"
@@ -104,7 +103,6 @@ const CreateProductPage = () => {
             </Form.Label>
             <Form.Control
               required
-              maxLength={200}
               autoComplete="true"
               type="text"
               placeholder="Enter Brand"
@@ -113,7 +111,7 @@ const CreateProductPage = () => {
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="sub-categories">
-          <Form.Label
+            <Form.Label
               className="font-family-secondary"
               style={{ fontSize: "1.5rem" }}
             >
@@ -176,7 +174,6 @@ const CreateProductPage = () => {
             </Form.Label>
             <Form.Control
               required
-              maxLength={7}
               autoComplete="true"
               type="number"
               placeholder="Price"

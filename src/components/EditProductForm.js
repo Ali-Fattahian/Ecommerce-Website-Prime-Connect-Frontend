@@ -35,7 +35,7 @@ const EditProductForm = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [images, setImages] = useState([]);
-  const [subCategory, setSubCategory] = useState(product.subCategory ? product.subCategory.name : "");
+  const [subCategory, setSubCategory] = useState(product.subCategory ? product.subCategory.id : "");
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -90,6 +90,7 @@ const EditProductForm = ({
           encType="multipart/form-data"
           method="PUT"
         >
+          <i className="fa fa-2x fa-angle-left" style={{ cursor: "pointer", color: "#0095f6" }} onClick={() => navigate(-1)}></i>
           <h1
             className="font-family-secondary txt--black text-center"
             style={{ fontSize: "3rem" }}
@@ -105,7 +106,6 @@ const EditProductForm = ({
             </Form.Label>
             <Form.Control
               required
-              maxLength={200}
               autoComplete="true"
               type="text"
               placeholder="Enter Name"
@@ -122,7 +122,6 @@ const EditProductForm = ({
             </Form.Label>
             <Form.Control
               required
-              maxLength={200}
               autoComplete="true"
               type="text"
               placeholder="Enter Brand"
@@ -195,7 +194,6 @@ const EditProductForm = ({
             </Form.Label>
             <Form.Control
               required
-              maxLength={7}
               autoComplete="true"
               type="number"
               placeholder="Price"

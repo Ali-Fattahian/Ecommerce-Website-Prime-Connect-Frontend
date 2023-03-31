@@ -33,7 +33,7 @@ const LoginPage = () => {
 
   return (
     <FormContainer>
-      {error && <Message variant="danger">{error}</Message>}
+      {error && <Message variant="danger" className="mt-4">{error}</Message>}
       {loading && <Loader />}
       <Form
         onSubmit={formSubmitHandler}

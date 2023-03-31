@@ -29,7 +29,7 @@ const UsersListPage = () => {
     } else {
       navigate("/login");
     }
-  }, [dispatch, usersList, refreshPage]);
+  }, [dispatch, refreshPage]);
 
   return (
     <div>

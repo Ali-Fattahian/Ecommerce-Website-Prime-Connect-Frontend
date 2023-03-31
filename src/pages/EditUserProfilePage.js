@@ -8,17 +8,19 @@ import Table from "react-bootstrap/Table";
 import LinkContianer from "react-router-bootstrap/LinkContainer";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import { getUserProfile } from "../store/slices/userSlice";
 import axios from "axios";
 import EditUserProfileForm from "../components/EditUserProfileForm";
 
 const EditUserProfilePage = () => {
   const user = useSelector((state) => state.user);
-  const { loading, userInfo, userProfile, error } = user;
+  const { loading, userInfo, error } = user;
   const [message, setMessage] = useState("");
+  const [userProfile, setUserProfile] = useState(null)
   const { userId } = useParams();
   const dispatch = useDispatch();
   const [orders, setOrders] = useState(null);
+  const [pageError, setPageError] = useState('')
+  const [refreshPage, setRefreshPage] = useState(null)
 
   const [ordersError, setOrdersError] = useState(null);
 
@@ -39,10 +41,25 @@ const EditUserProfilePage = () => {
     }
   };
 
+  const getUserProfile = async ({ userId, token }) => {
+    try {
+      const { data } = await axios.get(`api/users/get-profile/${userId}`, {
+        headers: {
+          Authorization: `JWT ${token}`,
+          "Content-Type": "application/json",
+        },
+        baseURL: "http://localhost:8000/",
+      });
+      setUserProfile(data)
+    } catch (err) {
+      setPageError(err)
+    }
+  };
+
   useEffect(() => {
     if (userInfo) {
       const token = userInfo.token;
-      dispatch(getUserProfile({ userId, token }));
+      getUserProfile({ userId, token })
       fetchMyOrders(token);
     } else {
       setMessage("You are not authorized");
@@ -83,12 +100,18 @@ const EditUserProfilePage = () => {
           <div className="mt-2">
             {message && <Message variant="danger">{message}</Message>}
             {error && <Message variant="danger">{error}</Message>}
+            {pageError && <Message variant="danger">{pageError}</Message>}
             {ordersError && <Message variant="danger">{ordersError}</Message>}
           </div>
           {loading && <Loader />}
           {/* Loader appears for no reason (loading is true) */}
           {userProfile && !error && userInfo ? (
-            <EditUserProfileForm userProfile={userProfile} userInfo={userInfo} userId={userId} loading={loading} />
+            <EditUserProfileForm
+              userProfile={userProfile}
+              userInfo={userInfo}
+              userId={userId}
+              loading={loading}
+            />
           ) : (
             <Message variant="info">
               There was a problem loading this content

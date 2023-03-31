@@ -30,7 +30,10 @@ const EditUserProfileForm = ({ userProfile, userInfo, userId, loading }) => {
       token: userInfo.token,
       id: userId,
     };
-    if (password === confirmPassword) dispatch(updateUserProfile(data));
+    if (password === confirmPassword) {
+      dispatch(updateUserProfile(data))
+      window.location.reload()
+    };
   };
 
   const resetStateHandler = () => {

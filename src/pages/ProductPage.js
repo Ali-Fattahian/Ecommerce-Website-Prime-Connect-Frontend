@@ -15,6 +15,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/slices/cartSlice";
+import Message from "../components/Message";
 
 const ProductPage = () => {
   const config = {
@@ -30,10 +31,12 @@ const ProductPage = () => {
   const [reviewOpen, setReviewOpen] = useState(false);
   const [writeReviewOpen, setWriteReviewOpen] = useState(false);
   const [userReview, setUserReview] = useState("");
-  const [rating, setRating] = useState("")
+  const [rating, setRating] = useState("");
   const [qty, setQty] = useState(1);
-  const user = useSelector(state => state.user)
-  const { userInfo } = user
+  const [commentError, setCommentError] = useState(null);
+  const [refreshPage, setRefreshPage] = useState(null);
+  const user = useSelector((state) => state.user);
+  const { userInfo } = user;
   const dispatch = useDispatch();
   const addToCartHandler = () => {
     dispatch(addToCart({ productDetail, qty }));
@@ -48,24 +51,33 @@ const ProductPage = () => {
   const reviewCreateHandler = async (review) => {
     config.headers = {
       "Content-Type": "application/json",
-      "Authorization": `JWT ${userInfo.token}`
+      Authorization: `JWT ${userInfo.token}`,
+    };
+    try {
+      await axios.post(
+        `products/create-review/${productId}`,
+        {
+          comment: review,
+          rating: rating,
+        },
+        config
+      );
+      setRefreshPage(new Date());
+    } catch (err) {
+      setCommentError(err);
     }
-    await axios.post(`products/create-review/${productId}`, {
-      comment: review,
-      rating: rating,
-    }, config)
-  }
+  };
 
   const reviewFormHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (userReview.trim().length < 1) {
-      setError('Please write something in the area below')
+      setError("Please write something in the comment section");
     }
     if (!userInfo) {
-      setError("Please log in first")
+      setError("Please log in first");
     }
-    reviewCreateHandler(userReview.trim())
-  }
+    reviewCreateHandler(userReview.trim());
+  };
 
   const fetchProduct = async () => {
     try {
@@ -78,7 +90,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     fetchProduct();
-  }, []);
+  }, [refreshPage]);
 
   // const isImageValid = (image) => {
   //   const extension = image.split(".").at(-1);
@@ -94,7 +106,12 @@ const ProductPage = () => {
       <NavbarComponent />
       <Row className="p-2" id="product-page-top">
         <Col xl={6} lg={6} md={6} sm={12}>
-          <Carousel pause="hover" keyboard="true" className="bg-dark mt-2" variant="dark">
+          <Carousel
+            pause="hover"
+            keyboard="true"
+            className="bg-dark mt-2"
+            variant="dark"
+          >
             {productDetail.image1 && (
               <Carousel.Item>
                 <Image
@@ -102,8 +119,8 @@ const ProductPage = () => {
                   alt={productDetail.name}
                   fluid
                   className="carousel-image"
-                  onClick={()=> window.open(productDetail.image1, "_blank")}
-                  style={{ cursor: "pointer"}}
+                  onClick={() => window.open(productDetail.image1, "_blank")}
+                  style={{ cursor: "pointer" }}
                 />
               </Carousel.Item>
             )}
@@ -114,8 +131,8 @@ const ProductPage = () => {
                   alt={productDetail.name}
                   fluid
                   className="carousel-image"
-                  onClick={()=> window.open(productDetail.image2, "_blank")}
-                  style={{ cursor: "pointer"}}
+                  onClick={() => window.open(productDetail.image2, "_blank")}
+                  style={{ cursor: "pointer" }}
                 />
               </Carousel.Item>
             )}
@@ -126,8 +143,8 @@ const ProductPage = () => {
                   alt={productDetail.name}
                   fluid
                   className="carousel-image"
-                  onClick={()=> window.open(productDetail.image3, "_blank")}
-                  style={{ cursor: "pointer"}}
+                  onClick={() => window.open(productDetail.image3, "_blank")}
+                  style={{ cursor: "pointer" }}
                 />
               </Carousel.Item>
               // put thumbnails for indicators
@@ -139,17 +156,19 @@ const ProductPage = () => {
             <p className="txt--black mt-2 mb-4" style={{ maxWidth: "450px" }}>
               {productDetail.description}
             </p>
-            {productDetail.numReviews > 0 && <Rating
-              ratingNum={productDetail.rating}
-              reviewCount={productDetail.numReviews}
-            />}
+            {productDetail.numReviews > 0 && (
+              <Rating
+                ratingNum={productDetail.rating}
+                reviewCount={productDetail.numReviews}
+              />
+            )}
             <Price
               hasDiscount={productDetail.hasDiscount}
               discount={productDetail.discount}
               price={Number(productDetail.price)}
             />
             <Row className="mt-4">
-              <Col style={{flex: 'none', width: 'fit-content'}}>
+              <Col style={{ flex: "none", width: "fit-content" }}>
                 <Button
                   variant="primary"
                   onClick={addToCartHandler}
@@ -166,7 +185,7 @@ const ProductPage = () => {
                     as="select"
                     value={qty}
                     onChange={(e) => setQty(Number(e.target.value))}
-                    style={{width: 'fit-content'}}
+                    style={{ width: "fit-content" }}
                     className="d-inline-block"
                   >
                     {[...Array(productDetail.countInStock).keys()].map((x) => (
@@ -181,6 +200,7 @@ const ProductPage = () => {
           </Container>
         </Col>
       </Row>
+      {error && <Message variant="danger" className="m-4">{error}</Message>}
       <Container
         id="collapse-item__container"
         className="d-flex m-0 mt-2 p-2 pb-0 align-items-center"
@@ -192,7 +212,7 @@ const ProductPage = () => {
           className={`m-0 txt--gray border-right-lt pb-2 ${
             detailOpen ? "collapse-item--active" : "collapse-item"
           }`}
-          style={{paddingLeft: "1rem", paddingRight: '.5rem'}}
+          style={{ paddingLeft: "1rem", paddingRight: ".5rem" }}
         >
           Detail
         </p>
@@ -218,10 +238,14 @@ const ProductPage = () => {
       <Row className="position-relative">
         <Fade in={detailOpen} className="position-absolute top-0 left-0">
           <div id="detail-fade-text">
-            {productDetail.moreDetails ? <p className="txt--black p-4 border-top-lt">
-              {productDetail.moreDetails}
-            </p> : (
-              <p className="txt--gray p-2 border-top-lt">No detail was provided</p>
+            {productDetail.moreDetails ? (
+              <p className="txt--black p-4 border-top-lt">
+                {productDetail.moreDetails}
+              </p>
+            ) : (
+              <p className="txt--gray p-2 border-top-lt">
+                No detail was provided
+              </p>
             )}
           </div>
         </Fade>
@@ -241,8 +265,12 @@ const ProductPage = () => {
                 <span>Write your review</span>
               </p>
             </div>
+            {commentError && <Message variant="danger">{commentError}</Message>}
             {productDetail.reviews ? (
-              <ListGroup variant="flush" style={{borderTop: "1px dotted #ddd"}}>
+              <ListGroup
+                variant="flush"
+                style={{ borderTop: "1px dotted #ddd" }}
+              >
                 {writeReviewOpen && (
                   <ListGroup.Item>
                     <Form onSubmit={reviewFormHandler}>
@@ -262,6 +290,7 @@ const ProductPage = () => {
                         <Form.Control
                           onChange={(e) => {
                             setUserReview(e.target.value);
+                            setCommentError(null);
                           }}
                           as="textarea"
                           placeholder="Replaces your previous review if you already have one"
@@ -270,7 +299,14 @@ const ProductPage = () => {
                         ></Form.Control>
                       </Form.Group>
                       <Form.Group>
-                        <Form.Select className="mb-2" aria-label="Rate the product" value={rating} onChange={(e) => {setRating(e.target.value)}}>
+                        <Form.Select
+                          className="mb-2"
+                          aria-label="Rate the product"
+                          value={rating}
+                          onChange={(e) => {
+                            setRating(e.target.value);
+                          }}
+                        >
                           <option>Rate the product</option>
                           <option value={1}>1</option>
                           <option value={2}>2</option>
@@ -284,7 +320,9 @@ const ProductPage = () => {
                           type="submit"
                           variant="success"
                           style={{ color: "white", backgroundColor: "#0096f6" }}
-                          disabled={userReview.length === 0 || rating.length !== 1}
+                          disabled={
+                            userReview.length === 0 || rating.length !== 1
+                          }
                         >
                           Submit
                         </Button>

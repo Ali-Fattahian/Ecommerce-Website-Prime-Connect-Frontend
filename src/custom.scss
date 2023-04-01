@@ -395,6 +395,12 @@ $shopping-cart-red: #DF0000;
     }
 }
 
+@media screen and (max-width: 380px) {
+    #image-button-container {
+        flex-direction: column;
+    } 
+}
+
 @media screen and (max-width: 280px) {
     #nav-item__container {
         transform: translateX(20px)

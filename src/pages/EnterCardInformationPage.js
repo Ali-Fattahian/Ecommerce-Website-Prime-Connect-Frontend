@@ -58,6 +58,7 @@ const EnterCardInformationPage = () => {
 
   useEffect(() => {
     if (!userInfo) navigate("/login");
+    if (success) window.location.reload()  // Fix success message staying on the screen from the last payment
     if (!orderDetail || orderDetail.id !== Number(orderId)) {
       const token = userInfo.token;
       dispatch(getOrderDetail({ orderId, token }));

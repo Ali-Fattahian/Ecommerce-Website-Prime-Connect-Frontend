@@ -11,6 +11,7 @@ import {
 import { useDispatch } from "react-redux";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/Row";
+import axios from "axios";
 
 const EditProductForm = ({
   product,
@@ -22,6 +23,7 @@ const EditProductForm = ({
   const [image2, setImage2] = useState(product.image2);
   const [image3, setImage3] = useState(product.image3);
   const [name, setName] = useState(product.name);
+  const [err, setErr] = useState(null);
   const [brand, setBrand] = useState(product.brand);
   const [description, setDescription] = useState(product.description);
   const [moreDetails, setMoreDetails] = useState(product.moreDetails);
@@ -35,7 +37,9 @@ const EditProductForm = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [images, setImages] = useState([]);
-  const [subCategory, setSubCategory] = useState(product.subCategory ? product.subCategory.id : "");
+  const [subCategory, setSubCategory] = useState(
+    product.subCategory ? product.subCategory.id : ""
+  );
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -50,6 +54,7 @@ const EditProductForm = ({
     formData.append("countInStock", countInStock);
     formData.append("hasDiscount", hasDiscount);
     formData.append("subCategory", subCategory);
+    formData.append("user", userInfo.id);
 
     unique.forEach(
       (obj) => formData.append(`image${obj.id}`, obj.image) // Exp: Object with image1 has id: 1
@@ -75,6 +80,25 @@ const EditProductForm = ({
     dispatch,
   ]);
 
+  const deleteImageHandler = async (data) => {
+    const token = userInfo.token;
+    try {
+      await axios.put(
+        `http://localhost:8000/api/products/product-image-delete/${product.id}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      );
+      window.location.reload();
+    } catch (err) {
+      setErr(err);
+    }
+  };
+
   return (
     <div>
       {error && (
@@ -90,13 +114,18 @@ const EditProductForm = ({
           encType="multipart/form-data"
           method="PUT"
         >
-          <i className="fa fa-2x fa-angle-left" style={{ cursor: "pointer", color: "#0095f6" }} onClick={() => navigate(-1)}></i>
+          <i
+            className="fa fa-2x fa-angle-left"
+            style={{ cursor: "pointer", color: "#0095f6" }}
+            onClick={() => navigate(-1)}
+          ></i>
           <h1
             className="font-family-secondary txt--black text-center"
             style={{ fontSize: "3rem" }}
           >
             Edit Product
           </h1>
+          {err && <Message variant="danger">{err}</Message>}
           <Form.Group controlId="name">
             <Form.Label
               className="font-family-secondary"
@@ -145,7 +174,11 @@ const EditProductForm = ({
               }}
             >
               <option>-----------</option>
-              {product.subCategory && <option disabled>{`Was set to ${product.subCategory.name}`}</option>}
+              {product.subCategory && (
+                <option
+                  disabled
+                >{`Was set to ${product.subCategory.name}`}</option>
+              )}
               {allSubCategories.map((x) => (
                 <option key={x.id} value={x.id}>
                   {x.name}
@@ -244,12 +277,26 @@ const EditProductForm = ({
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="image1">
-            <Form.Label
-              className="font-family-secondary mb-2"
-              style={{ fontSize: "1.5rem" }}
+            <div
+              id="image-button-container"
+              className="w-100 d-flex justify-content-between mb-2"
             >
-              Change Image
-            </Form.Label>
+              <Form.Label
+                className="font-family-secondary mb-2"
+                style={{ fontSize: "1.5rem" }}
+              >
+                Change Image 1
+              </Form.Label>
+              <Button
+                variant="danger"
+                style={{ color: "#fff" }}
+                onClick={() => {
+                  deleteImageHandler({ image1: true });
+                }}
+              >
+                Delete Image 1
+              </Button>
+            </div>
             <Form.Control
               type="file"
               accept="image/*"
@@ -263,12 +310,26 @@ const EditProductForm = ({
             />
           </Form.Group>
           <Form.Group controlId="image2">
-            <Form.Label
-              className="font-family-secondary mb-2"
-              style={{ fontSize: "1.5rem" }}
+            <div
+              id="image-button-container"
+              className="w-100 d-flex justify-content-between mb-2"
             >
-              {product.image2 ? "Change" : "Add"} Image 2
-            </Form.Label>
+              <Form.Label
+                className="font-family-secondary mb-2"
+                style={{ fontSize: "1.5rem" }}
+              >
+                {product.image2 ? "Change" : "Add"} Image 2
+              </Form.Label>
+              <Button
+                variant="danger"
+                style={{ color: "#fff" }}
+                onClick={() => {
+                  deleteImageHandler({ image2: true });
+                }}
+              >
+                Delete Image 2
+              </Button>
+            </div>
             <Form.Control
               type="file"
               accept="image/*"
@@ -282,12 +343,26 @@ const EditProductForm = ({
             />
           </Form.Group>
           <Form.Group controlId="image3">
-            <Form.Label
-              className="font-family-secondary mb-2"
-              style={{ fontSize: "1.5rem" }}
+            <div
+              id="image-button-container"
+              className="w-100 d-flex justify-content-between mb-2"
             >
-              {image3 ? "Change" : "Add"} Image 3
-            </Form.Label>
+              <Form.Label
+                className="font-family-secondary mb-2"
+                style={{ fontSize: "1.5rem" }}
+              >
+                {image3 ? "Change" : "Add"} Image 3
+              </Form.Label>
+              <Button
+                variant="danger"
+                style={{ color: "#fff" }}
+                onClick={() => {
+                  deleteImageHandler({ image3: true });
+                }}
+              >
+                Delete Image 3
+              </Button>
+            </div>
             <Form.Control
               type="file"
               accept="image/*"

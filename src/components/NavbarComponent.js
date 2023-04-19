@@ -6,7 +6,6 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/slices/userSlice";
 
-
 const NavbarComponent = () => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
@@ -17,7 +16,7 @@ const NavbarComponent = () => {
     0
   );
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {}, [cart]);
 
@@ -27,7 +26,10 @@ const NavbarComponent = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <h4 id="website-brand-1">PrimeConnect</h4>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto d-flex justify-content-between w-100 align-items-center" id="nav-link__container">
+          <Nav
+            className="me-auto d-flex justify-content-between w-100 align-items-center"
+            id="nav-link__container"
+          >
             <Nav.Link href="/">
               <h4 id="website-brand-2">PrimeConnect</h4>
             </Nav.Link>
@@ -42,25 +44,53 @@ const NavbarComponent = () => {
                 </span>
               </Nav.Link>
             </div>
-            <div id="nav-item__container" className={userInfo ? '': 'nav-flex-row'}>
-              <Nav.Link id="nav-link" href="/all-products/">Products</Nav.Link>
+            <div
+              id="nav-item__container"
+              className={userInfo ? "" : "nav-flex-row"}
+            >
+              <Nav.Link id="nav-link" href="/all-products/">
+                Products
+              </Nav.Link>
               {/* Links should be blocks in smaller screens */}
               {userInfo ? (
                 <NavDropdown title={userInfo.fullname} id="user-dropdown-menu">
                   {/* <NavDropdown.Item href={`/users/${userInfo.id}/edit`}>Profile</NavDropdown.Item> */}
-                  <NavDropdown.Item href={`/users/${userInfo.id}/edit`}>Profile</NavDropdown.Item>
-                  <NavDropdown.Item as="button" onClick={() => {dispatch(logout())}}>
+                  <NavDropdown.Item href={`/users/${userInfo.id}/edit`}>
+                    Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    as="button"
+                    onClick={() => {
+                      dispatch(logout());
+                    }}
+                  >
                     Log out
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
                 <Nav.Link href="/login">Login</Nav.Link>
               )}
-              {userInfo && userInfo.isAdmin && <NavDropdown title="Admin" id="admin-dropdown-menu">
-                <NavDropdown.Item href="/admin/user-list">Users</NavDropdown.Item>
-                <NavDropdown.Item href="/admin/product-list">Product List</NavDropdown.Item>
-                <NavDropdown.Item href="/admin/order-list">Orders</NavDropdown.Item>
-              </NavDropdown>}
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title="Admin" id="admin-dropdown-menu">
+                  <NavDropdown.Item href="/admin/user-list">
+                    Users
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="/admin/product-list">
+                    Product List
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="/admin/order-list">
+                    Orders
+                  </NavDropdown.Item>
+                  <NavDropdown title="Messages" id="message-dropdown-menu">
+                    <NavDropdown.Item href="/admin/sent-messages-list">
+                      Sent
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/received-messages-list">
+                      Received
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </NavDropdown>
+              )}
             </div>
           </Nav>
         </Navbar.Collapse>

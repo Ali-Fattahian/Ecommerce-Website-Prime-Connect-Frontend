@@ -20,6 +20,11 @@ import OrderListPage from "./pages/OrderListPage";
 import OrderPage from "./pages/OrderPage";
 import EnterCardInformationPage from "./pages/EnterCardInformationPage";
 import CreateProductPage from "./pages/CreateProductPage";
+import SendMessagePage from "./pages/SendMessagePage";
+import ReceivedMessageListPage from "./pages/ReceivedMessageListPage";
+import SentMessageListPage from "./pages/SentMessageListPage";
+import ReceivedMessageDetailPage from "./pages/ReceivedMessageDetailPage";
+import SentMessageDetailPage from "./pages/SentMessageDetailPage";
 
 function App() {
   return (
@@ -50,6 +55,23 @@ function App() {
           <Route path="/admin/user-list/" element={<UsersListPage />} />
           <Route path="/admin/product-list/" element={<ProductsListPage />} />
           <Route path="/admin/order-list/" element={<OrderListPage />} />
+          <Route path="admin/send-message/" element={<SendMessagePage />} />
+          <Route
+            path="admin/received-messages-list/"
+            element={<ReceivedMessageListPage />}
+          />
+          <Route
+            path="admin/received-messages-list/:messageId/"
+            element={<ReceivedMessageDetailPage />}
+          />
+          <Route
+            path="admin/sent-messages-list/"
+            element={<SentMessageListPage />}
+          />
+          <Route
+            path="admin/sent-messages-list/:messageId/"
+            element={<SentMessageDetailPage />}
+          />
           <Route
             path="/admin/create-product/"
             element={<CreateProductPage />}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -20,7 +20,7 @@ const EditUserProfilePage = () => {
   const dispatch = useDispatch();
   const [orders, setOrders] = useState(null);
   const [pageError, setPageError] = useState('')
-  const [refreshPage, setRefreshPage] = useState(null)
+  const navigate = useNavigate()
 
   const [ordersError, setOrdersError] = useState(null);
 
@@ -57,6 +57,7 @@ const EditUserProfilePage = () => {
   };
 
   useEffect(() => {
+    if (userInfo && !userInfo.isAdmin) navigate("/");
     if (userInfo) {
       const token = userInfo.token;
       getUserProfile({ userId, token })

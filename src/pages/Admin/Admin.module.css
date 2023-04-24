@@ -1,0 +1,104 @@
+#navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  max-width: max-content;
+  transition: all ease-in-out 400ms;
+}
+
+#collapse-button {
+  position: absolute;
+  right: -20%;
+  border-radius: 50%;
+  top: 41%;
+  background-color: #333;
+  color: #fff;
+  top: 45%;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.uncollapsed-button {
+  right: -7% !important;
+}
+
+#navbar p {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-collapsed .navbar-top {
+  display: none;
+}
+
+.navbar-collapsed .navbar-middle {
+  margin-top: 2rem;
+}
+
+.navbar-collapsed p {
+  display: none !important;
+}
+
+.navbar-collapsed .navbar-links__section:active,
+.navbar-collapsed .navbar-links__section:hover {
+  border: none;
+}
+
+.navbar-top {
+  padding: 40px 24px;
+}
+
+.navbar-links__section {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: all ease-in-out 350ms;
+  padding: 12px 30px;
+  width: 100%;
+}
+
+.navbar-links__section:hover, .navbar-links__section:active {
+  color: #0095f6;
+  border-right: 3px solid #0095f6;
+}
+
+.navbar-middle {
+  width: 100%;
+}
+
+.navbar-bottom {
+  width: 100%;
+}
+
+.navbar-bottom > div {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  padding: 12px 30px;
+  transition: all ease-in-out 350ms;
+}
+
+.navbar-bottom > div:hover, .navbar-bottom > div:active {
+  color: #0095f6;
+  border-right: 3px solid #0095f6;
+}
+
+.dashboard {
+  background-color: #fafafa;
+}

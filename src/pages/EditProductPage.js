@@ -19,6 +19,7 @@ const EditProductPage = () => {
 
   useEffect(() => {
     if (!userInfo) navigate("/login");
+    if (userInfo && !userInfo.isAdmin) navigate("/");
     dispatch(fetchProduct(productId));
   }, [dispatch, navigate, productId]);
 

@@ -25,6 +25,7 @@ import ReceivedMessageListPage from "./pages/ReceivedMessageListPage";
 import SentMessageListPage from "./pages/SentMessageListPage";
 import ReceivedMessageDetailPage from "./pages/ReceivedMessageDetailPage";
 import SentMessageDetailPage from "./pages/SentMessageDetailPage";
+import DashboadPage from "./pages/Admin/DashboadPage";
 
 function App() {
   return (
@@ -76,6 +77,7 @@ function App() {
             path="/admin/create-product/"
             element={<CreateProductPage />}
           />
+          <Route path="/admin/dashboard/" element={<DashboadPage />} />
           <Route path="/users/:userId/edit" element={<EditUserProfilePage />} />
           <Route path="*" element={<NoMatchPage />} />
         </Routes>

@@ -60,7 +60,7 @@ const CountryEarningsChart = () => {
     fetchData();
   }, []);
   return (
-    <div>
+    <div className="chart">
       {earnings && <PolarArea data={earnings} />}
       {error && <Message variant="danger" />}
     </div>

@@ -60,7 +60,7 @@ const CategoryEarningsChart = () => {
     fetchData();
   }, []);
   return (
-    <div>
+    <div className="chart">
       {earnings && <Doughnut data={earnings} />}
       {error && <Message variant="danger" />}
     </div>

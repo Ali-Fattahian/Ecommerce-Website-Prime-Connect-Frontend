@@ -60,7 +60,7 @@ const AnnualEarningsChart = () => {
     fetchData();
   }, []);
   return (
-    <div>
+    <div className="chart">
       {earnings && <Bar data={earnings} />}
       {error && <Message variant="danger" />}
     </div>

@@ -54,7 +54,7 @@ const MonthlyEarningsChart = () => {
     fetchData();
   }, []);
   return (
-    <div>
+    <div className="chart">
       {earnings && <Line data={earnings} />}
       {error && <Message variant="danger" />}
     </div>

@@ -3,7 +3,7 @@ import classes from "../pages/Admin/Admin.module.css";
 import { useNavigate } from "react-router-dom";
 
 const SideNavbar = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const navbarCollapaseHandler = () => {
     setCollapsed((prevState) => !prevState);

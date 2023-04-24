@@ -94,7 +94,7 @@ const SubCategoryEarningsChart = () => {
     fetchData();
   }, []);
   return (
-    <div>
+    <div className="chart">
       {earnings && <Chart type="bar" data={earnings} />}
       {error && <Message variant="danger" />}
     </div>

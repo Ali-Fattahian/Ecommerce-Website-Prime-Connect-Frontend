@@ -7,12 +7,18 @@ import CountryEarningsChart from "./CountryEarningsChart";
 
 const Charts = () => {
   return (
-    <div className="charts-container">
-      <MonthlyEarningsChart />
-      <AnnualEarningsChart />
-      <SubCategoryEarningsChart />
-      <CategoryEarningsChart />
-      <CountryEarningsChart />
+    <div className="d-flex p-4" style={{ flexDirection: "column", width: '70%', margin: 'auto', gap: '2rem' }}>
+      <div className="d-flex gap-2 charts__container">
+        <MonthlyEarningsChart />
+        <AnnualEarningsChart />
+      </div>
+      {/* <div> */}
+        <SubCategoryEarningsChart />
+      {/* </div> */}
+      <div className="d-flex gap-2 charts__container">
+        <CategoryEarningsChart />
+        <CountryEarningsChart />
+      </div>
     </div>
   );
 };

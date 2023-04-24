@@ -342,22 +342,20 @@ $shopping-cart-red: #DF0000;
     box-shadow: 17px 28px 15px -8px rgba(0,0,0,0.1);
 }
 
-.charts-container {
-    padding: 1rem;
-    margin: auto;
+.chart {
+    width: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    background-color: #fff;
+    gap: 2rem;
+    border: 1px solid map-get($theme-colors , 'border-gray');
+    padding: 1.5rem;
+    border-radius: 5px;
+}
 
-    & > div {
-        max-width: 800px;
-        padding: 1rem 1.5rem;
-        border: 1px dotted map-get($theme-colors , 'border-gray');
-        border-top: none;
-    }
-    & > div:first-child {
-        border-top: 1px dotted map-get($theme-colors , 'border-gray');
+@media screen and (max-width: 1080px) {
+    .charts__container {
+        flex-direction: column;
     }
 }
 

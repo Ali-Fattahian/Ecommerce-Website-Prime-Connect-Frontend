@@ -16,7 +16,7 @@ const DashboadPage = () => {
   }, [])
 
   return (
-    <div className={classes.dashboard}>
+    <div className={classes['admin-page']}>
       <SideNavbar />
       <Charts />
     </div>

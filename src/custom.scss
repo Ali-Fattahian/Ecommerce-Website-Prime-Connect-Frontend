@@ -355,6 +355,7 @@ $shopping-cart-red: #DF0000;
 
 #charts {
     display: flex;
+    gap: 1rem;
 }
 
 @media screen and (max-width: 1080px) {
@@ -439,7 +440,7 @@ $shopping-cart-red: #DF0000;
 
 @media screen and (max-width: 576px) {
     #charts {
-        display: none;
+        min-width: 400px;
     }
 }
 
@@ -453,6 +454,10 @@ $shopping-cart-red: #DF0000;
     #image-button-container {
         flex-direction: column;
     } 
+
+    .total-cards__container {
+        flex-direction: column;
+    }
 }
 
 @media screen and (max-width: 280px) {

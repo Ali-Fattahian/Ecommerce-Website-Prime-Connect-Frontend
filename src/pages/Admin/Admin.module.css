@@ -9,7 +9,7 @@
   text-align: center;
   max-width: max-content;
   transition: all ease-in-out 400ms;
-  position: fixed;
+  position: absolute;
   z-index: 2;
   height: 100%;
 }
@@ -68,7 +68,8 @@
   width: 100%;
 }
 
-.navbar-links__section:hover, .navbar-links__section:active {
+.navbar-links__section:hover,
+.navbar-links__section:active {
   color: #0095f6;
   border-right: 3px solid #0095f6;
 }
@@ -91,11 +92,81 @@
   transition: all ease-in-out 350ms;
 }
 
-.navbar-bottom > div:hover, .navbar-bottom > div:active {
+.navbar-bottom > div:hover,
+.navbar-bottom > div:active {
   color: #0095f6;
   border-right: 3px solid #0095f6;
 }
 
 .admin-page {
   background-color: #fafafa;
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  min-width: min-content;
+  min-height: min-content;
+}
+
+.admin-page-left {
+  position: relative;
+}
+
+.admin-page-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#admin-cards__container {
+  display: flex;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.admin-card {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  border-radius: 2px;
+  background-color: #e9f8f9;
+  box-shadow: 6px 24px 15px -21px rgba(0,0,0,0.1);
+}
+
+#earnings-card__container {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 860px) {
+  #admin-cards__container {
+    flex-direction: column;
+    border: none;
+  }
+
+  .admin-page-right > h1 {
+    align-self: center !important;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .admin-page {
+    min-width: none;
+    min-height: none;
+    width: 100vw;
+    height: 100vh;
+    grid-template-columns: 1fr 3fr;
+  }
+
+  .admin-page-right {
+    overflow: scroll;
+  }
 }

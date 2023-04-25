@@ -4,23 +4,23 @@ import { useSelector } from "react-redux";
 import Message from "../Message";
 import classes from "../../pages/Admin/Admin.module.css";
 
-const TotalMonthlyEarningsCard = () => {
+const TotalAnnualOrdersCard = () => {
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
-  const [totalEarnings, setTotalEarnings] = useState(null);
+  const [totalOrders, setTotalOrders] = useState(null);
   const [error, setError] = useState(null);
 
   const fetchData = async () => {
     const token = userInfo.token;
     try {
-      const { data } = await axios.get("/products/get-total-monthly-earnings", {
+      const { data } = await axios.get("/products/get-total-annual-orders", {
         headers: {
           Authorization: `JWT ${token}`,
         },
         baseURL: "http://localhost:8000/api",
       });
 
-      setTotalEarnings(data);
+      setTotalOrders(data);
     } catch (e) {
       setError(e);
     }
@@ -32,10 +32,12 @@ const TotalMonthlyEarningsCard = () => {
 
   return (
     <div>
-      {totalEarnings ? (
+      {totalOrders ? (
         <div className={classes["admin-card"]}>
-          <p className="txt--black font-family-secondary m-0">{Math.trunc(totalEarnings)} $</p>
-          <p className="txt--black font-family-secondary m-0">Last 30 days</p>
+          <p className="txt--black font-family-secondary m-0">
+            {totalOrders}
+          </p>
+          <p className="txt--black font-family-secondary m-0">This Year</p>
         </div>
       ) : (
         error && <Message variant="danger">{error}</Message>
@@ -44,4 +46,4 @@ const TotalMonthlyEarningsCard = () => {
   );
 };
 
-export default TotalMonthlyEarningsCard;
+export default TotalAnnualOrdersCard;

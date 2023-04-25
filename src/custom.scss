@@ -353,6 +353,10 @@ $shopping-cart-red: #DF0000;
     border-radius: 5px;
 }
 
+#charts {
+    display: flex;
+}
+
 @media screen and (max-width: 1080px) {
     .charts__container {
         flex-direction: column;
@@ -430,6 +434,12 @@ $shopping-cart-red: #DF0000;
 
     .carousel-item {
         margin: auto;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    #charts {
+        display: none;
     }
 }
 

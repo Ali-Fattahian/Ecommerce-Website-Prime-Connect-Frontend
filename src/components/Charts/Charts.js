@@ -7,7 +7,7 @@ import CountryEarningsChart from "./CountryEarningsChart";
 
 const Charts = () => {
   return (
-    <div className="d-flex p-4" style={{ flexDirection: "column", width: '70%', margin: 'auto', gap: '2rem' }}>
+    <div id="charts" className="p-4" style={{ flexDirection: "column", width: '70%', margin: 'auto', gap: '2rem' }}>
       <div className="d-flex gap-2 charts__container">
         <MonthlyEarningsChart />
         <AnnualEarningsChart />

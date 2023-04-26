@@ -103,7 +103,7 @@
   display: grid;
   grid-template-columns: 1fr 7fr;
   min-width: min-content;
-  min-height: min-content;
+  min-height: 100vh;
 }
 
 .admin-page-left {
@@ -143,6 +143,21 @@
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
+}
+
+.pending-orders {
+  position: absolute;
+  top: -70%;
+  right: -70%;
+  width: 16px;
+  height: 16px;
+  font-size: 11px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #89be9e;
+  font-family: 'Oswald', sans-serif;
 }
 
 @media screen and (max-width: 860px) {

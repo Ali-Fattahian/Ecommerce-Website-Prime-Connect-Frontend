@@ -298,6 +298,15 @@ $shopping-cart-red: #DF0000;
     font-family: 'Oswald', sans-serif;
 }
 
+.accordion[data-type="charts-collapse-btn"] {
+    width: 80%;
+
+    .accordion-button {
+        justify-content: center;
+        background-color: transparent;
+    }
+}
+
 .accordion-button::after {
     display: none;
 }
@@ -438,9 +447,14 @@ $shopping-cart-red: #DF0000;
     }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 607px) {
+    .accordion-body {
+        overflow: scroll;
+    }
+
     #charts {
-        min-width: 400px;
+        width: 100%;
+        min-width: 440px;
     }
 }
 

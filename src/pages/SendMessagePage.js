@@ -65,8 +65,8 @@ const SendMessagePage = () => {
 
   useEffect(() => {
     if (!userInfo) navigate("/login");
-    if (userInfo && !userInfo.isAdmin) navigate("/");
-    fetchAdmins();
+    if(userInfo.isAdmin)
+      fetchAdmins();
   }, []);
   return (
     <>

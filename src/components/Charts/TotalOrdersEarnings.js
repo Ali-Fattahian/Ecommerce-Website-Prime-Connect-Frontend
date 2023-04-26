@@ -17,7 +17,7 @@ const TotalOrdersEarnings = () => {
             EARNINGS
           </p>
           <i
-            className="fa fa-shopping-bag fa-2x"
+            className="fa fa-money fa-2x"
             style={{
               color: "#333",
               padding: ".5rem",
@@ -40,7 +40,7 @@ const TotalOrdersEarnings = () => {
             ORDERS
           </p>
           <i
-            className="fa fa-truck fa-2x"
+            className="fa fa-shopping-bag fa-2x"
             style={{
               color: "#e9f8f9",
               padding: ".5rem",

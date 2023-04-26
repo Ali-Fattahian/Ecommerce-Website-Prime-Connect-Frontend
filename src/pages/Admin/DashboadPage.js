@@ -5,6 +5,7 @@ import classes from "../Admin/Admin.module.css";
 import { useNavigate } from "react-router-dom";
 import Charts from "../../components/Charts/Charts";
 import TotalOrdersEarnings from "../../components/Charts/TotalOrdersEarnings";
+import Accordion from "react-bootstrap/Accordion";
 
 const DashboadPage = () => {
   const user = useSelector((state) => state.user);
@@ -13,7 +14,7 @@ const DashboadPage = () => {
 
   useEffect(() => {
     if (!userInfo) navigate("/login");
-    if (userInfo && !userInfo.isAdmin) navigate("/");
+    if (userInfo.isAdmin === false) navigate('/')
   }, []);
 
   return (
@@ -29,13 +30,24 @@ const DashboadPage = () => {
           SUMMARY
         </h1>
         <TotalOrdersEarnings />
-        <h1
-          className="txt--black font-family-secondary mb-0"
-          style={{ alignSelf: "flex-start", padding: '1rem', paddingTop: '2rem' }}
-        >
-          STATISTICS
-        </h1>
-        <Charts />
+        <Accordion flush className="mt-4 " data-type='charts-collapse-btn'>
+          <Accordion.Header>
+            <h1
+              className="txt--black font-family-secondary mb-0"
+              style={{
+                alignSelf: "flex-start",
+                padding: "1rem",
+                paddingTop: "2rem",
+                textDecoration: 'underline'
+              }}
+            >
+              STATISTICS
+            </h1>
+          </Accordion.Header>
+          <Accordion.Body>
+            <Charts />
+          </Accordion.Body>
+        </Accordion>
       </div>
     </div>
   );

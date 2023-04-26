@@ -90,8 +90,8 @@ const SubCategoryEarningsChart = () => {
 
   useEffect(() => {
     if (!userInfo) navigate("/login");
-    if (userInfo && !userInfo.isAdmin) navigate("/");
-    fetchData();
+    if(userInfo.isAdmin)
+      fetchData();
   }, []);
   return (
     <div className="chart">

@@ -36,8 +36,8 @@ const SentMessageListPage = () => {
 
   useEffect(() => {
     if (!userInfo) navigate("/login");
-    if (userInfo && !userInfo.isAdmin) navigate("/");
-    fetchMessages();
+    if(userInfo.isAdmin)
+      fetchMessages();
   }, []);
 
   return (

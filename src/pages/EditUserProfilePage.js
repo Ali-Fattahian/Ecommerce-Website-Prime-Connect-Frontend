@@ -57,8 +57,7 @@ const EditUserProfilePage = () => {
   };
 
   useEffect(() => {
-    if (userInfo && !userInfo.isAdmin) navigate("/");
-    if (userInfo) {
+    if (userInfo && userInfo.isAdmin) {
       const token = userInfo.token;
       getUserProfile({ userId, token })
       fetchMyOrders(token);

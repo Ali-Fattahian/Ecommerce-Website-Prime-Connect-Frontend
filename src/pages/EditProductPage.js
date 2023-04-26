@@ -19,8 +19,8 @@ const EditProductPage = () => {
 
   useEffect(() => {
     if (!userInfo) navigate("/login");
-    if (userInfo && !userInfo.isAdmin) navigate("/");
-    dispatch(fetchProduct(productId));
+    if(userInfo.isAdmin)
+      dispatch(fetchProduct(productId));
   }, [dispatch, navigate, productId]);
 
   // if (!product) window.location.reload(); // I realized no matter what, it's not loading quick enough, but it gets created in localhost anyways, so i decided to reload the page and fetch it from localhost so it gets loaded really fast

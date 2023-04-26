@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import NavbarComponent from "../components/NavbarComponent";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
@@ -8,7 +7,7 @@ import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Message from "../components/Message";
 
-const ReceivedMessageListPage = () => {
+const ReceivedMessageList = () => {
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
   const [messages, setMessages] = useState([]);
@@ -63,10 +62,13 @@ const ReceivedMessageListPage = () => {
   }, []);
 
   return (
-    <>
-      <NavbarComponent />
       <Container id="user-list__container">
-        <h1 className="mt-4 font-family-secondary txt--black">MESSAGES</h1>
+                <h2
+          className="txt--black font-family-secondary mt-3 mb-0"
+          style={{ alignSelf: "flex-start" }}
+        >
+          Received Messages
+        </h2>
         {error && (
           <Message variant="danger" className="mt-4">
             {error}
@@ -127,8 +129,7 @@ const ReceivedMessageListPage = () => {
           )}
         </Table>
       </Container>
-    </>
   );
 };
 
-export default ReceivedMessageListPage;
+export default ReceivedMessageList;

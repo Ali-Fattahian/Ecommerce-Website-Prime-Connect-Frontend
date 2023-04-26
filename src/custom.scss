@@ -286,8 +286,9 @@ $shopping-cart-red: #DF0000;
     box-shadow: none !important;
 }
 
-#user-list__container {
-    transform: translateY(90px);
+#messages-table__container {
+    gap: 3rem;
+    margin-top: 3rem;
 }
 
 #all-products__filter {
@@ -367,6 +368,14 @@ $shopping-cart-red: #DF0000;
     gap: 1rem;
 }
 
+#user-list__container {
+    padding: 0;
+    background-color: #fff;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
 @media screen and (max-width: 1080px) {
     .charts__container {
         flex-direction: column;
@@ -374,6 +383,10 @@ $shopping-cart-red: #DF0000;
 }
 
 @media screen and (max-width: 992px) {
+    #messages-table__container {
+        flex-direction: column;
+    }
+
     #website-brand-1 {
         display: inline-block;
         color: #ffffff8c;
@@ -405,10 +418,6 @@ $shopping-cart-red: #DF0000;
     .dropdown {
         width: 160px !important;
         text-align: left;
-    }
-
-    #user-list__container {
-        transform: translateY(50px);
     }
 
     #popular-products__header {

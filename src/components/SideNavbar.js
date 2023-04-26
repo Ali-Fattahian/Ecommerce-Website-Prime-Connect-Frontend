@@ -73,7 +73,7 @@ const SideNavbar = () => {
           <i className="fa fa-truck" style={{ position: 'relative' }}>{!error && pendingRequests > 0 && <span className={classes['pending-orders']}>{pendingRequests}</span>}</i>
           <p>Manage Orders</p>
         </div>
-        <div className={classes["navbar-links__section"]}>
+        <div className={classes["navbar-links__section"]} onClick={() => navigate('/admin/message-management')}>
           <i className="fa fa-comments"></i>
           <p>Messages</p>
         </div>

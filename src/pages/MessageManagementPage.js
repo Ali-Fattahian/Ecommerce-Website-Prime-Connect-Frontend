@@ -82,7 +82,7 @@ const MessageManagementPage = () => {
         <SideNavbar />
       </div>
       <div className={classes["admin-page-right"]}>
-        <div style={{ width: '80%'}} >
+        <div style={{ width: '70%', maxWidth: '680px' }}>
           <h1
             className="txt--black font-family-secondary p-4 mt-3 mb-0 px-0"
             style={{ alignSelf: "flex-start" }}

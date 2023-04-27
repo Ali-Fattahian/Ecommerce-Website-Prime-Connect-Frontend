@@ -1,30 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Table from "react-bootstrap/Table";
-import LinkContianer from "react-router-bootstrap/LinkContainer";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import axios from "axios";
 import EditUserProfileForm from "../components/EditUserProfileForm";
+import GetMyOrders from "../components/GetMyOrders";
 
 const EditUserProfilePage = () => {
   const user = useSelector((state) => state.user);
   const { loading, userInfo, error } = user;
   const [message, setMessage] = useState("");
-  const [userProfile, setUserProfile] = useState(null)
+  const [userProfile, setUserProfile] = useState(null);
   const { userId } = useParams();
   const dispatch = useDispatch();
+  const [pageError, setPageError] = useState("");
+  const navigate = useNavigate();
   const [orders, setOrders] = useState(null);
-  const [pageError, setPageError] = useState('')
-  const navigate = useNavigate()
-
   const [ordersError, setOrdersError] = useState(null);
 
-  const fetchMyOrders = async (token) => {
+  const getUserProfile = async ({ userId, token }) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:8000/api/users/get-profile/${userId}`,
+        {
+          headers: {
+            Authorization: `JWT ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setUserProfile(data);
+    } catch (err) {
+      setPageError(err);
+    }
+  };
+
+  const fetchMyOrders = async () => {
+    const token = userInfo.token;
     try {
       const { data } = await axios.get(
         `http://localhost:8000/api/orders/get-my-orders`,
@@ -41,26 +56,14 @@ const EditUserProfilePage = () => {
     }
   };
 
-  const getUserProfile = async ({ userId, token }) => {
-    try {
-      const { data } = await axios.get(`api/users/get-profile/${userId}`, {
-        headers: {
-          Authorization: `JWT ${token}`,
-          "Content-Type": "application/json",
-        },
-        baseURL: "http://localhost:8000/",
-      });
-      setUserProfile(data)
-    } catch (err) {
-      setPageError(err)
-    }
-  };
-
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
+    if (!userInfo) navigate("/login");
+    if (userInfo.isAdmin) {
       const token = userInfo.token;
-      getUserProfile({ userId, token })
-      fetchMyOrders(token);
+      getUserProfile({ userId, token });
+      if (userInfo.id === userId) {
+        fetchMyOrders();
+      }
     } else {
       setMessage("You are not authorized");
     }
@@ -84,7 +87,7 @@ const EditUserProfilePage = () => {
           Products
         </Link>
       </div>
-      <Row>
+      <Row className={!orders && `no-orders-profile`}>
         {/* <strong>
               <p
                 className="txt--blue"
@@ -101,7 +104,6 @@ const EditUserProfilePage = () => {
             {message && <Message variant="danger">{message}</Message>}
             {error && <Message variant="danger">{error}</Message>}
             {pageError && <Message variant="danger">{pageError}</Message>}
-            {ordersError && <Message variant="danger">{ordersError}</Message>}
           </div>
           {loading && <Loader />}
           {/* Loader appears for no reason (loading is true) */}
@@ -118,65 +120,15 @@ const EditUserProfilePage = () => {
             </Message>
           )}
         </Col>
-        <Col md={9} className="mt-2 p-4">
-          <h2 className="font-family-secondary txt--black">MY ORDERS</h2>
-          {ordersError ? (
-            <Message variant="danger">{ordersError}</Message>
-          ) : (
-            <Table
-              striped
-              responsive
-              className="table-sm border-lt mt-4"
-              style={{ verticalAlign: "middle" }}
-            >
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Date</th>
-                  <th>Total</th>
-                  <th>Paid</th>
-                  <th>Delivered</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders &&
-                  orders.map((order) => (
-                    <tr key={order.id}>
-                      <td className="px-2">{order.id}</td>
-                      <td>{order.createdAt.substring(0, 10)}</td>
-                      <td>${order.totalPrice}</td>
-                      <td>
-                        {order.isPaid ? (
-                          order.paidAt.substring(0, 10)
-                        ) : (
-                          <i
-                            className="fa fa-times"
-                            style={{ color: "red" }}
-                          ></i>
-                        )}
-                      </td>
-                      <td>
-                        {order.isDelivered
-                          ? order.deliveredAt.substring(0, 10)
-                          : "Not Delivered"}
-                      </td>
-                      <td>
-                        <LinkContianer
-                          to={`/orders/${order.id}`}
-                          style={{ color: "#fff" }}
-                        >
-                          <Button className="btn-sm" variant="blue">
-                            Details
-                          </Button>
-                        </LinkContianer>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </Table>
-          )}
-        </Col>
+        {orders && (
+          <Col md={9} className="mt-2 p-4">
+            {ordersError ? (
+              <Message variant="danger">{ordersError}</Message>
+            ) : (
+              <GetMyOrders orders={orders} />
+            )}
+          </Col>
+        )}
       </Row>
     </>
   );

@@ -376,6 +376,16 @@ $shopping-cart-red: #DF0000;
     border-radius: 5px;
 }
 
+.no-orders-profile {
+    justify-content: center;
+
+    .col-md-3 {
+        border: 1px solid #ddd;
+        margin-top: 1rem;
+        width: 50% !important;
+    }
+}
+
 @media screen and (max-width: 1080px) {
     .charts__container {
         flex-direction: column;
@@ -464,6 +474,12 @@ $shopping-cart-red: #DF0000;
     #charts {
         width: 100%;
         min-width: 440px;
+    }
+
+    .no-orders-profile .col-md-3 {
+        border: 1px solid #ddd;
+        margin-top: 1rem;
+        width: 80% !important;
     }
 }
 

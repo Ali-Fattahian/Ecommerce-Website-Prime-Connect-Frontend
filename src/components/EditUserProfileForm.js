@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
 import { updateUserProfile } from "../store/slices/userSlice";
 import Message from "./Message";
 import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 
 
 const EditUserProfileForm = ({ userProfile, userInfo, userId, loading }) => {
@@ -13,6 +14,7 @@ const EditUserProfileForm = ({ userProfile, userInfo, userId, loading }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(userProfile.isAdmin);
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const navigate = useNavigate()
 
   const dispatch = useDispatch();
 
@@ -35,6 +37,11 @@ const EditUserProfileForm = ({ userProfile, userInfo, userId, loading }) => {
       window.location.reload()
     };
   };
+
+  useEffect(() => {
+    if (userInfo.id !== userProfile.id && userProfile.isAdmin)
+    navigate('/admin/user-list'); // Not allowed to edit an admin account
+  }, [])
 
   const resetStateHandler = () => {
     setEmail(userProfile.email);
@@ -74,7 +81,7 @@ const EditUserProfileForm = ({ userProfile, userInfo, userId, loading }) => {
           onChange={(e) => setEmail(e.target.value)}
         ></Form.Control>
       </Form.Group>
-      <Form.Group controlId="password">
+      {userProfile.id === userInfo.id && <Form.Group controlId="password">
         <Form.Label
           className="font-family-secondary"
           style={{ fontSize: "1rem" }}
@@ -90,8 +97,8 @@ const EditUserProfileForm = ({ userProfile, userInfo, userId, loading }) => {
             setPassword(e.target.value.trim());
           }}
         ></Form.Control>
-      </Form.Group>
-      <Form.Group controlId="confirmPassword">
+      </Form.Group>}
+      {userProfile.id === userInfo.id && <Form.Group controlId="confirmPassword">
         <Form.Label
           className="font-family-secondary"
           style={{ fontSize: "1rem" }}
@@ -107,7 +114,7 @@ const EditUserProfileForm = ({ userProfile, userInfo, userId, loading }) => {
             setConfirmPassword(e.target.value.trim());
           }}
         ></Form.Control>
-      </Form.Group>
+      </Form.Group>}
       {confirmPasswordError.length > 0 && (
         <Message variant="danger" className="mt-4">
           {confirmPasswordError}

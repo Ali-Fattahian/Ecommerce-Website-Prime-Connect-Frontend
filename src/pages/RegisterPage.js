@@ -35,7 +35,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <FormContainer>
+    <FormContainer className='pt-3'>
       {message && <Message variant="danger">{message}</Message>}
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}

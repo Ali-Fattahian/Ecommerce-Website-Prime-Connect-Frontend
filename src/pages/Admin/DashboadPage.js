@@ -14,7 +14,7 @@ const DashboadPage = () => {
 
   useEffect(() => {
     if (!userInfo) navigate("/login");
-    if (userInfo.isAdmin === false) navigate('/')
+    if (userInfo.isAdmin === false) navigate("/");
   }, []);
 
   return (
@@ -30,23 +30,30 @@ const DashboadPage = () => {
           SUMMARY
         </h1>
         <TotalOrdersEarnings />
-        <Accordion flush className="mt-4 " data-type='charts-collapse-btn'>
-          <Accordion.Header>
-            <h1
-              className="txt--black font-family-secondary mb-0"
-              style={{
-                alignSelf: "flex-start",
-                padding: "1rem",
-                paddingTop: "2rem",
-                textDecoration: 'underline'
-              }}
-            >
-              STATISTICS
-            </h1>
-          </Accordion.Header>
-          <Accordion.Body>
-            <Charts />
-          </Accordion.Body>
+        <Accordion
+          flush
+          className="mt-4 "
+          data-type="charts-collapse-btn"
+          defaultActiveKey="0"
+        >
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>
+              <h1
+                className="txt--black font-family-secondary mb-0"
+                style={{
+                  alignSelf: "flex-start",
+                  padding: "1rem",
+                  paddingTop: "2rem",
+                  textDecoration: "underline",
+                }}
+              >
+                STATISTICS
+              </h1>
+            </Accordion.Header>
+            <Accordion.Body>
+              <Charts />
+            </Accordion.Body>
+          </Accordion.Item>
         </Accordion>
       </div>
     </div>

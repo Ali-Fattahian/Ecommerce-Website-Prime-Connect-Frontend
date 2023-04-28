@@ -88,7 +88,10 @@ const HomePage = () => {
                   fluid
                   className="carousel-image"
                 />
-                <Carousel.Caption style={{ fontSize: "12px" }}>
+                <Carousel.Caption
+                  style={{ fontSize: "12px", cursor: 'pointer' }}
+                  onClick={() => navigate(`/products/${product.id}`)}
+                >
                   {product.name}
                 </Carousel.Caption>
               </div>

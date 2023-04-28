@@ -109,10 +109,11 @@ const orderSlice = createSlice({
         localStorage.removeItem("cartItems");
         localStorage.setItem("lastOrder", JSON.stringify(action.payload));
       })
-      .addCase(orderCreate.rejected, (state, action) => {
+      .addCase(orderCreate.rejected, (state) => {
         state.loading = false;
         state.success = false;
-        state.error = action.error.message;
+        state.error =
+          "A problem occured while creating the order, Make sure you have a stable internet connection";
       })
       .addCase(getOrderDetail.pending, (state) => {
         state.loading = true;
@@ -123,10 +124,11 @@ const orderSlice = createSlice({
         state.orderDetail = action.payload;
         localStorage.setItem("orderDetail", JSON.stringify(action.payload));
       })
-      .addCase(getOrderDetail.rejected, (state, action) => {
+      .addCase(getOrderDetail.rejected, (state) => {
         state.loading = false;
         state.success = false;
-        state.error = action.error.message;
+        state.error =
+          "A problem occured while fetching the order details, Make sure you have a stable internet connection";
       })
       .addCase(updateOrderToPaid.pending, (state) => {
         state.loading = true;
@@ -138,10 +140,11 @@ const orderSlice = createSlice({
         localStorage.removeItem("orderDetail");
         state.orderDetail = null;
       })
-      .addCase(updateOrderToPaid.rejected, (state, action) => {
+      .addCase(updateOrderToPaid.rejected, (state) => {
         state.loading = false;
         state.success = false;
-        state.error = action.error.message;
+        state.error =
+          "A problem occured during the payment, Make sure you have a stable internet connection";
       })
       .addCase(orderDelete.pending, (state) => {
         state.loading = true;
@@ -150,10 +153,11 @@ const orderSlice = createSlice({
         state.loading = false;
         state.success = true;
       })
-      .addCase(orderDelete.rejected, (state, action) => {
+      .addCase(orderDelete.rejected, (state) => {
         state.loading = false;
         state.success = false;
-        state.error = action.error.message;
+        state.error =
+          "A problem occured while deleting the order, Make sure you have a stable internet connection";
       })
       .addCase(updateOrderToDelivered.pending, (state) => {
         state.loading = true;
@@ -164,10 +168,11 @@ const orderSlice = createSlice({
         localStorage.removeItem("orderDetail");
         state.orderDetail = null;
       })
-      .addCase(updateOrderToDelivered.rejected, (state, action) => {
+      .addCase(updateOrderToDelivered.rejected, (state) => {
         state.loading = false;
         state.success = false;
-        state.error = action.error.message;
+        state.error =
+          "A problem occured while changing the delivered status, Make sure you have a stable internet connection";
       });
   },
 });

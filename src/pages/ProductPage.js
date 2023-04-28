@@ -35,11 +35,17 @@ const ProductPage = () => {
   const [qty, setQty] = useState(1);
   const [commentError, setCommentError] = useState(null);
   const [refreshPage, setRefreshPage] = useState(null);
+  const [message, setMessage] = useState(null);
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
   const dispatch = useDispatch();
   const addToCartHandler = () => {
     dispatch(addToCart({ productDetail, qty }));
+    setMessage(
+      `${qty} ${productDetail.name} ${
+        qty > 1 ? "were" : "was"
+      } added to your cart`
+    );
   };
 
   const infoCollapseManager = (setState) => {
@@ -109,6 +115,7 @@ const ProductPage = () => {
     <div>
       <NavbarComponent />
       <Row className="p-2" id="product-page-top">
+        {message && <Message variant="info">{message}</Message>}
         <Col xl={6} lg={6} md={6} sm={12}>
           <Carousel
             pause="hover"

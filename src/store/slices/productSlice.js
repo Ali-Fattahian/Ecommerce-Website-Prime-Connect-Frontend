@@ -173,10 +173,11 @@ const productSlice = createSlice({
         state.allProducts = action.payload;
         localStorage.setItem("allProducts", JSON.stringify(action.payload));
       })
-      .addCase(fetchProducts.rejected, (state, action) => {
+      .addCase(fetchProducts.rejected, (state) => {
         state.loading = false;
         state.success = false;
-        state.error = action.error.message;
+        state.error =
+          "A problem occured while fetching the products, Make sure you have a stable internet connection";
       })
       .addCase(fetchSubCategories.pending, (state) => {
         state.loading = true;
@@ -190,10 +191,11 @@ const productSlice = createSlice({
           JSON.stringify(action.payload)
         );
       })
-      .addCase(fetchSubCategories.rejected, (state, action) => {
+      .addCase(fetchSubCategories.rejected, (state) => {
         state.loading = false;
         state.success = false;
-        state.error = action.error.message;
+        state.error =
+          "A problem occured while fetching the sub categories, Make sure you have a stable internet connection";
       })
       .addCase(fetchBrands.pending, (state) => {
         state.loading = true;
@@ -204,10 +206,11 @@ const productSlice = createSlice({
         state.brands = action.payload;
         localStorage.setItem("brands", JSON.stringify(action.payload));
       })
-      .addCase(fetchBrands.rejected, (state, action) => {
+      .addCase(fetchBrands.rejected, (state) => {
         state.loading = false;
         state.success = false;
-        state.error = action.error.message;
+        state.error =
+          "A problem occured while fetching the brands, Make sure you have a stable internet connection";
       })
       .addCase(fetchProduct.pending, (state) => {
         state.loading = true;
@@ -218,10 +221,11 @@ const productSlice = createSlice({
         state.product = action.payload;
         localStorage.setItem("product", JSON.stringify(action.payload));
       })
-      .addCase(fetchProduct.rejected, (state, action) => {
+      .addCase(fetchProduct.rejected, (state) => {
         state.loading = false;
         state.success = false;
-        state.error = action.error.message;
+        state.error =
+          "A problem occured while fetching the product's details, Make sure you have a stable internet connection";
       })
       .addCase(deleteProduct.pending, (state) => {
         state.loading = true;
@@ -230,10 +234,11 @@ const productSlice = createSlice({
         state.loading = false;
         state.success = true;
       })
-      .addCase(deleteProduct.rejected, (state, action) => {
+      .addCase(deleteProduct.rejected, (state) => {
         state.loading = false;
         state.success = false;
-        state.error = action.error.message;
+        state.error =
+          "A problem occured while deleting the product, Make sure you have a stable internet connection";
       })
       .addCase(updateProduct.pending, (state) => {
         state.loading = true;
@@ -243,10 +248,11 @@ const productSlice = createSlice({
         state.success = true;
         state.error = false;
       })
-      .addCase(updateProduct.rejected, (state, action) => {
+      .addCase(updateProduct.rejected, (state) => {
         state.loading = false;
         state.success = false;
-        state.error = action.error.message;
+        state.error =
+          "A problem occured while updating the product's information, Make sure you have a stable internet connection";
       })
       .addCase(createProduct.pending, (state) => {
         state.loading = true;
@@ -256,10 +262,11 @@ const productSlice = createSlice({
         state.success = true;
         state.error = false;
       })
-      .addCase(createProduct.rejected, (state, action) => {
+      .addCase(createProduct.rejected, (state) => {
         state.loading = false;
         state.success = false;
-        state.error = action.error.message;
+        state.error =
+          "A problem occured while creating the product, Make sure you have a stable internet connection";
       });
   },
 });

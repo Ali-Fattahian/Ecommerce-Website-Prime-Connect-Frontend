@@ -42,7 +42,6 @@ const MessageManagementPage = () => {
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(selectedAdmin);
     const token = userInfo.token;
     if (message.length < 1) setError("Message can't be empty");
     const response = await axios.post(
@@ -68,7 +67,7 @@ const MessageManagementPage = () => {
 
   useEffect(() => {
     if (!userInfo) navigate("/login");
-    if (userInfo.isAdmin) fetchAdmins();
+    if (userInfo && userInfo.isAdmin) fetchAdmins();
   }, []);
   return (
     <div className={classes["admin-page"]}>

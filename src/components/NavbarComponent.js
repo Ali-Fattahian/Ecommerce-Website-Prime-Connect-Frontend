@@ -71,25 +71,9 @@ const NavbarComponent = () => {
                 <Nav.Link href="/login">Login</Nav.Link>
               )}
               {userInfo && userInfo.isAdmin && (
-                <NavDropdown title="Admin" id="admin-dropdown-menu">
-                  <NavDropdown.Item href="/admin/user-list">
-                    Users
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/admin/product-list">
-                    Product List
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/admin/order-list">
-                    Orders
-                  </NavDropdown.Item>
-                  <NavDropdown title="Messages" id="message-dropdown-menu">
-                    <NavDropdown.Item href="/admin/sent-messages-list">
-                      Sent
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="/admin/received-messages-list">
-                      Received
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                </NavDropdown>
+                <Nav.Link id="admin-panel" href="/admin/dashboard/">
+                  Admin Panel
+                </Nav.Link>
               )}
             </div>
           </Nav>

@@ -78,7 +78,7 @@ const PlaceOrderPage = () => {
             <ListGroup.Item>
               <h2>Order Items</h2>
               {cart.cartItems.length === 0 ? (
-                <Message variant="info">Your cart is empty <Link to="/products">Products</Link></Message>
+                <Message variant="info">Your cart is empty <Link to="/all-products/">Products</Link></Message>
               ) : (
                 <ListGroup variant="flush">
                   {cart.cartItems.map((item, index) => (

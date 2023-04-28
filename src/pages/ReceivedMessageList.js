@@ -57,7 +57,7 @@ const ReceivedMessageList = () => {
 
   useEffect(() => {
     if (!userInfo) navigate("/login");
-    if(userInfo.isAdmin)
+    if(userInfo && userInfo.isAdmin)
       fetchMessages();
   }, []);
 

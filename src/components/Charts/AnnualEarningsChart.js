@@ -44,25 +44,26 @@ const AnnualEarningsChart = () => {
               "#b3d4ff",
               "#00bfa0",
             ],
-            borderColor: '#ccc',
-            borderWidth: 1
+            borderColor: "#ccc",
+            borderWidth: 1,
           },
         ],
       });
     } catch (e) {
-      setError(e);
+      setError(
+        "There was a problem loading the annual earnings chart, Make sure you have a stable internet connection"
+      );
     }
   };
 
   useEffect(() => {
     if (!userInfo) navigate("/login");
-    if(userInfo.isAdmin)
-      fetchData();
+    if (userInfo.isAdmin) fetchData();
   }, []);
   return (
     <div className="chart">
       {earnings && <Bar data={earnings} />}
-      {error && <Message variant="danger" />}
+      {error && <Message variant="danger">{error}</Message>}
     </div>
   );
 };

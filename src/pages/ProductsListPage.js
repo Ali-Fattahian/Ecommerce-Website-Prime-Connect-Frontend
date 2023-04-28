@@ -32,7 +32,9 @@ const ProductsListPage = () => {
       });
       setProducts(data);
     } catch (err) {
-      setError(err.message);
+      setError(
+        "There was a problem loading the products, Make sure you have a stable internet connection"
+      );
     }
   };
 
@@ -55,8 +57,11 @@ const ProductsListPage = () => {
       <div className={classes["admin-page-left"]}>
         <SideNavbar />
       </div>
-      <div className={classes["admin-page-right"]} style={{ paddingTop: '2rem', paddingRight: '2rem' }}>
-        <Container id="user-list__container" style={{ maxWidth: '960px' }}>
+      <div
+        className={classes["admin-page-right"]}
+        style={{ paddingTop: "2rem", paddingRight: "2rem" }}
+      >
+        <Container id="user-list__container" style={{ maxWidth: "960px" }}>
           {error && <Message variant="danger">{error.message}</Message>}
           <Row>
             <Col xl={6} lg={6} md={6} sm={12} xs={12}>

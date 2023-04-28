@@ -64,7 +64,9 @@ const ProductPage = () => {
       );
       setRefreshPage(new Date());
     } catch (err) {
-      setCommentError(err);
+      setCommentError(
+        "There was a problem creating your comment, Make sure you have a stable internet connection"
+      );
     }
   };
 
@@ -84,7 +86,9 @@ const ProductPage = () => {
       const { data } = await axios.get(`products/${productId}`, config);
       setProductDetail(data);
     } catch (err) {
-      setError(err.message);
+      setError(
+        "There was a problem loading the product's information, Make sure you have a stable internet connection"
+      );
     }
   };
 
@@ -200,7 +204,11 @@ const ProductPage = () => {
           </Container>
         </Col>
       </Row>
-      {error && <Message variant="danger" className="m-4">{error}</Message>}
+      {error && (
+        <Message variant="danger" className="m-4">
+          {error}
+        </Message>
+      )}
       <Container
         id="collapse-item__container"
         className="d-flex m-0 mt-2 p-2 pb-0 align-items-center"

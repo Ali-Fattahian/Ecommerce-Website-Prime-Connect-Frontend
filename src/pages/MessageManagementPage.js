@@ -36,7 +36,7 @@ const MessageManagementPage = () => {
       });
       setUserList(data);
     } catch (err) {
-      setError(err);
+      setError('There was a problem loading the admins, Make sure you have a stable internet connection');
     }
   };
 

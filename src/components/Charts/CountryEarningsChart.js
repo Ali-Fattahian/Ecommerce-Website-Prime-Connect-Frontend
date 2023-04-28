@@ -50,19 +50,20 @@ const CountryEarningsChart = () => {
         ],
       });
     } catch (e) {
-      setError(e);
+      setError(
+        "There was a problem loading the country earnings chart, Make sure you have a stable internet connection"
+      );
     }
   };
 
   useEffect(() => {
     if (!userInfo) navigate("/login");
-    if(userInfo.isAdmin)
-      fetchData();
+    if (userInfo.isAdmin) fetchData();
   }, []);
   return (
     <div className="chart">
       {earnings && <PolarArea data={earnings} />}
-      {error && <Message variant="danger" />}
+      {error && <Message variant="danger">{error}</Message>}
     </div>
   );
 };

@@ -22,7 +22,9 @@ const TotalAnnualOrdersCard = () => {
 
       setTotalOrders(data);
     } catch (e) {
-      setError(e);
+      setError(
+        "There was a problem loading the annual orders, Make sure you have a stable internet connection"
+      );
     }
   };
 
@@ -34,9 +36,7 @@ const TotalAnnualOrdersCard = () => {
     <div>
       {totalOrders ? (
         <div className={classes["admin-card"]}>
-          <p className="txt--black font-family-secondary m-0">
-            {totalOrders}
-          </p>
+          <p className="txt--black font-family-secondary m-0">{totalOrders}</p>
           <p className="txt--black font-family-secondary m-0">This Year</p>
         </div>
       ) : (

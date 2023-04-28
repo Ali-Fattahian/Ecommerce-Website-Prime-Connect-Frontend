@@ -22,7 +22,9 @@ const TotalMonthlyOrdersCard = () => {
 
       setTotalOrders(data);
     } catch (e) {
-      setError(e);
+      setError(
+        "There was a problem loading the monthly orders, Make sure you have a stable internet connection"
+      );
     }
   };
 

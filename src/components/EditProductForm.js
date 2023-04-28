@@ -95,7 +95,7 @@ const EditProductForm = ({
       );
       window.location.reload();
     } catch (err) {
-      setErr(err);
+      setErr("There was a problem deleting the image, Please try again");
     }
   };
 

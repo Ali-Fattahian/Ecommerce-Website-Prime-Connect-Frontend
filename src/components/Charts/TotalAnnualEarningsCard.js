@@ -22,7 +22,9 @@ const TotalAnnualEarningsCard = () => {
 
       setTotalEarnings(data);
     } catch (e) {
-      setError(e);
+      setError(
+        "There was a problem loading the annual earnings, Make sure you have a stable internet connection"
+      );
     }
   };
 

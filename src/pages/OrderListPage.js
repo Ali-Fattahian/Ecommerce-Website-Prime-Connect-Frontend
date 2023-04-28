@@ -53,7 +53,9 @@ const OrderListPage = () => {
       });
       setOrders(data);
     } catch (err) {
-      setError(err.message);
+      setError(
+        "There was a problem loading the orders, Make sure you have a stable internet connection"
+      );
     }
   };
 
@@ -69,12 +71,15 @@ const OrderListPage = () => {
       <div className={classes["admin-page-left"]}>
         <SideNavbar />
       </div>
-      <div className={classes["admin-page-right"]} style={{ paddingTop: '2rem', paddingRight: '2rem' }}>
+      <div
+        className={classes["admin-page-right"]}
+        style={{ paddingTop: "2rem", paddingRight: "2rem" }}
+      >
         {error1 && <Message variant="info">{error1}</Message>}
         {error && <Message variant="info">{error}</Message>}
         {loading && !error1 && !error && <Loader />}
         {!error && !error1 && !loading && (
-          <Container id="user-list__container" style={{ maxWidth: '960px' }}>
+          <Container id="user-list__container" style={{ maxWidth: "960px" }}>
             <h1 className="mt-4 font-family-secondary txt--black">ORDERS</h1>
             <Table
               striped

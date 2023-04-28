@@ -22,7 +22,9 @@ const TotalMonthlyEarningsCard = () => {
 
       setTotalEarnings(data);
     } catch (e) {
-      setError(e);
+      setError(
+        "There was a problem loading the monthly earnings, Make sure you have a stable internet connection"
+      );
     }
   };
 
@@ -34,7 +36,9 @@ const TotalMonthlyEarningsCard = () => {
     <div>
       {totalEarnings ? (
         <div className={classes["admin-card"]}>
-          <p className="txt--black font-family-secondary m-0">{Math.trunc(totalEarnings)} <i className="fa fa-usd"></i></p>
+          <p className="txt--black font-family-secondary m-0">
+            {Math.trunc(totalEarnings)} <i className="fa fa-usd"></i>
+          </p>
           <p className="txt--black font-family-secondary m-0">Last 30 days</p>
         </div>
       ) : (

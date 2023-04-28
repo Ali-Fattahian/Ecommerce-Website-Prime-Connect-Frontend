@@ -34,7 +34,9 @@ const EditUserProfilePage = () => {
       );
       setUserProfile(data);
     } catch (err) {
-      setPageError(err);
+      setPageError(
+        "There was a problem loading your profile information, Make sure you have a stable internet connection"
+      );
     }
   };
 
@@ -52,7 +54,9 @@ const EditUserProfilePage = () => {
       );
       setOrders(data);
     } catch (err) {
-      setOrdersError(err);
+      setOrdersError(
+        "There was a problem loading your orders information, Make sure you have a stable internet connection"
+      );
     }
   };
 

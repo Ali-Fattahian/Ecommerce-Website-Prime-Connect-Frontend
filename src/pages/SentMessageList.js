@@ -29,7 +29,9 @@ const SentMessageList = () => {
       });
       setMessages(data);
     } catch (err) {
-      setError(err);
+      setError(
+        "There was a problem loading the messages, Make sure you have a stable internet connection"
+      );
     }
   };
 

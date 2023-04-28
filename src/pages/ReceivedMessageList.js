@@ -31,7 +31,9 @@ const ReceivedMessageList = () => {
         }
       );
     } catch (err) {
-      setError(err);
+      setError(
+        "There was a problem changing your message's status, Make sure you have a stable internet connection"
+      );
     }
   };
 
@@ -51,84 +53,85 @@ const ReceivedMessageList = () => {
       });
       setMessages(data);
     } catch (err) {
-      setError(err);
+      setError(
+        "There was a problem loading the messages, Make sure you have a stable internet connection"
+      );
     }
   };
 
   useEffect(() => {
     if (!userInfo) navigate("/login");
-    if(userInfo && userInfo.isAdmin)
-      fetchMessages();
+    if (userInfo && userInfo.isAdmin) fetchMessages();
   }, []);
 
   return (
-      <Container id="user-list__container">
-                <h2
-          className="txt--black font-family-secondary mt-3 mb-0"
-          style={{ alignSelf: "flex-start" }}
-        >
-          Received Messages
-        </h2>
-        {error && (
-          <Message variant="danger" className="mt-4">
-            {error}
-          </Message>
-        )}
-        <Table
-          striped
-          bordered
-          hover
-          responsive
-          className="table-sm mt-4"
-          id="user-list-table"
-        >
-          <thead>
-            <tr>
-              <th>SENDER</th>
-              <th>TIME SENT</th>
-              <th>READ</th>
-              <th>DETAILS</th>
-            </tr>
-          </thead>
-          {messages.length > 0 ? (
-            <tbody>
-              {messages.map((message) => (
-                <tr key={message.id}>
-                  <td>{message.sender.email}</td>
-                  <td>{message.createdAt.substring(0, 10)}</td>
-                  <td>
-                    {/* {" "}
+    <Container id="user-list__container">
+      <h2
+        className="txt--black font-family-secondary mt-3 mb-0"
+        style={{ alignSelf: "flex-start" }}
+      >
+        Received Messages
+      </h2>
+      {error && (
+        <Message variant="danger" className="mt-4">
+          {error}
+        </Message>
+      )}
+      <Table
+        striped
+        bordered
+        hover
+        responsive
+        className="table-sm mt-4"
+        id="user-list-table"
+      >
+        <thead>
+          <tr>
+            <th>SENDER</th>
+            <th>TIME SENT</th>
+            <th>READ</th>
+            <th>DETAILS</th>
+          </tr>
+        </thead>
+        {messages.length > 0 ? (
+          <tbody>
+            {messages.map((message) => (
+              <tr key={message.id}>
+                <td>{message.sender.email}</td>
+                <td>{message.createdAt.substring(0, 10)}</td>
+                <td>
+                  {/* {" "}
                     {message.isRead ? (
                       <i className="fa fa-check" style={{ color: "green" }}></i>
                     ) : (
                       <i className="fa fa-check" style={{ color: "red" }}></i>
                     )} */}
-                    <Form>
-                      <Form.Check
-                        style={{ cursor: "pointer" }}
-                        type="switch"
-                        id="message-is-read"
-                        defaultChecked={message.isRead}
-                        onChange={(e) => {
-                          changeMessageStatusHandler({ e, id: message.id });
-                        }}
-                      />
-                    </Form>
-                  </td>
-                  <td
-                    onClick={() => readTheMessage(message.id)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <i className="fa fa-ellipsis-h fa-2x"></i>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          ) : (
-            <p className="p-2 txt--gray">No Messages were found</p>
-          )}
-        </Table>
-      </Container>
+                  <Form>
+                    <Form.Check
+                      style={{ cursor: "pointer" }}
+                      type="switch"
+                      id="message-is-read"
+                      defaultChecked={message.isRead}
+                      onChange={(e) => {
+                        changeMessageStatusHandler({ e, id: message.id });
+                      }}
+                    />
+                  </Form>
+                </td>
+                <td
+                  onClick={() => readTheMessage(message.id)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <i className="fa fa-ellipsis-h fa-2x"></i>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        ) : (
+          <p className="p-2 txt--gray">No Messages were found</p>
+        )}
+      </Table>
+    </Container>
   );
 };
 

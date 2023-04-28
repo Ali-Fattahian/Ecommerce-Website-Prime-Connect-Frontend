@@ -19,6 +19,7 @@ const MessageManagementPage = () => {
   const [selectedAdmin, setSelectedAdmin] = useState("");
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
+  const [refresh, setRefresh] = useState(null);
 
   const messageInputHandler = (e) => {
     setMessage(e.target.value);
@@ -36,7 +37,9 @@ const MessageManagementPage = () => {
       });
       setUserList(data);
     } catch (err) {
-      setError('There was a problem loading the admins, Make sure you have a stable internet connection');
+      setError(
+        "There was a problem loading the admins, Make sure you have a stable internet connection"
+      );
     }
   };
 
@@ -60,8 +63,9 @@ const MessageManagementPage = () => {
     );
     if (response.status === 201) {
       setSuccess(true);
-      setMessage("");
       setSelectedAdmin("");
+      setMessage("");
+      setRefresh(new Date());
     }
   };
 
@@ -81,7 +85,7 @@ const MessageManagementPage = () => {
         <SideNavbar />
       </div>
       <div className={classes["admin-page-right"]}>
-        <div style={{ width: '70%', maxWidth: '680px' }}>
+        <div style={{ width: "70%", maxWidth: "680px" }}>
           <h1
             className="txt--black font-family-secondary p-4 mt-3 mb-0 px-0"
             style={{ alignSelf: "flex-start" }}
@@ -91,7 +95,7 @@ const MessageManagementPage = () => {
           <Form
             onSubmit={formSubmitHandler}
             className="p-4 border-lt d-flex gap-4 flex-column"
-            style={{ backgroundColor: '#fff', borderRadius: '5px' }}
+            style={{ backgroundColor: "#fff", borderRadius: "5px" }}
           >
             <Form.Group id="admin-list">
               {error && <Message variant="danger">{error}</Message>}
@@ -150,14 +154,23 @@ const MessageManagementPage = () => {
               />
             </Form.Group>
             <Form.Group>
-              <Button type="submit" variant="blue" style={{ color: "#fff" }} className="w-100">
+              <Button
+                type="submit"
+                variant="blue"
+                style={{ color: "#fff" }}
+                className="w-100"
+              >
                 Send
               </Button>
             </Form.Group>
           </Form>
         </div>
-        <div className="d-flex" style={{ width: '80%' }} id='messages-table__container'>
-          <SentMessageList />
+        <div
+          className="d-flex"
+          style={{ width: "80%" }}
+          id="messages-table__container"
+        >
+          <SentMessageList refresh={refresh} />
           <ReceivedMessageList />
         </div>
       </div>

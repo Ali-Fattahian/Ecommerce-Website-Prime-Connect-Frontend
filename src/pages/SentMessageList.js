@@ -6,7 +6,7 @@ import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Message from "../components/Message";
 
-const SentMessageList = () => {
+const SentMessageList = ({ refresh }) => {
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
   const [messages, setMessages] = useState([]);
@@ -38,7 +38,7 @@ const SentMessageList = () => {
   useEffect(() => {
     if (!userInfo) navigate("/login");
     if (userInfo && userInfo.isAdmin) fetchMessages();
-  }, []);
+  }, [refresh]);
 
   return (
     <Container id="user-list__container">

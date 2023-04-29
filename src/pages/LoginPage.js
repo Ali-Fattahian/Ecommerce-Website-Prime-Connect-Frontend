@@ -33,7 +33,11 @@ const LoginPage = () => {
 
   return (
     <FormContainer>
-      {error && <Message variant="danger" className="mt-4">{error}</Message>}
+      {error && (
+        <Message variant="danger" className="mt-4">
+          {error}
+        </Message>
+      )}
       {loading && <Loader />}
       <Form
         onSubmit={formSubmitHandler}
@@ -80,12 +84,33 @@ const LoginPage = () => {
             style={{ fontSize: "1.5rem" }}
           ></Form.Control>
         </Form.Group>
-        <p style={{ fontSize: '1.2rem' }} className="txt--gray font-family-secondary d-inline-block">
-          New Customer?
-          <Link to={redirect ? `/register?redirect=${redirect}` : "/register"} className="font-family-secondary px-2" style={{fontSize: "1.2rem"}}>
-            Register
-          </Link>
-        </p>
+        <div className="d-flex flex-column">
+          <p
+            style={{ fontSize: "1.2rem" }}
+            className="txt--gray font-family-secondary d-inline-block"
+          >
+            New Customer?
+            <Link
+              to={redirect ? `/register?redirect=${redirect}` : "/register"}
+              className="font-family-secondary px-2"
+              style={{ fontSize: "1.2rem" }}
+            >
+              Register
+            </Link>
+          </p>
+          <p
+            style={{ fontSize: "1.2rem" }}
+            className="txt--gray font-family-secondary"
+          >
+            <Link
+              to="/"
+              className="font-family-secondary"
+              style={{ fontSize: "1.2rem" }}
+            >
+              Enter as a Guest
+            </Link>
+          </p>
+        </div>
         <Button
           type="submit"
           variant="primary"

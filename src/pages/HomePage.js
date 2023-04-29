@@ -15,22 +15,40 @@ import Message from "../components/Message";
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
-  const [error, setError] = useState(null);
+  const [popularProducts, setPopularProducts] = useState([]);
+  const [newProducts, setNewProducts] = useState([]);
+  const [popularProductsError, setPopularProductsError] = useState(null);
+  const [newProductsError, setNewProductsError] = useState(null);
 
-  const fetchProducts = async () => {
+  const fetchPopularProducts = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8000/api/products");
-      setProducts(data);
+      const { data } = await axios.get(
+        "http://localhost:8000/api/products/popular-products"
+      );
+      setPopularProducts(data);
     } catch (err) {
-      setError(
+      setPopularProductsError(
+        "There was a problem loading the products, Make sure you have a stable internet connection"
+      );
+    }
+  };
+
+  const fetchNewProducts = async () => {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:8000/api/products/new-products"
+      );
+      setNewProducts(data);
+    } catch (err) {
+      setNewProductsError(
         "There was a problem loading the products, Make sure you have a stable internet connection"
       );
     }
   };
 
   useEffect(() => {
-    fetchProducts();
+    fetchPopularProducts();
+    fetchNewProducts();
   }, []);
   return (
     <>
@@ -38,14 +56,14 @@ const HomePage = () => {
       <h2 className="mx-4 mt-4 w-100" id="popular-products__header">
         Our Popular Products
       </h2>
-      {!error && products.length > 0 ? (
+      {!popularProductsError && popularProducts.length > 0 ? (
         <Carousel
           pause="hover"
           className="bg-dark mt-2"
           variant="dark"
           keyboard="true"
         >
-          {products.map((product) => (
+          {popularProducts.map((product) => (
             <Carousel.Item key={product.id}>
               <div className="carousel-inner-container">
                 <Image
@@ -89,7 +107,7 @@ const HomePage = () => {
                   className="carousel-image"
                 />
                 <Carousel.Caption
-                  style={{ fontSize: "12px", cursor: 'pointer' }}
+                  style={{ fontSize: "12px", cursor: "pointer" }}
                   onClick={() => navigate(`/products/${product.id}`)}
                 >
                   {product.name}
@@ -107,8 +125,8 @@ const HomePage = () => {
         What's New?
       </h2>
       <Row className="p-4 pt-0">
-        {!error && products.length > 0 ? (
-          products.map((product) => (
+        {!newProductsError && newProducts.length > 0 ? (
+          newProducts.map((product) => (
             <Col sm={12} md={6} lg={4} xl={3} key={product.id}>
               <Product product={product} />
             </Col>

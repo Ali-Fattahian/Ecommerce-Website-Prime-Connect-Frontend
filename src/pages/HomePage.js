@@ -71,6 +71,7 @@ const HomePage = () => {
                   alt={product.name}
                   fluid
                   className="carousel-image"
+                  style={{ maxWidth: '640px' }}
                 />
                 <Container className="mt-3 d-flex flex-column justify-content-between">
                   <div className="border-bottom-lt">

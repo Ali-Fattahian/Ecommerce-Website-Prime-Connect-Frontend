@@ -16,6 +16,7 @@ import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/slices/cartSlice";
 import Message from "../components/Message";
+import Product from "../components/Product";
 
 const ProductPage = () => {
   const config = {
@@ -29,6 +30,7 @@ const ProductPage = () => {
   const [productDetail, setProductDetail] = useState([]);
   const [detailOpen, setDetailOpen] = useState(true);
   const [reviewOpen, setReviewOpen] = useState(false);
+  const [suggestionOpen, setSuggestionOpen] = useState(false);
   const [writeReviewOpen, setWriteReviewOpen] = useState(false);
   const [userReview, setUserReview] = useState("");
   const [rating, setRating] = useState("");
@@ -37,6 +39,8 @@ const ProductPage = () => {
   const [refreshPage, setRefreshPage] = useState(null);
   const [message, setMessage] = useState(null);
   const user = useSelector((state) => state.user);
+  const [suggestions, setSuggestions] = useState([]);
+  const [suggestionsError, setSuggestionsError] = useState(null);
   const { userInfo } = user;
   const dispatch = useDispatch();
   const addToCartHandler = () => {
@@ -51,6 +55,7 @@ const ProductPage = () => {
   const infoCollapseManager = (setState) => {
     setDetailOpen(false);
     setReviewOpen(false);
+    setSuggestionOpen(false);
     setState(true);
   };
 
@@ -82,7 +87,7 @@ const ProductPage = () => {
       setError("Please write something in the comment section");
     }
     if (!userInfo) {
-      setError("Please log in first");
+      setError('Please log in first');
     }
     reviewCreateHandler(userReview.trim());
   };
@@ -98,8 +103,22 @@ const ProductPage = () => {
     }
   };
 
+  const fetchSuggestions = async () => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:8000/api/products/product-suggestion/${productId}`
+      );
+      setSuggestions(data);
+    } catch (err) {
+      setSuggestionsError(
+        "An error occured trying to fetch suggestions for this product, Make sure you have a stable internet connection"
+      );
+    }
+  };
+
   useEffect(() => {
     fetchProduct();
+    fetchSuggestions();
   }, [refreshPage]);
 
   // const isImageValid = (image) => {
@@ -241,6 +260,16 @@ const ProductPage = () => {
         >
           Reviews
         </p>
+        <p
+          onClick={() => infoCollapseManager(setSuggestionOpen)}
+          aria-controls="suggestion-fade"
+          aria-expanded={suggestionOpen}
+          className={`m-0 txt--gray border-right-lt px-2 pb-2 ${
+            suggestionOpen ? "collapse-item--active" : "collapse-item"
+          }`}
+        >
+          Suggestions
+        </p>
         {/* <p
           onClick={() => infoCollapseManager(setProceedBuyOpen)}
           aria-controls="buy-fade-text"
@@ -265,7 +294,7 @@ const ProductPage = () => {
           </div>
         </Fade>
         <Fade in={reviewOpen} className="position-absolute top-0 left-0">
-          <Container id="review-fade">
+          <Container id="review-fade" style={{ zIndex: '2' }}>
             <div className="d-flex justify-content-between w-100 align-items-center p-4 border-top-lt">
               <h4 className="txt--black">
                 Reviews({productDetail.numReviews})
@@ -384,6 +413,22 @@ const ProductPage = () => {
             <p className="txt--black p-4 border-top-lt">{product.description}</p>
           </div>
         </Fade> */}
+        <Fade in={suggestionOpen} className="position-absolute top-0 left-0" style={{ margin: 'auto' }}>
+          <Row className="p-4 pt-2 border-top-lt">
+            {!suggestionsError && suggestions.length > 0 ? (
+              suggestions.map((product) => (
+                <Col sm={6} md={4} lg={4} xl={3} key={product.id}>
+                  <Product product={product} key={product.id} />
+                </Col>
+              ))
+            ) : (
+              <p className="txt--gray" style={{ textAlign: "center" }}>
+                We couldn't find any suggestions
+              </p>
+            )}
+            {suggestionsError && <Message variant="danger">{error}</Message>}
+          </Row>
+        </Fade>
       </Row>
     </div>
   );

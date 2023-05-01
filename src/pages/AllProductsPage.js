@@ -115,14 +115,13 @@ const AllProductsPage = () => {
                     value={ordering}
                   >
                     <option value="">-------</option>
+                    <option value="rating">Rating</option>
                     <option value="name">Name - Ascending</option>
                     <option value="-name">Name - Descending</option>
                     <option value="price">Price - Ascending</option>
                     <option value="-price">Price - Descending</option>
-                    <option value="rating">Rating - Ascending</option>
-                    <option value="-rating">Rating - Descending</option>
-                    <option value="createdAt">New products</option>
-                    <option value="-createdAt">Old products</option>
+                    <option value="-createdAt">New Products</option>
+                    <option value="createdAt">Old Products</option>
                   </Form.Select>
                 </Form.Group>
                 <Form.Check

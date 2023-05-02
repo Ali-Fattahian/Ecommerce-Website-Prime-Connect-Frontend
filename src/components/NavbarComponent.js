@@ -68,7 +68,7 @@ const NavbarComponent = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <Nav.Link href="/login">Login</Nav.Link>
+                <Nav.Link href={`/login?redirect=${window.location.pathname}`}>Login</Nav.Link>
               )}
               {userInfo && userInfo.isAdmin && (
                 <Nav.Link id="admin-panel" href="/admin/dashboard/">

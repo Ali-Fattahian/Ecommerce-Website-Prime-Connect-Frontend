@@ -22,7 +22,13 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/");
+      let link = window.location.href;
+      if (link.includes("?redirect=")) {
+        link = link.split("?redirect=");
+        navigate(link[1]);
+      } else {
+        navigate("/");
+      }
     }
   }, [userInfo, navigate]);
 

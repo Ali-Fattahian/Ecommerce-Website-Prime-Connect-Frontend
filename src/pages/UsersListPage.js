@@ -14,13 +14,12 @@ const UsersListPage = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const { usersList, userInfo, error } = user;
-  const [refreshPage, setRefreshPage] = useState(null);
 
   const deleteUserHandler = (id) => {
     const token = userInfo.token;
     if (window.confirm("Are you sure you want to delete this user?")) {
       dispatch(deleteUserProfile({ id, token }));
-      setRefreshPage(new Date());
+      window.location.reload()
     }
   };
 
@@ -30,7 +29,7 @@ const UsersListPage = () => {
     } else {
       navigate("/login");
     }
-  }, [dispatch, refreshPage]);
+  }, [dispatch]);
 
   return (
     <div className={classes["admin-page"]}>

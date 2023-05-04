@@ -178,6 +178,7 @@ const CreateProductPage = () => {
               type="number"
               placeholder="Price"
               value={price}
+              max="99999"
               onChange={(e) => setPrice(e.target.value)}
             ></Form.Control>
           </Form.Group>

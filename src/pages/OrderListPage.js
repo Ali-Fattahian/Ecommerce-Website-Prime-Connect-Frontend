@@ -23,7 +23,6 @@ const OrderListPage = () => {
   const [orders, setOrders] = useState([]);
   const [error1, setError] = useState(null);
   const dispatch = useDispatch();
-  const [refreshPage, setRefreshPage] = useState(null);
 
   const setToDeliveredHandler = (orderId) => {
     const token = userInfo.token;
@@ -31,7 +30,6 @@ const OrderListPage = () => {
       window.confirm("Are you sure you want to change this order to delivered?")
     ) {
       dispatch(updateOrderToDelivered({ orderId, token }));
-      setRefreshPage(new Date());
     }
   };
 
@@ -39,7 +37,7 @@ const OrderListPage = () => {
     const token = userInfo.token;
     if (window.confirm("Are you sure you want to delete this order?")) {
       dispatch(orderDelete({ orderId, token }));
-      setRefreshPage(new Date());
+      window.location.reload()
     }
   };
 
@@ -65,7 +63,7 @@ const OrderListPage = () => {
     } else {
       navigate("/login");
     }
-  }, [userInfo, navigate, refreshPage]);
+  }, [userInfo, navigate]);
   return (
     <div className={classes["admin-page"]}>
       <div className={classes["admin-page-left"]}>

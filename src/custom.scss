@@ -218,12 +218,12 @@ body {
 #homepage-new-products {
     padding: 2rem;
     margin: 2rem;
-    background-color: #fafafa;
+    background-color: map-get($theme-colors, 'dark-blue');
     box-shadow: 0px 0px 27px 13px var(--bs-gray-200);
 }
 
 #add-review {
-    background-color: map-get($theme-colors, "blue");
+    background-color: map-get($theme-colors, "primary");
     color: map-get($theme-colors, "secondary");
     padding: .5rem;
     border-radius: 4px;
@@ -334,7 +334,7 @@ body {
 }
 
 #all-products__filter {
-    margin-top: 75px !important;
+    margin-top: 50px !important;
 }
 
 #products-form {
@@ -538,6 +538,21 @@ body {
 
 .product-grid .title a:hover{ color: darken($color: map-get($theme-colors, 'primary'), $amount: 2) ; }
 
+#all-products-accordion {
+    box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.1);
+}
+
+#product-suggestions {
+    display: flex;
+    overflow: scroll;
+    padding: 1.5rem;
+    padding-top: 1rem;
+
+    & > div {
+        min-width: 300px;
+    }
+}
+
 @media screen and (max-width: 1080px) {
     .charts__container {
         flex-direction: column;
@@ -548,7 +563,7 @@ body {
     .product-grid{ margin: 5px 15px 30px; }
   }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 991px) {
     #messages-table__container {
         flex-direction: column;
     }
@@ -561,6 +576,15 @@ body {
 
     #website-brand-2 {
         display: none;
+    }
+
+    #main-navbar {
+        padding: 1rem;
+    }
+
+    .navbar-toggler-icon {
+        width: 2rem !important;
+        height: 2rem !important;
     }
 
     #nav-link__container {
@@ -647,6 +671,10 @@ body {
         margin-top: 1rem;
         width: 80% !important;
     }
+
+    #product-suggestions > div {
+        min-width: 250px;
+    }
 }
 
 @media screen and (min-width: 576px) {
@@ -674,6 +702,10 @@ body {
 
     .total-cards__container {
         flex-direction: column;
+    }
+
+    #product-suggestions > div {
+        min-width: 200px;
     }
 }
 

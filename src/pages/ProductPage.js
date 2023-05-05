@@ -87,7 +87,7 @@ const ProductPage = () => {
       setError("Please write something in the comment section");
     }
     if (!userInfo) {
-      setError('Please log in first');
+      setError("Please log in first");
     }
     reviewCreateHandler(userReview.trim());
   };
@@ -201,6 +201,7 @@ const ProductPage = () => {
               <Col style={{ flex: "none", width: "fit-content" }}>
                 <Button
                   variant="primary"
+                  style={{ color: "var(--bs-secondary)" }}
                   onClick={addToCartHandler}
                   disabled={productDetail.countInStock === 0}
                 >
@@ -294,10 +295,10 @@ const ProductPage = () => {
           </div>
         </Fade>
         <Fade in={reviewOpen} className="position-absolute top-0 left-0">
-          <Container id="review-fade" style={{ zIndex: '2' }}>
+          <Container id="review-fade" style={{ zIndex: "2" }}>
             <div className="d-flex justify-content-between w-100 align-items-center p-4 border-top-lt">
-              <h4 className="txt--black">
-                Reviews({productDetail.numReviews})
+              <h4 className="txt--black font-family-secondary">
+                REVIEWS - {productDetail.numReviews}
               </h4>
               <p
                 id="add-review"
@@ -320,13 +321,13 @@ const ProductPage = () => {
                     <Form onSubmit={reviewFormHandler}>
                       <Form.Group className="mb-2">
                         <p
-                          onClick={() => {
-                            setWriteReviewOpen(false);
-                          }}
                           className="txt--gray m-0 p-0"
                           style={{ textAlign: "right", fontSize: "20px" }}
                         >
                           <i
+                            onClick={() => {
+                              setWriteReviewOpen(false);
+                            }}
                             className="fa fa-close"
                             style={{ cursor: "pointer" }}
                           ></i>
@@ -362,8 +363,8 @@ const ProductPage = () => {
                       <div className="d-flex justify-content-start">
                         <Button
                           type="submit"
-                          variant="success"
-                          style={{ color: "white", backgroundColor: "#0096f6" }}
+                          variant="primary"
+                          style={{ color: "var(--bs-secondary)" }}
                           disabled={
                             userReview.length === 0 || rating.length !== 1
                           }
@@ -413,13 +414,17 @@ const ProductPage = () => {
             <p className="txt--black p-4 border-top-lt">{product.description}</p>
           </div>
         </Fade> */}
-        <Fade in={suggestionOpen} className="position-absolute top-0 left-0" style={{ margin: 'auto' }}>
-          <Row className="p-4 pt-2 border-top-lt">
+        <Fade
+          in={suggestionOpen}
+          className="position-absolute top-0 left-0"
+          style={{ margin: "auto" }}
+        >
+          <div id="product-suggestions" className="border-top-lt">
             {!suggestionsError && suggestions.length > 0 ? (
               suggestions.map((product) => (
-                <Col sm={6} md={4} lg={4} xl={3} key={product.id}>
+                // <Col sm={3} md={3} lg={3} xl={3} key={product.id}>
                   <Product product={product} key={product.id} />
-                </Col>
+                // </Col>
               ))
             ) : (
               <p className="txt--gray" style={{ textAlign: "center" }}>
@@ -427,7 +432,7 @@ const ProductPage = () => {
               </p>
             )}
             {suggestionsError && <Message variant="danger">{error}</Message>}
-          </Row>
+          </div>
         </Fade>
       </Row>
     </div>

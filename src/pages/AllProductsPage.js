@@ -26,7 +26,7 @@ const AllProductsPage = () => {
   );
   const [ordering, setOrdering] = useState(productFilters.orderBy);
   const [hasDiscount, setHasDiscount] = useState(productFilters.hasDiscount);
-  const [search, setSearch] = useState(productFilters.searchQuery)
+  const [search, setSearch] = useState(productFilters.searchQuery);
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -55,11 +55,14 @@ const AllProductsPage = () => {
   return (
     <>
       <NavbarComponent />
-      <Row className="p-4" id="all-products__filter">
-        <Col>
-          <Accordion>
-            <Accordion.Header>
-              <i className="fa fa-filter" style={{fontSize: '25px'}}></i>
+      <Row style={{ padding: '48px 45px', paddingBottom: '0' }} id="all-products__filter">
+        <Col className="p-0">
+          <Accordion id='all-products-accordion'>
+            <Accordion.Header className="border-bottom-lt">
+              <i
+                className="fa fa-filter"
+                style={{ fontSize: "25px", color: "var(--bs-black)" }}
+              ></i>
             </Accordion.Header>
             <Accordion.Body>
               <Form
@@ -103,7 +106,9 @@ const AllProductsPage = () => {
                     value={search}
                     type="search"
                     placeholder="Search..."
-                    onChange={(e) => {setSearch(e.target.value.trim())}}
+                    onChange={(e) => {
+                      setSearch(e.target.value.trim());
+                    }}
                   />
                 </Form.Group>
                 <Form.Group className="mt-4">
@@ -125,24 +130,35 @@ const AllProductsPage = () => {
                   </Form.Select>
                 </Form.Group>
                 <Form.Check
-                className="mt-3"
+                  className="mt-3"
                   label="Discount"
                   checked={hasDiscount}
                   onChange={(e) => {
                     setHasDiscount(e.target.checked);
                   }}
                 />
-                <Button type="submit" style={{backgroundColor: "#0095f6", border: 'none'}} className="w-100 mt-4">
+                <Button
+                  type="submit"
+                  style={{
+                    backgroundColor: "var(--bs-blue)",
+                    color: "var(--bs-secondary)",
+                    border: "none",
+                  }}
+                  className="w-100 mt-4"
+                >
                   Filter
                 </Button>
                 <Button
                   variant="primary"
                   onClick={() => {
-                    setSearch('')
+                    setSearch("");
                     dispatch(clearFetchProductsFilters());
                   }}
                   type="reset"
-                  style={{backgroundColor: 'transparent', color: "black"}}
+                  style={{
+                    backgroundColor: "transparent",
+                    color: "var(--bs-black)",
+                  }}
                   className="w-100 mt-2"
                 >
                   Clear
@@ -152,15 +168,17 @@ const AllProductsPage = () => {
           </Accordion>
         </Col>
       </Row>
-      <Row className="p-4 pt-0">
+      <Row id="homepage-new-products">
         {allProducts.length > 0 ? (
           allProducts.map((product) => (
-            <Col sm={12} md={6} lg={4} xl={3} key={product.id}>
+            <Col sm={12} md={6} lg={4} xl={3} key={product.id} className="mb-3">
               <Product product={product} key={product.id} />
             </Col>
           ))
         ) : (
-          <Message variant="info">No product was found with the current filters</Message>
+          <Message variant="info">
+            No product was found with the current filters
+          </Message>
         )}
       </Row>
     </>

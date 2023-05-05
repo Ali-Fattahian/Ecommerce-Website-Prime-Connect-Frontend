@@ -122,7 +122,7 @@ const HomePage = () => {
       ) : (
         <Message variant="info">No popular product was found</Message>
       )}
-      <Row id="homepage-new-products" style={{ backgroundColor: 'var(--bs-dark-blue)' }}>
+      <Row id="homepage-new-products">
         <div className="text-center p-3">
           <h2 className="font-family-secondary border-bottom-primary d-inline-block pb-2" style={{ borderColor: 'var(--bs-light-cyan)', color: 'var(--bs-secondary)' }}>
             NEW PRODUCTS

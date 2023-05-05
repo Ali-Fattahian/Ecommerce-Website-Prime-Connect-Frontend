@@ -23,7 +23,6 @@ const Rating = ({ ratingNum, reviewCount, noText }) => {
       </span>
     );
   }
-  console.log(ratingNum)
 
   return (
     <div>

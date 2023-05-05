@@ -53,13 +53,11 @@ const HomePage = () => {
   return (
     <>
       <NavbarComponent />
-      <h2 className="mx-4 mt-4 w-100" id="popular-products__header">
-        Our Popular Products
-      </h2>
       {!popularProductsError && popularProducts.length > 0 ? (
         <Carousel
           pause="hover"
-          className="bg-dark mt-2"
+          className="bg-dark"
+          style={{ marginTop: "72px" }}
           variant="dark"
           keyboard="true"
         >
@@ -71,12 +69,15 @@ const HomePage = () => {
                   alt={product.name}
                   fluid
                   className="carousel-image"
-                  style={{ maxWidth: '640px' }}
+                  style={{ maxWidth: "640px" }}
                 />
-                <Container className="mt-3 d-flex flex-column justify-content-between">
+                <Container
+                  className="d-flex flex-column p-3 justify-content-between"
+                  id="homepage-carousel"
+                >
                   <div className="border-bottom-lt">
-                    <h6 className="txt--black">{product.name}</h6>
-                    <p className="txt--gray">{product.description}</p>
+                    <h6 className="fw-bold fs-3">{product.name}</h6>
+                    <p className="text-break">{product.description}</p>
                   </div>
                   <Price
                     price={Number(product.price)}
@@ -90,7 +91,8 @@ const HomePage = () => {
                     />
                   )}
                   <Button
-                    variant="primary"
+                    variant="light-cyan"
+                    style={{ borderColor: "transparent" }}
                     onClick={() => {
                       navigate(`/products/${product.id}`);
                     }}
@@ -120,15 +122,15 @@ const HomePage = () => {
       ) : (
         <Message variant="info">No popular product was found</Message>
       )}
-      <h2 className="txt--black mt-4 mx-4">
-        {" "}
-        {/* add more margin to this */}
-        What's New?
-      </h2>
-      <Row className="p-4 pt-0">
+      <Row id="homepage-new-products" style={{ backgroundColor: 'var(--bs-dark-blue)' }}>
+        <div className="text-center p-3">
+          <h2 className="font-family-secondary border-bottom-primary d-inline-block pb-2" style={{ borderColor: 'var(--bs-light-cyan)', color: 'var(--bs-secondary)' }}>
+            NEW PRODUCTS
+          </h2>
+        </div>
         {!newProductsError && newProducts.length > 0 ? (
           newProducts.map((product) => (
-            <Col sm={12} md={6} lg={4} xl={3} key={product.id}>
+            <Col sm={12} md={6} lg={3} xl={3} key={product.id}>
               <Product product={product} />
             </Col>
           ))

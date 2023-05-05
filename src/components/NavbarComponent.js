@@ -21,7 +21,7 @@ const NavbarComponent = () => {
   useEffect(() => {}, [cart]);
 
   return (
-    <Navbar bg="primary" expand="lg" variant="dark" fixed="top">
+    <Navbar bg="secondary" expand="lg" variant="light" fixed="top" id='main-navbar'>
       <Container>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <h4 id="website-brand-1">PrimeConnect</h4>
@@ -40,7 +40,7 @@ const NavbarComponent = () => {
                   data-count={`${cartItemsNumber}`}
                 >
                   <i className="fa fa-circle fa-stack-2x"></i>
-                  <i className="fa fa-shopping-cart fa-stack-2x red-cart"></i>
+                  <i className="fa fa-shopping-cart fa-stack-2x"></i>
                 </span>
               </Nav.Link>
             </div>

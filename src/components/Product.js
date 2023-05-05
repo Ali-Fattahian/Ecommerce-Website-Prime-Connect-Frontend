@@ -1,25 +1,29 @@
-import Card from "react-bootstrap/Card";
-import Price from "./Price";
+import Rating from "./Rating";
 
 const Product = ({ product }) => {
   return (
-    <Card className="mt-3 mb-3 rounded">
-      <Card.Img src={product.image1} alt={product.name} variant="top" />
-      <Card.Body className="p-0">
-        <a href={`/products/${product.id}`} className="text-decoration-none">
-          <Card.Title className="txt--black p-4">{product.name}</Card.Title>
-          <Card.Footer as="div">
-            <Price
-              hasDiscount={product.hasDiscount}
-              discount={product.discount}
-              price={Number(product.price)}
-              noIcon
-            />
-          </Card.Footer>
+    <div className="product-grid">
+      <div className="product-image">
+        <div className="image-container">
+          <img className="image-1" alt={product.name} src={product.image1} />
+        </div>
+        {product.hasDiscount && <span className="product-sale-label">Sale!</span>}
+        <div className="price">{product.price} $</div>
+        <a href={`/products/${product.id}`} className="product-details">
+          <i className="fa fa-eye"></i>
         </a>
-      </Card.Body>
-    </Card>
+      </div>
+      <div className="product-content">
+        <p className="title txt--black">
+          {product.name}
+        </p>
+        <p className="description text-truncate">{product.description.slice(0, 40)}</p>
+        <Rating ratingNum={product.rating} reviewCount={product.numReviews} noText />
+      </div>
+    </div>
   );
 };
+
+// export default Product
 
 export default Product;

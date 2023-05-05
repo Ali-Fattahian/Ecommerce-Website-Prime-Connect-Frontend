@@ -1,6 +1,6 @@
 import React from "react";
 
-const Rating = ({ ratingNum, reviewCount }) => {
+const Rating = ({ ratingNum, reviewCount, noText }) => {
   ratingNum = Number(ratingNum);
   const intPart = Math.floor(ratingNum); // Number of full stars
   const decimalPart = ratingNum - intPart; // Number of half stars
@@ -23,6 +23,7 @@ const Rating = ({ ratingNum, reviewCount }) => {
       </span>
     );
   }
+  console.log(ratingNum)
 
   return (
     <div>
@@ -33,11 +34,11 @@ const Rating = ({ ratingNum, reviewCount }) => {
         </span>
       )}
       {emptyStars}
-      {reviewCount && (
-        <p className="txt--gray">
+      {!noText ? reviewCount && (
+        <p>
           {ratingNum} out of {reviewCount} reviews
         </p>
-      )}
+      ): ''}
     </div>
   );
 };

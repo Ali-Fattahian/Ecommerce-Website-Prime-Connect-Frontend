@@ -40,7 +40,7 @@ const NavbarComponent = () => {
                   data-count={`${cartItemsNumber}`}
                 >
                   <i className="fa fa-circle fa-stack-2x"></i>
-                  <i className="fa fa-shopping-cart fa-stack-2x"></i>
+                  <i className="fas fa-shopping-cart fa-stack-2x"></i>
                 </span>
               </Nav.Link>
             </div>

@@ -135,7 +135,7 @@ const ProductPage = () => {
       <NavbarComponent />
       <Row className="p-2" id="product-page-top">
         {message && <Message variant="info">{message}</Message>}
-        <Col xl={6} lg={6} md={6} sm={12}>
+        <Col xl={6} lg={6} md={6} sm={12} id='product-page-image'>
           <Carousel
             pause="hover"
             keyboard="true"
@@ -181,9 +181,12 @@ const ProductPage = () => {
             )}
           </Carousel>
         </Col>
-        <Col xl={6} lg={6} md={6} sm={12}>
+        <Col xl={6} lg={6} md={6} sm={12} id="product-page-description">
           <Container id="product-detail__container">
-            <p className="txt--black mt-2 mb-4" style={{ maxWidth: "450px" }}>
+            <h6 className="fw-bold fs-3 text-decoration-underline mt-2">
+              {productDetail.name}
+            </h6>
+            <p className="mt-2 mb-4" style={{ maxWidth: "450px" }}>
               {productDetail.description}
             </p>
             {productDetail.numReviews > 0 && (
@@ -200,8 +203,8 @@ const ProductPage = () => {
             <Row className="mt-4">
               <Col style={{ flex: "none", width: "fit-content" }}>
                 <Button
-                  variant="primary"
-                  style={{ color: "var(--bs-secondary)" }}
+                  variant="light-cyan"
+                  style={{ color: "var(--bs-black)" }}
                   onClick={addToCartHandler}
                   disabled={productDetail.countInStock === 0}
                 >
@@ -216,7 +219,10 @@ const ProductPage = () => {
                     as="select"
                     value={qty}
                     onChange={(e) => setQty(Number(e.target.value))}
-                    style={{ width: "fit-content" }}
+                    style={{
+                      width: "fit-content",
+                      backgroundColor: "var(--bs-light-cyan)",
+                    }}
                     className="d-inline-block"
                   >
                     {[...Array(productDetail.countInStock).keys()].map((x) => (
@@ -284,7 +290,7 @@ const ProductPage = () => {
         <Fade in={detailOpen} className="position-absolute top-0 left-0">
           <div id="detail-fade-text">
             {productDetail.moreDetails ? (
-              <p className="txt--black p-4 border-top-lt">
+              <p className="p-4 border-top-lt" style={{ lineHeight: '1.7', wordSpacing: '2px', color: '#333' }}>
                 {productDetail.moreDetails}
               </p>
             ) : (
@@ -296,7 +302,7 @@ const ProductPage = () => {
         </Fade>
         <Fade in={reviewOpen} className="position-absolute top-0 left-0">
           <Container id="review-fade" style={{ zIndex: "2" }}>
-            <div className="d-flex justify-content-between w-100 align-items-center p-4 border-top-lt">
+            <div className="d-flex justify-content-between w-100 align-items-center p-4 border-top-lt" id="review-section-top">
               <h4 className="txt--black font-family-secondary">
                 REVIEWS - {productDetail.numReviews}
               </h4>
@@ -380,11 +386,11 @@ const ProductPage = () => {
                     key={review.id}
                     className="d-flex flex-column pb-0"
                   >
-                    <div className="d-flex p-2 justify-content-between">
-                      <div className="d-flex gap-1">
+                    <div className="d-flex p-2 justify-content-between" id="comment-detail">
+                      <div className="d-flex gap-1" id="comment-user-info">
                         <p>{review.user}</p>
-                        <p>|</p>
-                        <p className="txt--gray">{review.createdAt}</p>
+                        <p id="review-separator">|</p>
+                        <p className="txt--gray">{review.createdAt.substring(0, 10)}</p>
                       </div>
 
                       <div className="d-flex">
@@ -423,7 +429,7 @@ const ProductPage = () => {
             {!suggestionsError && suggestions.length > 0 ? (
               suggestions.map((product) => (
                 // <Col sm={3} md={3} lg={3} xl={3} key={product.id}>
-                  <Product product={product} key={product.id} />
+                <Product product={product} key={product.id} />
                 // </Col>
               ))
             ) : (

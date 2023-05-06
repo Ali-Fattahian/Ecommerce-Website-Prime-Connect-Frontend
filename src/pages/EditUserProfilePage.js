@@ -79,14 +79,14 @@ const EditUserProfilePage = () => {
         <Link
           to="/"
           className="px-3"
-          style={{ color: "#0095f6", textDecoration: "none" }}
+          style={{ color: "var(--bs-primary)", textDecoration: "none" }}
         >
           Home
         </Link>
         <Link
           to="/all-products"
           className="px-3"
-          style={{ color: "#0095f6", textDecoration: "none" }}
+          style={{ color: "var(--bs-primary)", textDecoration: "none" }}
         >
           Products
         </Link>

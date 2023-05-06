@@ -58,7 +58,7 @@ const EnterCardInformationPage = () => {
 
   useEffect(() => {
     if (!userInfo) navigate("/login");
-    if (success) window.location.reload()  // Fix success message staying on the screen from the last payment
+    if (success) window.location.reload(); // Fix success message staying on the screen from the last payment
     if (!orderDetail || orderDetail.id !== Number(orderId)) {
       const token = userInfo.token;
       dispatch(getOrderDetail({ orderId, token }));
@@ -182,13 +182,15 @@ const EnterCardInformationPage = () => {
           <Button
             type="submit"
             className="w-100"
-            variant={loading ? "info" : "blue"}
+            style={{ color: "var(--bs-secondary)" }}
+            variant={loading ? "info" : "primary"}
           >
             {loading ? "Loading..." : "Pay"}
           </Button>
           <Button
             type="button"
-            variant="secondary"
+            variant="primary"
+            style={{ color: "var(--bs-black)", backgroundColor: "transparent" }}
             onClick={() => {
               navigate(-1);
             }}

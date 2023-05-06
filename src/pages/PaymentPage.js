@@ -47,7 +47,7 @@ const PaymentPage = () => {
             ></Form.Check>
           </Col>
         </Form.Group>
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" style={{ color: 'var(--bs-secondary)' }}>
           Continue
         </Button>
       </Form>

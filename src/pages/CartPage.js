@@ -25,7 +25,7 @@ const CartPage = () => {
   return (
     <Row className="p-4">
       <Col md={8}>
-        <h1 className="mx-3">Shopping Cart</h1>
+        <h1 className="mx-3 txt--black font-family-secondary">SHOPPING CART</h1>
         {cartItems.length === 0 ? (
           <Message variant="info">
             Your cart is empty <Link to="/">Go Back</Link>
@@ -33,8 +33,8 @@ const CartPage = () => {
         ) : (
           <ListGroup variant="flush">
             {cartItems.map((productDetail) => (
-              <ListGroup.Item key={productDetail.id}>
-                <Row>
+              <ListGroup.Item key={productDetail.id} style={{ border: 'none' }}>
+                <Row className="p-2" style={{ boxShadow: '0px 0px 27px 0px var(--bs-gray-200)', alignItems: 'center' }} id="cart-item">
                   <Col md={2}>
                     <Image
                       src={productDetail.image1}
@@ -44,7 +44,7 @@ const CartPage = () => {
                     />
                   </Col>
                   <Col md={3}>
-                    <Link to={`/products/${productDetail.id}`}>
+                    <Link to={`/products/${productDetail.id}`} style={{ color: 'var(--bs-blue)' }}>
                       {productDetail.name}
                     </Link>
                   </Col>
@@ -82,7 +82,7 @@ const CartPage = () => {
           </ListGroup>
         )}
       </Col>
-      <Col md={4}>
+      <Col md={4} id='proceed-to-checkout'>
         <Card>
           <ListGroup variant="flush">
             <ListGroup.Item>
@@ -105,6 +105,7 @@ const CartPage = () => {
             <Button
               type="button"
               className="btn w-100 rounded-0"
+              style={{ color: 'var(--bs-secondary)' }}
               disabled={cartItems.length === 0}
               onClick={() => navigate("/shipping")}
             >

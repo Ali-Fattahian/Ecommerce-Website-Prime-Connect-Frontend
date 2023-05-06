@@ -17,7 +17,7 @@ const TotalOrdersEarnings = () => {
             EARNINGS
           </p>
           <i
-            className="fa fa-money fa-2x"
+            className="far fa-money fa-2x"
             style={{
               color: "#333",
               padding: ".5rem",

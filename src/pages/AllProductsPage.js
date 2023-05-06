@@ -139,8 +139,8 @@ const AllProductsPage = () => {
                 />
                 <Button
                   type="submit"
+                  variant="primary"
                   style={{
-                    backgroundColor: "var(--bs-blue)",
                     color: "var(--bs-secondary)",
                     border: "none",
                   }}

@@ -11,7 +11,8 @@ const GetMyOrders = ({ orders }) => {
         <Table
           striped
           responsive
-          className="table-sm border-lt mt-4"
+          bordered
+          className="border-lt mt-4 table-dark table-hover"
           style={{ verticalAlign: "middle" }}
         >
           <thead>
@@ -47,7 +48,7 @@ const GetMyOrders = ({ orders }) => {
                     to={`/orders/${order.id}`}
                     style={{ color: "#fff" }}
                   >
-                    <Button className="btn-sm" variant="blue">
+                    <Button>
                       Details
                     </Button>
                   </LinkContianer>

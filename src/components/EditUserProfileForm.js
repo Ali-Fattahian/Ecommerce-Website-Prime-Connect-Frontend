@@ -134,7 +134,7 @@ const EditUserProfileForm = ({ userProfile, userInfo, userId, loading }) => {
       <Button
         type="submit"
         className="w-100"
-        variant="blue"
+        variant="primary"
         style={{ border: "none", color: "#fff" }}
       >
         {loading ? "Loading" : "Edit"}

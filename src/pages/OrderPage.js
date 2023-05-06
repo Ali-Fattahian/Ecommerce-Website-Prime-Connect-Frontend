@@ -45,13 +45,13 @@ const OrderPage = () => {
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
-    <div className="p-2">
+    <div className="p-2" id="order-page">
       {orderDetail && (
         <Row>
           <Col md={8}>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2 className="font-family-secondary mb-3">
+                <h2 className="font-family-secondary mb-3 txt--black">
                   ORDER: {orderDetail.id}
                 </h2>
                 <p>
@@ -85,7 +85,7 @@ const OrderPage = () => {
                 )}
               </ListGroup.Item>
               <ListGroup.Item>
-                <h2 className="font-family-secondary mb-3 mt-3">PAYMENT METHOD</h2>
+                <h2 className="font-family-secondary mb-3 mt-3 txt--black">PAYMENT METHOD</h2>
                 <p>
                   <strong>Method: </strong>
                   <span className="txt--gray">{orderDetail.paymentMethod}</span>
@@ -99,16 +99,16 @@ const OrderPage = () => {
                 )}
               </ListGroup.Item>
               <ListGroup.Item>
-                <h2 className="font-family-secondary mt-3">ORDER ITEMS</h2>
+                <h2 className="font-family-secondary mt-3 txt--black">ORDER ITEMS</h2>
                 {orderDetail.orderItems.length === 0 ? (
                   <Message variant="info">
-                    Order is empty <Link to="/products">Products</Link>
+                    Order is empty <Link to="/all-products">Products</Link>
                   </Message>
                 ) : (
                   <ListGroup variant="flush">
                     {orderDetail.orderItems.map((item, index) => (
                       <ListGroup.Item key={index}>
-                        <Row className="p-4">
+                        <Row className="p-4" id="order-item">
                           <Col md={1}>
                             <Image
                               src={`http://localhost:8000${item.image}`}
@@ -136,7 +136,7 @@ const OrderPage = () => {
             <Card>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                  <h2 className="font-family-secondary">ORDER SUMMARY</h2>
+                  <h2 className="font-family-secondary txt--black">ORDER SUMMARY</h2>
                 </ListGroup.Item>
                 {orderDetail && (
                   <ListGroup.Item>
@@ -165,7 +165,7 @@ const OrderPage = () => {
                   </Row>
                 </ListGroup.Item>
                 {!orderDetail.isPaid && <ListGroup.Item>
-                  <Button variant='blue' type="button" className="w-100" style={{color: '#fff'}} onClick={() => {navigate(`/pay-order/${orderId}`)}}>Pay with Credit Card</Button>
+                  <Button variant='primary' type="button" className="w-100" style={{color: 'var(--bs-secondary)'}} onClick={() => {navigate(`/pay-order/${orderId}`)}}>Pay with Credit Card</Button>
                 </ListGroup.Item>}
                 {error && (
                   <ListGroup.Item>

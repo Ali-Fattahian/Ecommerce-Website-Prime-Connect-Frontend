@@ -44,24 +44,41 @@ const ReceivedMessageDetailPage = () => {
     <>
       <NavbarComponent />
       {message && message.content.length > 0 ? (
-        <Container style={{ marginTop: "6rem" }}>
+        <Container style={{ marginTop: "7rem" }} className="d-flex">
           {error && <Message variant="danger">{error}</Message>}
-          <section id="message-section" className="mb-3 mt-3 border-lt">
-            <div className="pb-2 border-bottom-lt">
+          {/* <section id="message-section" className="mb-3 mt-3 border-lt"> */}
+          <section className="notebook">
+            <div className="message-date-created">
+              <div>
+                <span className="txt--gray">Year:</span>
+                <span className="txt--black">
+                  {message.createdAt.substring(0, 4)}
+                </span>
+              </div>
+              <div>
+                <span className="txt--gray">Month:</span>
+                <span className="txt--black">
+                  {message.createdAt.substring(5, 7)}
+                </span>
+              </div>
+              <div>
+                <span className="txt--gray">Day:</span>
+                <span className="txt--black">
+                  {message.createdAt.substring(9, 10)}
+                </span>
+              </div>
+            </div>
+            <div className="pb-2">
               <strong>From: </strong>
-              <span className="font-family-secondary">
+              <a
+                className="font-family-secondary"
+                href={`mailto:${message.sender.email}`}
+              >
                 {message.sender.email}
-              </span>
+              </a>
             </div>
-            <div className="p-2 border-bottom-lt">
-              <p style={{ fontSize: "12px", margin: "4px 0", color: "#222" }}>
-                {message.content}
-              </p>
-            </div>
-            <div className="pt-2">
-              <small className="txt--black">
-                {message.createdAt.substring(0, 10)}
-              </small>
+            <div className="p-2" style={{ marginTop: "38px" }}>
+              <p className="message-content">- {message.content}</p>
             </div>
           </section>
         </Container>

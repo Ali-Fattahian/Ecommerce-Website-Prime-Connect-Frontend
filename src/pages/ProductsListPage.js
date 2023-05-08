@@ -41,7 +41,7 @@ const ProductsListPage = () => {
     const token = userInfo.token;
     if (window.confirm("Are you sure you want to delete this product?"))
       dispatch(deleteProduct({ id, token }));
-      window.location.reload()
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -78,7 +78,8 @@ const ProductsListPage = () => {
             >
               <Button
                 type="submit"
-                variant="blue"
+                variant="primary"
+                style={{ color: 'var(--bs-secondary)' }}
                 className="font-family-secondary p-2"
                 id="new-product-btn"
                 onClick={() => navigate("/admin/create-product")}
@@ -89,11 +90,11 @@ const ProductsListPage = () => {
           </Row>
           <Table
             striped
-            bordered
-            hover
             responsive
-            className="table-sm mt-4"
+            bordered
+            className="border-lt mt-4 table-dark table-hover"
             id="user-list-table"
+            style={{ verticalAlign: "middle" }}
           >
             <thead>
               <tr>
@@ -103,6 +104,9 @@ const ProductsListPage = () => {
                 <th>SUB CATEGORY</th>
                 <th>USER</th>
                 <th>COUNT IN STOCK</th>
+                <th className="text-center">
+                  <i className="fa fa-ellipsis-h"></i>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -120,7 +124,10 @@ const ProductsListPage = () => {
                         <Button variant="light" className="btn-sm">
                           <i
                             className="fa fa-edit"
-                            style={{ fontSize: "20px" }}
+                            style={{
+                              fontSize: "1rem",
+                              color: "var(--bs-secondary)",
+                            }}
                           ></i>
                         </Button>
                       </LinkContainer>
@@ -138,7 +145,10 @@ const ProductsListPage = () => {
                       >
                         <i
                           className="fa fa-trash"
-                          style={{ fontSize: "20px" }}
+                          style={{
+                            fontSize: "1rem",
+                            color: "var(--bs-secondary)",
+                          }}
                         ></i>
                       </Button>
                     </td>

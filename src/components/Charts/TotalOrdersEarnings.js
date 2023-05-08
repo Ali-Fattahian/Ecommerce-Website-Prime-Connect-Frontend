@@ -14,10 +14,10 @@ const TotalOrdersEarnings = () => {
             className="txt--black font-family-secondary m-0"
             style={{ fontSize: "1.2rem" }}
           >
-            EARNINGS
+            SALES
           </p>
           <i
-            className="far fa-money fa-2x"
+            className="far fa-money-bill-alt fa-2x"
             style={{
               color: "#333",
               padding: ".5rem",

@@ -156,8 +156,8 @@ const MessageManagementPage = () => {
             <Form.Group>
               <Button
                 type="submit"
-                variant="blue"
-                style={{ color: "#fff" }}
+                variant="primary"
+                style={{ color: "var(--bs-secondary)" }}
                 className="w-100"
               >
                 Send

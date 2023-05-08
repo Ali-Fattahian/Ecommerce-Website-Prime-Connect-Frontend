@@ -4,8 +4,8 @@
   justify-content: flex-start;
   align-items: center;
   gap: 2rem;
-  background-color: #333;
-  color: #fff;
+  background-color: var(--bs-black);
+  color: var(--bs-secondary);
   text-align: center;
   max-width: max-content;
   transition: all ease-in-out 400ms;
@@ -18,7 +18,7 @@
   position: absolute;
   right: -20%;
   border-radius: 50%;
-  background-color: #333;
+  background-color: var(--bs-black);
   color: #fff;
   top: 50vh;
   cursor: pointer;
@@ -70,8 +70,8 @@
 
 .navbar-links__section:hover,
 .navbar-links__section:active {
-  color: #0095f6;
-  border-right: 3px solid #0095f6;
+  color: var(--bs-primary);
+  border-right: 3px solid var(--bs-primary);
 }
 
 .navbar-middle {
@@ -94,12 +94,11 @@
 
 .navbar-bottom > div:hover,
 .navbar-bottom > div:active {
-  color: #0095f6;
-  border-right: 3px solid #0095f6;
+  color: var(--bs-primary);
+  border-right: 3px solid var(--bs-primary);
 }
 
 .admin-page {
-  background-color: #fafafa;
   display: grid;
   grid-template-columns: 1fr 7fr;
   min-width: min-content;
@@ -143,7 +142,21 @@
   padding: 2rem;
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  /* border-radius: 5px; */
+  box-shadow: 3px 4px 7px 1px var(--bs-gray-600);
+}
+
+.change-color {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 1px solid var(--bs-gray);
+  cursor: pointer;
+  transition: all 350ms ease-in-out;
+}
+
+.change-color:hover, .change-color:active {
+  opacity: .9;
 }
 
 .pending-orders {
@@ -164,13 +177,12 @@
 @media screen and (max-width: 860px) {
   #admin-cards__container {
     flex-direction: column;
-    border: none;
   }
 
-  .admin-page-right > h1 {
+  /* .admin-page-right > h1 {
     align-self: center !important;
     text-align: center;
-  }
+  } */
 }
 
 @media screen and (max-width: 576px) {

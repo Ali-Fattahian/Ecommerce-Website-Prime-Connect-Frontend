@@ -19,7 +19,7 @@ const UsersListPage = () => {
     const token = userInfo.token;
     if (window.confirm("Are you sure you want to delete this user?")) {
       dispatch(deleteUserProfile({ id, token }));
-      window.location.reload()
+      window.location.reload();
     }
   };
 
@@ -36,9 +36,17 @@ const UsersListPage = () => {
       <div className={classes["admin-page-left"]}>
         <SideNavbar />
       </div>
-      <div className={classes["admin-page-right"]} style={{ paddingTop: '2rem', paddingRight: '1rem' }}>
-        <Container id="user-list__container" style={{ maxWidth: '900px'}}>
-        <h1 className="font-family-secondary txt--black mt-2" style={{ alignSelf: 'flex-start' }}>USERS</h1>
+      <div
+        className={classes["admin-page-right"]}
+        style={{ paddingTop: "2rem", paddingRight: "1rem" }}
+      >
+        <Container id="user-list__container" style={{ maxWidth: "900px" }}>
+          <h1
+            className="font-family-secondary txt--black mt-2"
+            style={{ alignSelf: "flex-start" }}
+          >
+            USERS
+          </h1>
           {error && (
             <Message variant="danger" className="m-2">
               {error}
@@ -46,11 +54,11 @@ const UsersListPage = () => {
           )}
           <Table
             striped
-            bordered
-            hover
             responsive
-            className="table-sm mt-4"
+            bordered
+            className="border-lt mt-4 table-dark table-hover"
             id="user-list-table"
+            style={{ verticalAlign: "middle" }}
           >
             <thead>
               <tr>
@@ -58,6 +66,9 @@ const UsersListPage = () => {
                 <th>NAME</th>
                 <th>EMAIL</th>
                 <th>ADMIN</th>
+                <th className="text-center">
+                  <i className="fa fa-ellipsis-h"></i>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -74,14 +85,19 @@ const UsersListPage = () => {
                     )}
                   </td>
                   <td>
-                    {!user.isAdmin && <LinkContainer to={`/users/${user.id}/edit`}>
-                      <Button variant="light" className="btn-sm">
-                        <i
-                          className="fa fa-edit"
-                          style={{ fontSize: "20px" }}
-                        ></i>
-                      </Button>
-                    </LinkContainer>}
+                    {!user.isAdmin && (
+                      <LinkContainer to={`/users/${user.id}/edit`}>
+                        <Button variant="light" className="btn-sm">
+                          <i
+                            className="fa fa-edit"
+                            style={{
+                              fontSize: "1rem",
+                              color: "var(--bs-secondary)",
+                            }}
+                          ></i>
+                        </Button>
+                      </LinkContainer>
+                    )}
                     {!user.isAdmin && (
                       <Button
                         style={{
@@ -97,7 +113,10 @@ const UsersListPage = () => {
                       >
                         <i
                           className="fa fa-trash"
-                          style={{ fontSize: "20px" }}
+                          style={{
+                            fontSize: "1rem",
+                            color: "var(--bs-secondary)",
+                          }}
                         ></i>
                       </Button>
                     )}

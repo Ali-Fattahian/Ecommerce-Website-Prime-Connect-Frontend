@@ -5,6 +5,7 @@ import axios from "axios";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Message from "../components/Message";
+import Button from "react-bootstrap/Button";
 
 const SentMessageList = ({ refresh }) => {
   const user = useSelector((state) => state.user);
@@ -55,18 +56,20 @@ const SentMessageList = ({ refresh }) => {
       )}
       <Table
         striped
-        bordered
-        hover
         responsive
-        className="table-sm mt-4"
+        bordered
+        className="border-lt mt-4 table-dark table-hover"
         id="user-list-table"
+        style={{ verticalAlign: "middle" }}
       >
         <thead>
           <tr>
             <th>RECIPIENT</th>
             <th>TIME SENT</th>
             <th>READ</th>
-            <th>DETAILS</th>
+            <th className="text-center">
+              <i className="fa fa-ellipsis-h"></i>
+            </th>
           </tr>
         </thead>
         {messages.length > 0 ? (
@@ -86,7 +89,9 @@ const SentMessageList = ({ refresh }) => {
                   onClick={() => readTheMessage(message.id)}
                   style={{ cursor: "pointer" }}
                 >
-                  <i className="fa fa-ellipsis-h fa-2x"></i>
+                  <Button style={{ color: "var(--bs-secondary)" }}>
+                    Details
+                  </Button>
                 </td>
               </tr>
             ))}

@@ -37,7 +37,7 @@ const OrderListPage = () => {
     const token = userInfo.token;
     if (window.confirm("Are you sure you want to delete this order?")) {
       dispatch(orderDelete({ orderId, token }));
-      window.location.reload()
+      window.location.reload();
     }
   };
 
@@ -81,11 +81,11 @@ const OrderListPage = () => {
             <h1 className="mt-4 font-family-secondary txt--black">ORDERS</h1>
             <Table
               striped
-              bordered
-              hover
               responsive
-              className="table-sm mt-4"
+              bordered
+              className="border-lt mt-4 table-dark table-hover"
               id="user-list-table"
+              style={{ verticalAlign: "middle" }}
             >
               <thead>
                 <tr>
@@ -93,6 +93,9 @@ const OrderListPage = () => {
                   <th>USER</th>
                   <th>METHOD</th>
                   <th>DELIVERED</th>
+                  <th className="text-center">
+                    <i className="fa fa-ellipsis-h"></i>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -118,7 +121,10 @@ const OrderListPage = () => {
                         <i
                           className="fa fa-trash"
                           onClick={() => deleteOrderHandler(order.id)}
-                          style={{ fontSize: "20px" }}
+                          style={{
+                            fontSize: "1rem",
+                            color: "var(--bs-secondary)",
+                          }}
                         ></i>
                       </Button>
                       {!order.isDelivered && (
@@ -131,7 +137,10 @@ const OrderListPage = () => {
                         >
                           <i
                             className="fa fa-edit"
-                            style={{ fontSize: "20px" }}
+                            style={{
+                              fontSize: "1rem",
+                              color: "var(--bs-secondary)",
+                            }}
                             title="Set To Delivered"
                           ></i>
                         </Button>

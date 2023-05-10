@@ -6,6 +6,7 @@ import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Message from "../components/Message";
 import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
 
 const SentMessageList = ({ refresh }) => {
   const user = useSelector((state) => state.user);
@@ -13,9 +14,29 @@ const SentMessageList = ({ refresh }) => {
   const [messages, setMessages] = useState([]);
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const [now, setNow] = useState(null);
 
   const readTheMessage = (id) => {
     navigate(`/admin/sent-messages-list/${id}`);
+  };
+
+  const deleteMessage = async (id) => {
+    const token = userInfo.token;
+    try {
+      await axios.delete(
+        `http://localhost:8000/api/users/messages/delete/${id}`,
+        {
+          headers: {
+            Authorization: `JWT ${token}`,
+          },
+        }
+      );
+      setNow(new Date());
+    } catch {
+      setError(
+        "There was a problem deleting the message, Make sure you have a stable internet connection."
+      );
+    }
   };
 
   const fetchMessages = async () => {
@@ -39,7 +60,7 @@ const SentMessageList = ({ refresh }) => {
   useEffect(() => {
     if (!userInfo) navigate("/login");
     if (userInfo && userInfo.isAdmin) fetchMessages();
-  }, [refresh]);
+  }, [refresh, now]);
 
   return (
     <Container id="user-list__container">
@@ -65,11 +86,11 @@ const SentMessageList = ({ refresh }) => {
         <thead>
           <tr>
             <th>RECIPIENT</th>
-            <th>TIME SENT</th>
-            <th>READ</th>
             <th className="text-center">
-              <i className="fa fa-ellipsis-h"></i>
+              <i className="far fa-clock"></i>
             </th>
+            <th>READ</th>
+            <th>MORE</th>
           </tr>
         </thead>
         {messages.length > 0 ? (
@@ -85,13 +106,34 @@ const SentMessageList = ({ refresh }) => {
                     <i className="fa fa-check" style={{ color: "red" }}></i>
                   )}
                 </td>
-                <td
-                  onClick={() => readTheMessage(message.id)}
-                  style={{ cursor: "pointer" }}
-                >
-                  <Button style={{ color: "var(--bs-secondary)" }}>
-                    Details
-                  </Button>
+                <td>
+                  <Dropdown>
+                    <Dropdown.Toggle
+                      variant="primary"
+                      style={{ color: "var(--bs-secondary)" }}
+                      id="dropdown-basic"
+                    >
+                      <i className="fa fa-ellipsis-h"></i>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={() => readTheMessage(message.id)}>
+                        <Button
+                          variant="dark-blue"
+                          className="w-100"
+                          style={{
+                            color: "var(--bs-secondary)",
+                          }}
+                        >
+                          Details
+                        </Button>
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => deleteMessage(message.id)}>
+                        <Button variant="danger" className="w-100">
+                          Delete
+                        </Button>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </td>
               </tr>
             ))}

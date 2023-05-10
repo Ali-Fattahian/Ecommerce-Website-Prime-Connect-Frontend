@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/slices/cartSlice";
 import Message from "../components/Message";
 import Product from "../components/Product";
-import Footer from '../components/Footer';
+import Footer from "../components/Footer";
 
 const ProductPage = () => {
   const config = {
@@ -136,7 +136,7 @@ const ProductPage = () => {
       <NavbarComponent />
       <Row className="p-2" id="product-page-top">
         {message && <Message variant="info">{message}</Message>}
-        <Col xl={6} lg={6} md={6} sm={12} id='product-page-image'>
+        <Col xl={6} lg={6} md={6} sm={12} id="product-page-image">
           <Carousel
             pause="hover"
             keyboard="true"
@@ -291,7 +291,10 @@ const ProductPage = () => {
         <Fade in={detailOpen} className="position-absolute top-0 left-0">
           <div id="detail-fade-text">
             {productDetail.moreDetails ? (
-              <p className="p-4 border-top-lt" style={{ lineHeight: '1.7', wordSpacing: '2px', color: '#333' }}>
+              <p
+                className="p-4 border-top-lt"
+                style={{ lineHeight: "1.7", wordSpacing: "2px", color: "#333" }}
+              >
                 {productDetail.moreDetails}
               </p>
             ) : (
@@ -303,7 +306,10 @@ const ProductPage = () => {
         </Fade>
         <Fade in={reviewOpen} className="position-absolute top-0 left-0">
           <Container id="review-fade" style={{ zIndex: "2" }}>
-            <div className="d-flex justify-content-between w-100 align-items-center p-4 border-top-lt" id="review-section-top">
+            <div
+              className="d-flex justify-content-between w-100 align-items-center p-4 border-top-lt"
+              id="review-section-top"
+            >
               <h4 className="txt--black font-family-secondary">
                 REVIEWS - {productDetail.numReviews}
               </h4>
@@ -387,11 +393,16 @@ const ProductPage = () => {
                     key={review.id}
                     className="d-flex flex-column pb-0"
                   >
-                    <div className="d-flex p-2 justify-content-between" id="comment-detail">
+                    <div
+                      className="d-flex p-2 justify-content-between"
+                      id="comment-detail"
+                    >
                       <div className="d-flex gap-1" id="comment-user-info">
                         <p>{review.user}</p>
                         <p id="review-separator">|</p>
-                        <p className="txt--gray">{review.createdAt.substring(0, 10)}</p>
+                        <p className="txt--gray">
+                          {review.createdAt.substring(0, 10)}
+                        </p>
                       </div>
 
                       <div className="d-flex">
@@ -442,7 +453,6 @@ const ProductPage = () => {
           </div>
         </Fade>
       </Row>
-      <Footer fixed />
     </div>
   );
 };

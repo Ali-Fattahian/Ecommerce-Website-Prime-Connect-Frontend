@@ -12,6 +12,7 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { getOrderDetail } from "../store/slices/orderSlice";
 import Footer from "../components/Footer";
+import NavbarComponent from "../components/NavbarComponent";
 
 const OrderPage = () => {
   const { orderId } = useParams();
@@ -50,6 +51,7 @@ const OrderPage = () => {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
+      <NavbarComponent />
       <div className="p-2" id="order-page">
         {orderDetail && (
           <Row style={{ paddingBottom: "64px" }}>
@@ -69,7 +71,10 @@ const OrderPage = () => {
                     <strong>
                       <i className="fa fa-envelope"></i>
                     </strong>
-                    <a href={`mailto:${orderDetail.user.email}`} className="mx-2">
+                    <a
+                      href={`mailto:${orderDetail.user.email}`}
+                      className="mx-2"
+                    >
                       {orderDetail.user.email}
                     </a>
                   </p>

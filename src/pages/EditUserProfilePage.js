@@ -9,6 +9,7 @@ import axios from "axios";
 import EditUserProfileForm from "../components/EditUserProfileForm";
 import GetMyOrders from "../components/GetMyOrders";
 import Footer from "../components/Footer";
+import NavbarComponent from "../components/NavbarComponent";
 
 const EditUserProfilePage = () => {
   const user = useSelector((state) => state.user);
@@ -76,23 +77,8 @@ const EditUserProfilePage = () => {
 
   return (
     <>
-      <div className="w-100 p-4 px-2" style={{ border: "1px dotted #ddd" }}>
-        <Link
-          to="/"
-          className="px-3"
-          style={{ color: "var(--bs-primary)", textDecoration: "none" }}
-        >
-          Home
-        </Link>
-        <Link
-          to="/all-products"
-          className="px-3"
-          style={{ color: "var(--bs-primary)", textDecoration: "none" }}
-        >
-          Products
-        </Link>
-      </div>
-      <Row className={!orders && `no-orders-profile`}>
+      <NavbarComponent />
+      <Row className={!orders && `no-orders-profile`} id="user-profile-page">
         {/* <strong>
               <p
                 className="txt--blue"

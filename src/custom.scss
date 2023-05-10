@@ -708,9 +708,20 @@ footer.fixed {
 }
 
 #order-page {
+    margin-top: 85px;
+
     a {
         color: map-get($theme-colors, 'blue')
     }
+}
+
+#user-profile-page {
+    margin-top: 78px;
+}
+
+#cart-page {
+    margin-top: 80px;
+    margin-bottom: 32px;
 }
 
 @media screen and (max-width: 1080px) {
@@ -724,6 +735,18 @@ footer.fixed {
   }
 
 @media screen and (max-width: 991px) {
+    #order-page {
+        margin-top: 72px;
+    }
+
+    #user-profile-page {
+        margin-top: 65px;
+    }
+
+    #cart-page {
+        margin-top: 60px;
+    }
+
     #messages-table__container {
         flex-direction: column;
     }

@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { removeFromCart, updateCart } from "../store/slices/cartSlice";
 import Message from "../components/Message";
 import Footer from "../components/Footer";
+import NavbarComponent from "../components/NavbarComponent";
 
 const CartPage = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -25,7 +26,8 @@ const CartPage = () => {
 
   return (
     <>
-      <Row className="p-4" style={{ marginBottom: "32px" }}>
+      <NavbarComponent />
+      <Row className="p-4" id="cart-page">
         <Col md={8}>
           <h1 className="mx-3 txt--black font-family-secondary">
             SHOPPING CART

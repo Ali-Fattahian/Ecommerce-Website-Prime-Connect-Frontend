@@ -61,7 +61,7 @@ const SentMessageDetailPage = () => {
               <div>
                 <span className="txt--gray">Day:</span>
                 <span className="txt--black">
-                  {message.createdAt.substring(9, 10)}
+                  {message.createdAt.substring(8, 10)}
                 </span>
               </div>
             </div>

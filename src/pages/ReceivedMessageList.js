@@ -7,6 +7,7 @@ import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Message from "../components/Message";
+import Dropdown from "react-bootstrap/Dropdown";
 
 const ReceivedMessageList = () => {
   const user = useSelector((state) => state.user);
@@ -14,6 +15,7 @@ const ReceivedMessageList = () => {
   const [messages, setMessages] = useState([]);
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const [now, setNow] = useState(null);
 
   const changeMessageStatusHandler = async ({ e, id }) => {
     try {
@@ -34,6 +36,25 @@ const ReceivedMessageList = () => {
     } catch (err) {
       setError(
         "There was a problem changing your message's status, Make sure you have a stable internet connection"
+      );
+    }
+  };
+
+  const deleteMessage = async (id) => {
+    const token = userInfo.token;
+    try {
+      await axios.delete(
+        `http://localhost:8000/api/users/messages/delete/${id}`,
+        {
+          headers: {
+            Authorization: `JWT ${token}`,
+          },
+        }
+      );
+      setNow(new Date());
+    } catch {
+      setError(
+        "There was a problem deleting the message, Make sure you have a stable internet connection."
       );
     }
   };
@@ -63,7 +84,7 @@ const ReceivedMessageList = () => {
   useEffect(() => {
     if (!userInfo) navigate("/login");
     if (userInfo && userInfo.isAdmin) fetchMessages();
-  }, []);
+  }, [now]);
 
   return (
     <Container id="user-list__container">
@@ -89,11 +110,11 @@ const ReceivedMessageList = () => {
         <thead>
           <tr>
             <th>SENDER</th>
-            <th>TIME SENT</th>
-            <th>READ</th>
             <th className="text-center">
-              <i className="fa fa-ellipsis-h"></i>
+              <i className="far fa-clock"></i>
             </th>
+            <th>READ</th>
+            <th className="text-center">MORE</th>
           </tr>
         </thead>
         {messages.length > 0 ? (
@@ -121,13 +142,34 @@ const ReceivedMessageList = () => {
                     />
                   </Form>
                 </td>
-                <td
-                  onClick={() => readTheMessage(message.id)}
-                  style={{ cursor: "pointer" }}
-                >
-                  <Button style={{ color: "var(--bs-secondary)" }}>
-                    Details
-                  </Button>
+                <td>
+                  <Dropdown>
+                    <Dropdown.Toggle
+                      variant="primary"
+                      style={{ color: "var(--bs-secondary)" }}
+                      id="dropdown-basic"
+                    >
+                      <i className="fa fa-ellipsis-h"></i>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={() => readTheMessage(message.id)}>
+                        <Button
+                          variant="dark-blue"
+                          className="w-100"
+                          style={{
+                            color: "var(--bs-secondary)",
+                          }}
+                        >
+                          Details
+                        </Button>
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => deleteMessage(message.id)}>
+                        <Button variant="danger" className="w-100">
+                          Delete
+                        </Button>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </td>
               </tr>
             ))}

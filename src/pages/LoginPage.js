@@ -98,30 +98,26 @@ const LoginPage = () => {
             New Customer?
             <Link
               to={redirect ? `/register?redirect=${redirect}` : "/register"}
-              className="font-family-secondary px-2"
-              style={{ fontSize: "1.2rem" }}
+              className="font-family-secondary px-2 txt--blue"
+              style={{ fontSize: "1.2rem", textDecoration: "none" }}
             >
               Register
             </Link>
           </p>
-          <p
-            style={{ fontSize: "1.2rem" }}
-            className="txt--gray font-family-secondary"
-          >
-            <Link
-              to="/"
-              className="font-family-secondary"
-              style={{ fontSize: "1.2rem" }}
-            >
+          <div className="login-link__container border-top-lt p-3 px-0">
+            <Link to="/" className="font-family-secondary txt--blue">
               Enter as a Guest
             </Link>
-          </p>
+            <Link to="/" className="font-family-secondary txt--blue">
+              Forgot Your Password?
+            </Link>
+          </div>
         </div>
         <Button
           type="submit"
           variant="primary"
           className="w-100"
-          style={{ backgroundColor: "#0095f6" }}
+          style={{ color: "var(--bs-secondary)" }}
         >
           Sign In
         </Button>

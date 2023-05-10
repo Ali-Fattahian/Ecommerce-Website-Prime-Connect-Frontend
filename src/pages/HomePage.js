@@ -12,6 +12,7 @@ import Rating from "../components/Rating";
 import Price from "../components/Price";
 import axios from "axios";
 import Message from "../components/Message";
+import Footer from "../components/Footer";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -124,7 +125,13 @@ const HomePage = () => {
       )}
       <Row id="homepage-new-products">
         <div className="text-center p-3">
-          <h2 className="font-family-secondary border-bottom-primary d-inline-block pb-2" style={{ borderColor: 'var(--bs-light-cyan)', color: 'var(--bs-secondary)' }}>
+          <h2
+            className="font-family-secondary border-bottom-primary d-inline-block pb-2"
+            style={{
+              borderColor: "var(--bs-light-cyan)",
+              color: "var(--bs-secondary)",
+            }}
+          >
             NEW PRODUCTS
           </h2>
         </div>
@@ -138,6 +145,7 @@ const HomePage = () => {
           <Message variant="info">No new product was found</Message>
         )}
       </Row>
+      <Footer />
     </>
   );
 };

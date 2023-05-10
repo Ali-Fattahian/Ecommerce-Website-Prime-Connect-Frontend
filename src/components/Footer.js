@@ -1,8 +1,8 @@
 import React from "react";
 
-const Footer = () => {
+const Footer = ({ fixed }) => {
   return (
-    <footer>
+    <footer className={fixed ? 'fixed' : ''}>
       <i className="far fa-copyright" style={{ color: "var(--bs-dark-blue)", transform: 'translateX(10px)' }}></i>
       <svg
         version="1.1"

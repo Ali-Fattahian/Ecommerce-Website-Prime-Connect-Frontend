@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Image from 'react-bootstrap/Image';
-import Card from 'react-bootstrap/Card';
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import ListGroup from "react-bootstrap/ListGroup";
+import Image from "react-bootstrap/Image";
+import Card from "react-bootstrap/Card";
 import Message from "../components/Message";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { orderCreate } from "../store/slices/orderSlice";
+import Footer from "../components/Footer";
 
 const PlaceOrderPage = () => {
   const orders = useSelector((state) => state.orders);
@@ -52,7 +53,7 @@ const PlaceOrderPage = () => {
   };
 
   return (
-    <div>
+    <div style={{ marginBottom: "70px" }}>
       <CheckoutSteps step1 step2 step3 step4 />
       <Row id="checkout-page">
         <Col md={8}>
@@ -69,7 +70,9 @@ const PlaceOrderPage = () => {
               </p>
             </ListGroup.Item>
             <ListGroup.Item>
-              <h2 className="font-family-secondary txt--black">Payment Method</h2>
+              <h2 className="font-family-secondary txt--black">
+                Payment Method
+              </h2>
               <p>
                 <strong>Method: </strong>
                 {cart.paymentMethod}
@@ -78,7 +81,9 @@ const PlaceOrderPage = () => {
             <ListGroup.Item>
               <h2 className="font-family-secondary txt--black">Order Items</h2>
               {cart.cartItems.length === 0 ? (
-                <Message variant="info">Your cart is empty <Link to="/all-products/">Products</Link></Message>
+                <Message variant="info">
+                  Your cart is empty <Link to="/all-products/">Products</Link>
+                </Message>
               ) : (
                 <ListGroup variant="flush">
                   {cart.cartItems.map((item, index) => (
@@ -111,7 +116,9 @@ const PlaceOrderPage = () => {
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2 className="font-family-secondary txt--black">Order Summary</h2>
+                <h2 className="font-family-secondary txt--black">
+                  Order Summary
+                </h2>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
@@ -143,7 +150,7 @@ const PlaceOrderPage = () => {
               <ListGroup.Item>
                 <Button
                   type="button"
-                  style={{ color: 'var(--bs-secondary)' }}
+                  style={{ color: "var(--bs-secondary)" }}
                   className="btn w-100"
                   disabled={cart.cartItems.length === 0}
                   onClick={placeOrderHandler}
@@ -155,6 +162,7 @@ const PlaceOrderPage = () => {
           </Card>
         </Col>
       </Row>
+      <Footer fixed />
     </div>
   );
 };

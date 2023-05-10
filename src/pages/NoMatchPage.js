@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Message from "../components/Message";
 import NavbarComponent from "../components/NavbarComponent";
+import Footer from "../components/Footer";
 
 const NoMatchPage = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const NoMatchPage = () => {
           </p>
         </Message>
       </div>
+      <Footer fixed />
     </>
   );
 };

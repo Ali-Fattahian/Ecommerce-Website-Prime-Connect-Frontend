@@ -8,6 +8,7 @@ import Message from "../components/Message";
 import axios from "axios";
 import EditUserProfileForm from "../components/EditUserProfileForm";
 import GetMyOrders from "../components/GetMyOrders";
+import Footer from "../components/Footer";
 
 const EditUserProfilePage = () => {
   const user = useSelector((state) => state.user);
@@ -134,6 +135,7 @@ const EditUserProfilePage = () => {
           </Col>
         )}
       </Row>
+      {orders ? <Footer /> : <Footer fixed />}
     </>
   );
 };

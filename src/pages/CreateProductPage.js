@@ -330,8 +330,8 @@ const CreateProductPage = () => {
           <Button
             type="submit"
             className="w-100"
-            style={{ backgroundColor: "#0095f6", color: "#fff" }}
-            variant="secondary"
+            style={{ color: "var(--bs-secondary)" }}
+            variant="primary"
           >
             {loading ? "Loading" : "Create"}
           </Button>

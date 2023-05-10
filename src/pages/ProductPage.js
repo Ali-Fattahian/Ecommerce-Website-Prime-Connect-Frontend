@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/slices/cartSlice";
 import Message from "../components/Message";
 import Product from "../components/Product";
+import Footer from '../components/Footer';
 
 const ProductPage = () => {
   const config = {
@@ -441,6 +442,7 @@ const ProductPage = () => {
           </div>
         </Fade>
       </Row>
+      <Footer fixed />
     </div>
   );
 };

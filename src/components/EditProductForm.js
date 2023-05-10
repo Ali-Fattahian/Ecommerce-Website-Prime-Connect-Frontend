@@ -110,7 +110,8 @@ const EditProductForm = ({
         <Form
           onSubmit={formSubmitHandler}
           id="register-form"
-          className="p-4 border-lt mt-4"
+          className="p-4 border-lt"
+          style={{ maxWidth: "936px", margin: "1.5rem auto" }}
           encType="multipart/form-data"
           method="PUT"
         >
@@ -288,8 +289,8 @@ const EditProductForm = ({
                 Change Image 1
               </Form.Label>
               <Button
-                variant="danger"
-                style={{ color: "#fff" }}
+                variant="dark-blue"
+                style={{ color: "var(--bs-secondary)" }}
                 onClick={() => {
                   deleteImageHandler({ image1: true });
                 }}
@@ -321,8 +322,8 @@ const EditProductForm = ({
                 {product.image2 ? "Change" : "Add"} Image 2
               </Form.Label>
               <Button
-                variant="danger"
-                style={{ color: "#fff" }}
+                variant="dark-blue"
+                style={{ color: "var(--bs-secondary)" }}
                 onClick={() => {
                   deleteImageHandler({ image2: true });
                 }}
@@ -354,8 +355,8 @@ const EditProductForm = ({
                 {image3 ? "Change" : "Add"} Image 3
               </Form.Label>
               <Button
-                variant="danger"
-                style={{ color: "#fff" }}
+                variant="dark-blue"
+                style={{ color: "var(--bs-secondary)" }}
                 onClick={() => {
                   deleteImageHandler({ image3: true });
                 }}
@@ -411,10 +412,10 @@ const EditProductForm = ({
             )}
           </Row>
           <Button
+            variant="primary"
             type="submit"
             className="w-100"
-            style={{ backgroundColor: "#0095f6", color: "#fff" }}
-            variant="secondary"
+            style={{ color: "var(--bs-secondary)" }}
           >
             {loading ? "Loading" : "Edit"}
           </Button>

@@ -15,6 +15,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/esm/Button";
 import Product from "../components/Product";
 import Message from "../components/Message";
+import Footer from "../components/Footer";
 
 const AllProductsPage = () => {
   const dispatch = useDispatch();
@@ -181,6 +182,7 @@ const AllProductsPage = () => {
           </Message>
         )}
       </Row>
+      <Footer />
     </>
   );
 };

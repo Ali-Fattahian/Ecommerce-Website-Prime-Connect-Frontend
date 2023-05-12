@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   clearFetchProductsFilters,
   fetchBrands,
+  fetchCategories,
   fetchProducts,
   fetchSubCategories,
   updateFetchProductsFilters,
@@ -20,11 +21,18 @@ import Footer from "../components/Footer";
 const AllProductsPage = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
-  const { allProducts, allSubCategories, brands, productFilters } = products;
+  const {
+    allProducts,
+    allSubCategories,
+    brands,
+    productFilters,
+    allCategories,
+  } = products;
   const [brand, setBrand] = useState(productFilters.brandFilter);
   const [subCategory, setSubCategory] = useState(
     productFilters.subCategoryFilter
   );
+  const [category, setCategory] = useState(productFilters.categoryFilter);
   const [ordering, setOrdering] = useState(productFilters.orderBy);
   const [hasDiscount, setHasDiscount] = useState(productFilters.hasDiscount);
   const [search, setSearch] = useState(productFilters.searchQuery);
@@ -35,6 +43,7 @@ const AllProductsPage = () => {
       searchQuery: search,
       brandFilter: brand,
       subCategoryFilter: subCategory,
+      categoryFilter: category,
       orderBy: ordering,
       hasDiscount,
     };
@@ -47,18 +56,25 @@ const AllProductsPage = () => {
       dispatch(fetchSubCategories()); // If the state is empty send a request maybe we have not done that before or it is actually empty in the backend
     }
 
+    if (allCategories.length === 0) {
+      dispatch(fetchCategories());
+    }
+
     if (brands.length === 0) {
       dispatch(fetchBrands());
     }
     dispatch(fetchProducts());
-  }, [dispatch, brands.length, allSubCategories.length]);
+  }, [dispatch, brands.length, allSubCategories.length, allCategories.length]);
 
   return (
     <>
       <NavbarComponent />
-      <Row style={{ padding: '48px 45px', paddingBottom: '0' }} id="all-products__filter">
+      <Row
+        style={{ padding: "48px 45px", paddingBottom: "0" }}
+        id="all-products__filter"
+      >
         <Col className="p-0">
-          <Accordion id='all-products-accordion'>
+          <Accordion id="all-products-accordion">
             <Accordion.Header className="border-bottom-lt">
               <i
                 className="fa fa-filter"
@@ -93,9 +109,24 @@ const AllProductsPage = () => {
                     }}
                     value={subCategory}
                   >
-                    <option value="">Sub Category</option>{" "}
+                    <option value="">No Filter</option>{" "}
                     {/* Empty string is the default value, gets chosen if there is nothing here */}
                     {allSubCategories.map((x) => (
+                      <option value={x.name} key={x.id}>
+                        {x.name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group className="mt-2">
+                  <Form.Select
+                    onChange={(e) => {
+                      setCategory(e.target.value);
+                    }}
+                    value={category}
+                  >
+                    <option value="">No Filter</option>
+                    {allCategories.map((x) => (
                       <option value={x.name} key={x.id}>
                         {x.name}
                       </option>

@@ -12,7 +12,7 @@ export const fetchProducts = createAsyncThunk(
       baseURL: "http://localhost:8000",
     };
     const { data } = await axios.get(
-      `api/products/?brand=${filters.brandFilter}&subCategory__name=${filters.subCategoryFilter}&hasDiscount=${filters.hasDiscount}&search=${filters.searchQuery}&ordering=${filters.orderBy}`,
+      `api/products/?brand=${filters.brandFilter}&subCategory__name=${filters.subCategoryFilter}&subCategory__category__name=${filters.categoryFilter ? filters.categoryFilter : ''}&hasDiscount=${filters.hasDiscount}&search=${filters.searchQuery}&ordering=${filters.orderBy}`,
       config
     );
     return data;
@@ -39,6 +39,20 @@ export const fetchSubCategories = createAsyncThunk(
       baseURL: "http://localhost:8000",
     };
     const { data } = await axios.get("api/products/sub-categories", config);
+    return data;
+  }
+);
+
+export const fetchCategories = createAsyncThunk(
+  "products/fetchCategories",
+  async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      baseURL: "http://localhost:8000",
+    };
+    const { data } = await axios.get("api/products/categories", config);
     return data;
   }
 );
@@ -128,6 +142,9 @@ const productSlice = createSlice({
     allSubCategories: localStorage.getItem("allSubCategories")
       ? JSON.parse(localStorage.getItem("allSubCategories"))
       : [],
+    allCategories: localStorage.getItem("allCategories")
+      ? JSON.parse(localStorage.getItem("allCategories"))
+      : [],
     brands: localStorage.getItem("brands")
       ? JSON.parse(localStorage.getItem("brands"))
       : [],
@@ -141,6 +158,7 @@ const productSlice = createSlice({
           orderBy: "",
           brandFilter: "",
           subCategoryFilter: "",
+          categoryFilter: "",
           hasDiscount: null,
         },
   },
@@ -196,6 +214,21 @@ const productSlice = createSlice({
         state.success = false;
         state.error =
           "A problem occured while fetching the sub categories, Make sure you have a stable internet connection";
+      })
+      .addCase(fetchCategories.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.allCategories = action.payload;
+        localStorage.setItem("allCategories", JSON.stringify(action.payload));
+      })
+      .addCase(fetchCategories.rejected, (state) => {
+        state.loading = false;
+        state.success = false;
+        state.error =
+          "A problem occured while fetching the categories, Make sure you have a stable internet connection";
       })
       .addCase(fetchBrands.pending, (state) => {
         state.loading = true;

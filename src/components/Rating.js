@@ -19,7 +19,7 @@ const Rating = ({ ratingNum, reviewCount, noText }) => {
   for (let i = 0; i < remaning; i++) {
     emptyStars.push(
       <span className="star" key={i}>
-        <i className="fa fa-star-o txt--orange"></i>
+        <i className="far fa-star txt--orange"></i>
       </span>
     );
   }
@@ -29,15 +29,17 @@ const Rating = ({ ratingNum, reviewCount, noText }) => {
       {filledStars}
       {decimalPart > 0 && (
         <span className="star" key={decimalPart}>
-          <i className="fa fa-star-half-full txt--orange"></i>
+          <i className="fas fa-star-half-alt txt--orange"></i>
         </span>
       )}
       {emptyStars}
-      {!noText ? reviewCount && (
-        <p>
-          {ratingNum} out of {reviewCount} reviews
-        </p>
-      ): ''}
+      {!noText
+        ? reviewCount && (
+            <p className="mx-2 d-inline-block">
+              {ratingNum} ({reviewCount})
+            </p>
+          )
+        : ""}
     </div>
   );
 };

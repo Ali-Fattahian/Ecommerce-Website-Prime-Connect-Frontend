@@ -145,7 +145,7 @@ const HomePage = () => {
           <Message variant="info">No new product was found</Message>
         )}
       </Row>
-      <Footer />
+      {popularProducts.length > 0 && newProducts.length > 0 ? <Footer /> : <Footer fixed />}
     </>
   );
 };

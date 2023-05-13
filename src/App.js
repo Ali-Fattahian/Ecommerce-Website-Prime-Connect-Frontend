@@ -1,6 +1,6 @@
 import "./custom.scss";
 import { Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import CartPage from "./pages/CartPage";
@@ -54,7 +54,10 @@ function App() {
           <Route path="/admin/user-list/" element={<UsersListPage />} />
           <Route path="/admin/product-list/" element={<ProductsListPage />} />
           <Route path="/admin/order-list/" element={<OrderListPage />} />
-          <Route path="admin/message-management/" element={<MessageManagementPage />} />
+          <Route
+            path="admin/message-management/"
+            element={<MessageManagementPage />}
+          />
           <Route
             path="admin/received-messages-list/:messageId/"
             element={<ReceivedMessageDetailPage />}

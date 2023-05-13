@@ -213,7 +213,7 @@ const AllProductsPage = () => {
           </Message>
         )}
       </Row>
-      <Footer />
+      {allProducts.length > 0 ? <Footer /> : <Footer fixed />}
     </>
   );
 };

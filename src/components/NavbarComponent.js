@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/slices/userSlice";
 
@@ -36,7 +37,7 @@ const NavbarComponent = () => {
             className="me-auto d-flex justify-content-between w-100 align-items-center"
             id="nav-link__container"
           >
-            <Nav.Link href="/">
+            <NavLink to="/">
               <svg
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
@@ -52,9 +53,9 @@ const NavbarComponent = () => {
                   d="M104.3402,30.6l0-1.323l-3.738,0q-2.604,0-4.368-1.764t-1.764-4.368q0-2.394,1.764-4.116t4.368-1.722l3.738,0l0-1.365l-3.738,0q-3.171,0-5.313,2.1q-2.142,2.079-2.142,5.103q0,3.213,2.142,5.313q2.1,2.142,5.313,2.142l3.738,0z M112.90484,15.9q-2.373,0-4.074,1.701q-1.722,1.722-1.722,4.095l0,3.171q0,2.331,1.722,4.053t4.074,1.722q2.373,0,4.095-1.722q1.701-1.701,1.701-4.053l0-3.171q0-2.394-1.701-4.095t-4.095-1.701z M117.39884,21.696l0,3.171q0,1.911-1.344,3.213q-1.323,1.26-3.15,1.26t-3.129-1.26q-1.344-1.302-1.344-3.213l0-3.171q0-1.764,1.344-3.15q1.344-1.344,3.129-1.344q1.764,0,3.15,1.344q1.344,1.386,1.344,3.15z M121.78448,30.6l1.302,0l0-8.904q0-1.764,1.344-3.15q1.344-1.344,3.108-1.344t3.15,1.344q1.344,1.386,1.344,3.15l0,8.904l1.302,0l0-8.904q0-2.394-1.701-4.095t-4.095-1.701q-2.352,0-4.053,1.701t-1.701,4.095l0,8.904z M136.50212,30.6l1.302,0l0-8.904q0-1.764,1.344-3.15q1.344-1.344,3.108-1.344t3.15,1.344q1.344,1.386,1.344,3.15l0,8.904l1.302,0l0-8.904q0-2.394-1.701-4.095t-4.095-1.701q-2.352,0-4.053,1.701t-1.701,4.095l0,8.904z M152.47976,26.568q0-1.008,0.714-1.827q0.714-0.861,1.722-0.861l0.273,0l3.927,0l0-1.302l-3.927,0l-0.273,0q-1.071-0.21-1.7535-0.924t-0.6825-1.701q0-1.239,0.7245-1.9635t1.9845-0.7245l7.14,0l0-1.323l-7.14,0q-1.617,0-2.814,1.197q-1.197,1.155-1.197,2.814q0,1.05,0.399,1.911t1.176,1.239q-0.777,0.567-1.176,1.491t-0.399,1.974q0,1.638,1.197,2.793q1.218,1.218,2.814,1.218l7.14,0l0-1.386l-7.14,0q-1.26,0-1.9845-0.714t-0.7245-1.911z M175.9124,30.6l0-1.323l-3.738,0q-2.604,0-4.368-1.764t-1.764-4.368q0-2.394,1.764-4.116t4.368-1.722l3.738,0l0-1.365l-3.738,0q-3.171,0-5.313,2.1q-2.142,2.079-2.142,5.103q0,3.213,2.142,5.313q2.1,2.142,5.313,2.142l3.738,0z M189.45404,15.9l-11.382,0l0,1.281l5.166,0l0,13.461l1.302,0l0-13.461l4.914,0l0-1.281z"
                 />
               </svg>
-            </Nav.Link>
+            </NavLink>
             <div id="shopping-cart-icon__container">
-              <Nav.Link href="/cart">
+              <NavLink to="/cart">
                 <span
                   className="fa-stack fa-2x has-badge"
                   data-count={`${cartItemsNumber}`}
@@ -62,21 +63,21 @@ const NavbarComponent = () => {
                   <i className="fa fa-circle fa-stack-2x"></i>
                   <i className="fas fa-shopping-cart fa-stack-2x"></i>
                 </span>
-              </Nav.Link>
+              </NavLink>
             </div>
             <div
               id="nav-item__container"
               className={userInfo ? "" : "nav-flex-row"}
             >
-              <Nav.Link id="nav-link" href="/all-products/">
+              <NavLink id="nav-link" to="/all-products/">
                 Products
-              </Nav.Link>
+              </NavLink>
               {/* Links should be blocks in smaller screens */}
               {userInfo ? (
                 <NavDropdown title={userInfo.fullname} id="user-dropdown-menu">
                   {/* <NavDropdown.Item href={`/users/${userInfo.id}/edit`}>Profile</NavDropdown.Item> */}
-                  <NavDropdown.Item href={`/users/${userInfo.id}/edit`}>
-                    Profile
+                  <NavDropdown.Item>
+                    <NavLink to={`/users/${userInfo.id}/edit`}>Profile</NavLink>
                   </NavDropdown.Item>
                   <NavDropdown.Item
                     as="button"
@@ -88,14 +89,14 @@ const NavbarComponent = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <Nav.Link href={`/login?redirect=${window.location.pathname}`}>
+                <NavLink to={`/login?redirect=${window.location.pathname}`}>
                   Login
-                </Nav.Link>
+                </NavLink>
               )}
               {userInfo && userInfo.isAdmin && (
-                <Nav.Link id="admin-panel" href="/admin/dashboard/">
+                <NavLink id="admin-panel" to="/admin/dashboard/">
                   Dashboard
-                </Nav.Link>
+                </NavLink>
               )}
             </div>
           </Nav>

@@ -144,6 +144,13 @@ footer.fixed {
 
 #nav-link__container {
     flex-direction: row;
+    a {
+        text-decoration: none;
+    }
+    #shopping-cart-icon__container {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
 }
 
 #nav-item__container {

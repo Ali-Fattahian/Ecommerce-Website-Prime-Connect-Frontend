@@ -155,6 +155,7 @@ footer.fixed {
 
 #nav-item__container {
     display: flex;
+    align-items: center;
 }
 
 #message-dropdown-menu {
@@ -565,6 +566,7 @@ footer.fixed {
         border: 1px solid #ddd;
         margin-top: 1rem;
         width: 50% !important;
+        margin-bottom: 5rem;
     }
 }
 
@@ -784,6 +786,7 @@ footer.fixed {
     #nav-item__container {
         flex-direction: column;
         transform: translateX(55px);
+        align-items: flex-start;
     }
 
     #shopping-cart-icon__container {

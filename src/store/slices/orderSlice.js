@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const baseURL = "https://prime-connect.onrender.com/api";
+// const baseURL = 'http://localhost:8000/api/'
+
 export const orderCreate = createAsyncThunk(
   "orders/orderCreate",
   async (order) => {
@@ -10,9 +13,9 @@ export const orderCreate = createAsyncThunk(
         Authorization: `JWT ${user.token}`,
         "Content-Type": "application/json",
       },
-      baseURL: "http://localhost:8000",
+      baseURL: baseURL,
     };
-    const { data } = await axios.post("api/orders/create", order, config);
+    const { data } = await axios.post("/orders/create", order, config);
     return data;
   }
 );
@@ -27,7 +30,7 @@ export const orderDelete = createAsyncThunk(
       },
     };
     const { data } = await axios.delete(
-      `http://localhost:8000/api/orders/delete-order/${orderId}`,
+      `${baseURL}/orders/delete-order/${orderId}`,
       config
     );
     return data;
@@ -44,7 +47,7 @@ export const updateOrderToDelivered = createAsyncThunk(
       },
     };
     const { data } = await axios.put(
-      `http://localhost:8000/api/orders/deliver-order/${orderId}`,
+      `${baseURL}/orders/deliver-order/${orderId}`,
       {},
       config
     );
@@ -62,7 +65,7 @@ export const updateOrderToPaid = createAsyncThunk(
       },
     };
     const { data } = await axios.put(
-      `http://localhost:8000/api/orders/pay/${orderId}`,
+      `${baseURL}/orders/pay/${orderId}`,
       { totalPrice },
       config
     );
@@ -80,7 +83,7 @@ export const getOrderDetail = createAsyncThunk(
       },
     };
     const { data } = await axios.get(
-      `http://localhost:8000/api/orders/get-order/${orderId}`,
+      `${baseURL}/orders/get-order/${orderId}`,
       config
     );
     return data;

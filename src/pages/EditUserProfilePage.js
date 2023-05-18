@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -14,6 +14,8 @@ import NavbarComponent from "../components/NavbarComponent";
 const EditUserProfilePage = () => {
   const user = useSelector((state) => state.user);
   const { loading, userInfo, error } = user;
+  const config = useSelector((state) => state.config);
+  const { baseURL } = config;
   const [message, setMessage] = useState("");
   const [userProfile, setUserProfile] = useState(null);
   const { userId } = useParams();
@@ -26,7 +28,7 @@ const EditUserProfilePage = () => {
   const getUserProfile = async ({ userId, token }) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/users/get-profile/${userId}`,
+        `${baseURL}/users/get-profile/${userId}`,
         {
           headers: {
             Authorization: `JWT ${token}`,
@@ -45,15 +47,12 @@ const EditUserProfilePage = () => {
   const fetchMyOrders = async () => {
     const token = userInfo.token;
     try {
-      const { data } = await axios.get(
-        `http://localhost:8000/api/orders/get-my-orders`,
-        {
-          headers: {
-            Authorization: `JWT ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const { data } = await axios.get(`${baseURL}/orders/get-my-orders`, {
+        headers: {
+          Authorization: `JWT ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
       setOrders(data);
     } catch (err) {
       setOrdersError(

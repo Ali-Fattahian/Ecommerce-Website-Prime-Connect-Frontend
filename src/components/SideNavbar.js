@@ -8,6 +8,8 @@ import { logout } from "../store/slices/userSlice";
 const SideNavbar = () => {
   const [collapsed, setCollapsed] = useState(true);
   const user = useSelector((state) => state.user);
+  const config = useSelector((state) => state.config);
+  const { baseURL } = config;
   const { userInfo } = user;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ const SideNavbar = () => {
         headers: {
           Authorization: `JWT ${token}`,
         },
-        baseURL: "http://localhost:8000/api",
+        baseURL: baseURL,
       });
       setPendingRequests(data);
     } catch (err) {

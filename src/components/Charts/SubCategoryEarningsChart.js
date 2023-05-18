@@ -33,6 +33,8 @@ const SubCategoryEarningsChart = () => {
   const [earnings, setEarnings] = useState(null);
   const [error, setError] = useState(null);
   const user = useSelector((state) => state.user);
+  const config = useSelector((state) => state.config);
+  const { baseURL } = config;
   const { userInfo } = user;
   const navigate = useNavigate();
 
@@ -45,7 +47,7 @@ const SubCategoryEarningsChart = () => {
           headers: {
             Authorization: `JWT ${token}`,
           },
-          baseURL: "http://localhost:8000/api",
+          baseURL: baseURL,
         }
       );
 

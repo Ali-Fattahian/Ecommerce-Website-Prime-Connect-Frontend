@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Chart as ChartJS } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -8,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 import Message from "../Message";
 
 const MonthlyEarningsChart = () => {
-  // ChartJS.register(ArcElement, Tooltip, Legend);
   const [earnings, setEarnings] = useState(null);
   const [error, setError] = useState(null);
   const user = useSelector((state) => state.user);
+  const config = useSelector((state) => state.config);
+  const { baseURL } = config;
   const { userInfo } = user;
   const navigate = useNavigate();
 
@@ -24,7 +23,7 @@ const MonthlyEarningsChart = () => {
           headers: {
             Authorization: `JWT ${token}`,
           },
-          baseURL: "http://localhost:8000/api",
+          baseURL: baseURL,
         }
       );
 

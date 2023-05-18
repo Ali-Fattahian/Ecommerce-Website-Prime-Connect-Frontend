@@ -12,6 +12,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 const ReceivedMessageList = () => {
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
+  const config = useSelector((state) => state.config);
+  const { baseURL } = config;
   const [messages, setMessages] = useState([]);
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -21,7 +23,7 @@ const ReceivedMessageList = () => {
     try {
       const token = userInfo.token;
       await axios.put(
-        `api/users/received-messages/change-message-status/${id}`,
+        `/users/received-messages/change-message-status/${id}`,
         {
           isRead: e.target.checked,
         },
@@ -30,7 +32,7 @@ const ReceivedMessageList = () => {
             Authorization: `JWT ${token}`,
             "Content-Type": "application/json",
           },
-          baseURL: "http://localhost:8000",
+          baseURL: baseURL,
         }
       );
     } catch (err) {
@@ -43,14 +45,11 @@ const ReceivedMessageList = () => {
   const deleteMessage = async (id) => {
     const token = userInfo.token;
     try {
-      await axios.delete(
-        `http://localhost:8000/api/users/messages/delete/${id}`,
-        {
-          headers: {
-            Authorization: `JWT ${token}`,
-          },
-        }
-      );
+      await axios.delete(`${baseURL}/users/messages/delete/${id}`, {
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      });
       setNow(new Date());
     } catch {
       setError(
@@ -66,12 +65,12 @@ const ReceivedMessageList = () => {
   const fetchMessages = async () => {
     try {
       const token = userInfo.token;
-      const { data } = await axios.get("api/users/received-messages", {
+      const { data } = await axios.get("/users/received-messages", {
         headers: {
           Authorization: `JWT ${token}`,
           "Content-Type": "application/json",
         },
-        baseURL: "http://localhost:8000",
+        baseURL: baseURL,
       });
       setMessages(data);
     } catch (err) {

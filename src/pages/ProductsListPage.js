@@ -16,6 +16,8 @@ import classes from "../pages/Admin/Admin.module.css";
 const ProductsListPage = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const config = useSelector((state) => state.config);
+  const { baseURL } = config;
   const { userInfo } = user;
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
@@ -23,7 +25,7 @@ const ProductsListPage = () => {
 
   const fetchProducts = async (token) => {
     try {
-      const { data } = await axios.get("http://localhost:8000/api/products", {
+      const { data } = await axios.get(`${baseURL}/products`, {
         headers: {
           Authorization: `JWT ${token}`,
           "Content-Type": "application/json",
@@ -79,7 +81,7 @@ const ProductsListPage = () => {
               <Button
                 type="submit"
                 variant="primary"
-                style={{ color: 'var(--bs-secondary)' }}
+                style={{ color: "var(--bs-secondary)" }}
                 className="font-family-secondary p-2"
                 id="new-product-btn"
                 onClick={() => navigate("/admin/create-product")}

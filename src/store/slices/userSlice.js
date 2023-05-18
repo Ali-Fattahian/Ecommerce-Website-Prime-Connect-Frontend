@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const baseURL = "https://prime-connect.onrender.com/api";
+// const baseURL = 'http://localhost:8000/api/'
+
 const initialState = {
   loading: false,
   userInfo: localStorage.getItem("userInfo")
@@ -19,14 +22,14 @@ const config = {
   headers: {
     "Content-Type": "application/json",
   },
-  baseURL: "http://localhost:8000",
+  baseURL: baseURL,
 };
 
 export const login = createAsyncThunk(
   "user/login",
   async ({ email, password }) => {
     const { data } = await axios.post(
-      "api/users/login",
+      "/users/login",
       {
         email: email,
         password: password,
@@ -41,7 +44,7 @@ export const register = createAsyncThunk(
   "user/register",
   async ({ fullname, email, password }) => {
     const { data } = await axios.post(
-      "api/users/register",
+      "/users/register",
       {
         fullname: fullname,
         email: email,
@@ -56,12 +59,12 @@ export const register = createAsyncThunk(
 export const getUserList = createAsyncThunk(
   "user/getUserList",
   async (token) => {
-    const { data } = await axios.get("api/users", {
+    const { data } = await axios.get("/users", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `JWT ${token}`,
       },
-      baseURL: "http://localhost:8000",
+      baseURL: baseURL,
     });
     return data;
   }
@@ -70,12 +73,12 @@ export const getUserList = createAsyncThunk(
 export const getUserProfile = createAsyncThunk(
   "user/getUserProfile",
   async ({ token, userId }) => {
-    const { data } = await axios.get(`api/users/get-profile/${userId}`, {
+    const { data } = await axios.get(`/users/get-profile/${userId}`, {
       headers: {
         Authorization: `JWT ${token}`,
         "Content-Type": "application/json",
       },
-      baseURL: "http://localhost:8000/",
+      baseURL: baseURL,
     });
     return data;
   }
@@ -87,14 +90,14 @@ export const updateUserProfile = createAsyncThunk(
     const token = updateData.token;
     delete updateData.token;
     const { data } = await axios.put(
-      `api/users/update-profile/${updateData.id}`,
+      `/users/update-profile/${updateData.id}`,
       updateData,
       {
         headers: {
           Authorization: `JWT ${token}`,
           "Content-Type": "application/json",
         },
-        baseURL: "http://localhost:8000",
+        baseURL: baseURL,
       }
     );
     return data;
@@ -104,15 +107,12 @@ export const updateUserProfile = createAsyncThunk(
 export const deleteUserProfile = createAsyncThunk(
   "user/deleteUserProfile",
   async ({ id, token }) => {
-    const { data } = await axios.delete(
-      `http://localhost:8000/api/users/get-profile/${id}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `JWT ${token}`,
-        },
-      }
-    );
+    const { data } = await axios.delete(`${baseURL}/users/get-profile/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${token}`,
+      },
+    });
     return data;
   }
 );

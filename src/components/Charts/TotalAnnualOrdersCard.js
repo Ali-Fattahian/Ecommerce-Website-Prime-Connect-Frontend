@@ -7,6 +7,8 @@ import classes from "../../pages/Admin/Admin.module.css";
 const TotalAnnualOrdersCard = () => {
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
+  const config = useSelector((state) => state.config);
+  const { baseURL } = config;
   const [totalOrders, setTotalOrders] = useState(null);
   const [error, setError] = useState(null);
 
@@ -17,7 +19,7 @@ const TotalAnnualOrdersCard = () => {
         headers: {
           Authorization: `JWT ${token}`,
         },
-        baseURL: "http://localhost:8000/api",
+        baseURL: baseURL,
       });
 
       setTotalOrders(data);

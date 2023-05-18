@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import Message from "../components/Message";
 import Image from "react-bootstrap/Image";
 import Form from "react-bootstrap/Form";
@@ -40,6 +41,8 @@ const EditProductForm = ({
   const [subCategory, setSubCategory] = useState(
     product.subCategory ? product.subCategory.id : ""
   );
+  const config = useSelector((state) => state.config);
+  const { baseURL } = config;
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -84,7 +87,7 @@ const EditProductForm = ({
     const token = userInfo.token;
     try {
       await axios.put(
-        `http://localhost:8000/api/products/product-image-delete/${product.id}`,
+        `${baseURL}/products/product-image-delete/${product.id}`,
         data,
         {
           headers: {

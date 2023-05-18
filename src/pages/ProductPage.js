@@ -17,16 +17,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/slices/cartSlice";
 import Message from "../components/Message";
 import Product from "../components/Product";
-import Footer from "../components/Footer";
 
 const ProductPage = () => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    baseURL: "http://localhost:8000/api/",
-  };
   const { productId } = useParams();
+  const config = useSelector((state) => state.config);
+  const { baseURL } = config;
   const [error, setError] = useState(null);
   const [productDetail, setProductDetail] = useState([]);
   const [detailOpen, setDetailOpen] = useState(true);
@@ -44,6 +39,12 @@ const ProductPage = () => {
   const [suggestionsError, setSuggestionsError] = useState(null);
   const { userInfo } = user;
   const dispatch = useDispatch();
+  const pageConfig = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    baseURL: baseURL,
+  };
   const addToCartHandler = () => {
     dispatch(addToCart({ productDetail, qty }));
     setMessage(
@@ -61,7 +62,7 @@ const ProductPage = () => {
   };
 
   const reviewCreateHandler = async (review) => {
-    config.headers = {
+    pageConfig.headers = {
       "Content-Type": "application/json",
       Authorization: `JWT ${userInfo.token}`,
     };
@@ -72,7 +73,7 @@ const ProductPage = () => {
           comment: review,
           rating: rating,
         },
-        config
+        pageConfig
       );
       setRefreshPage(new Date());
     } catch (err) {
@@ -95,7 +96,7 @@ const ProductPage = () => {
 
   const fetchProduct = async () => {
     try {
-      const { data } = await axios.get(`products/${productId}`, config);
+      const { data } = await axios.get(`products/${productId}`, pageConfig);
       setProductDetail(data);
     } catch (err) {
       setError(
@@ -107,7 +108,7 @@ const ProductPage = () => {
   const fetchSuggestions = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/products/product-suggestion/${productId}`
+        `${baseURL}/products/product-suggestion/${productId}`
       );
       setSuggestions(data);
     } catch (err) {

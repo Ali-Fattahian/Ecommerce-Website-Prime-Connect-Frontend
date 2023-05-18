@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const baseURL = "https://prime-connect.onrender.com/api";
+// const baseURL = 'http://localhost:8000/api/'
+
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
@@ -9,10 +12,16 @@ export const fetchProducts = createAsyncThunk(
       headers: {
         "Content-Type": "application/json",
       },
-      baseURL: "http://localhost:8000",
+      baseURL: baseURL,
     };
     const { data } = await axios.get(
-      `api/products/?brand=${filters.brandFilter}&subCategory__name=${filters.subCategoryFilter}&subCategory__category__name=${filters.categoryFilter ? filters.categoryFilter : ''}&hasDiscount=${filters.hasDiscount}&search=${filters.searchQuery}&ordering=${filters.orderBy}`,
+      `/products/?brand=${filters.brandFilter}&subCategory__name=${
+        filters.subCategoryFilter
+      }&subCategory__category__name=${
+        filters.categoryFilter ? filters.categoryFilter : ""
+      }&hasDiscount=${filters.hasDiscount}&search=${
+        filters.searchQuery
+      }&ordering=${filters.orderBy}`,
       config
     );
     return data;
@@ -22,9 +31,7 @@ export const fetchProducts = createAsyncThunk(
 export const fetchProduct = createAsyncThunk(
   "products/fetchProduct",
   async (id) => {
-    const { data } = await axios.get(
-      `http://localhost:8000/api/products/${id}`
-    );
+    const { data } = await axios.get(`${baseURL}/products/${id}`);
     return data;
   }
 );
@@ -36,9 +43,9 @@ export const fetchSubCategories = createAsyncThunk(
       headers: {
         "Content-Type": "application/json",
       },
-      baseURL: "http://localhost:8000",
+      baseURL: baseURL,
     };
-    const { data } = await axios.get("api/products/sub-categories", config);
+    const { data } = await axios.get("/products/sub-categories", config);
     return data;
   }
 );
@@ -50,9 +57,9 @@ export const fetchCategories = createAsyncThunk(
       headers: {
         "Content-Type": "application/json",
       },
-      baseURL: "http://localhost:8000",
+      baseURL: baseURL,
     };
-    const { data } = await axios.get("api/products/categories", config);
+    const { data } = await axios.get("/products/categories", config);
     return data;
   }
 );
@@ -64,9 +71,9 @@ export const fetchBrands = createAsyncThunk(
       headers: {
         "Content-Type": "application/json",
       },
-      baseURL: "http://localhost:8000",
+      baseURL: baseURL,
     };
-    const { data } = await axios.get("api/products/brands", config);
+    const { data } = await axios.get("/products/brands", config);
     return data["brands"];
   }
 );
@@ -74,15 +81,12 @@ export const fetchBrands = createAsyncThunk(
 export const deleteProduct = createAsyncThunk(
   "products/deleteProduct",
   async ({ id, token }) => {
-    const { data } = await axios.delete(
-      `http://localhost:8000/api/products/${id}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `JWT ${token}`,
-        },
-      }
-    );
+    const { data } = await axios.delete(`${baseURL}/products/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${token}`,
+      },
+    });
     return data;
   }
 );
@@ -95,14 +99,14 @@ export const updateProduct = createAsyncThunk(
     delete updateData.token;
 
     const { data } = await axios.put(
-      `api/products/product-edit/${updateData.id}`,
+      `/products/product-edit/${updateData.id}`,
       formData,
       {
         headers: {
           Authorization: `JWT ${token}`,
           "Content-Type": "multipart/form-data",
         },
-        baseURL: "http://localhost:8000",
+        baseURL: baseURL,
       }
     );
     return data;
@@ -117,7 +121,7 @@ export const createProduct = createAsyncThunk(
     delete createData.token;
 
     const { data } = await axios.post(
-      "http://localhost:8000/api/products/create-product",
+      `${baseURL}/products/create-product`,
       formData,
       {
         headers: {

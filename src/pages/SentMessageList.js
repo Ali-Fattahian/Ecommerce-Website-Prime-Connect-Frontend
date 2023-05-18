@@ -11,6 +11,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 const SentMessageList = ({ refresh }) => {
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
+  const config = useSelector((state) => state.config);
+  const { baseURL } = config;
   const [messages, setMessages] = useState([]);
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -23,14 +25,11 @@ const SentMessageList = ({ refresh }) => {
   const deleteMessage = async (id) => {
     const token = userInfo.token;
     try {
-      await axios.delete(
-        `http://localhost:8000/api/users/messages/delete/${id}`,
-        {
-          headers: {
-            Authorization: `JWT ${token}`,
-          },
-        }
-      );
+      await axios.delete(`${baseURL}/users/messages/delete/${id}`, {
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      });
       setNow(new Date());
     } catch {
       setError(
@@ -42,12 +41,12 @@ const SentMessageList = ({ refresh }) => {
   const fetchMessages = async () => {
     try {
       const token = userInfo.token;
-      const { data } = await axios.get("api/users/sent-messages", {
+      const { data } = await axios.get("/users/sent-messages", {
         headers: {
           Authorization: `JWT ${token}`,
           "Content-Type": "application/json",
         },
-        baseURL: "http://localhost:8000",
+        baseURL: baseURL,
       });
       setMessages(data);
     } catch (err) {

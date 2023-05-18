@@ -7,6 +7,8 @@ import classes from "../../pages/Admin/Admin.module.css";
 const TotalMonthlyEarningsCard = () => {
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
+  const config = useSelector((state) => state.config);
+  const { baseURL } = config;
   const [totalEarnings, setTotalEarnings] = useState(null);
   const [error, setError] = useState(null);
 
@@ -17,7 +19,7 @@ const TotalMonthlyEarningsCard = () => {
         headers: {
           Authorization: `JWT ${token}`,
         },
-        baseURL: "http://localhost:8000/api",
+        baseURL: baseURL,
       });
 
       setTotalEarnings(data);

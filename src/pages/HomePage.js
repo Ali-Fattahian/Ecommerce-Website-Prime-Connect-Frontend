@@ -13,6 +13,7 @@ import Price from "../components/Price";
 import axios from "axios";
 import Message from "../components/Message";
 import Footer from "../components/Footer";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -20,12 +21,12 @@ const HomePage = () => {
   const [newProducts, setNewProducts] = useState([]);
   const [popularProductsError, setPopularProductsError] = useState(null);
   const [newProductsError, setNewProductsError] = useState(null);
+  const config = useSelector((state) => state.config);
+  const { baseURL } = config;
 
   const fetchPopularProducts = async () => {
     try {
-      const { data } = await axios.get(
-        "http://localhost:8000/api/products/popular-products"
-      );
+      const { data } = await axios.get(`${baseURL}/products/popular-products`);
       setPopularProducts(data);
     } catch (err) {
       setPopularProductsError(
@@ -36,9 +37,7 @@ const HomePage = () => {
 
   const fetchNewProducts = async () => {
     try {
-      const { data } = await axios.get(
-        "http://localhost:8000/api/products/new-products"
-      );
+      const { data } = await axios.get(`${baseURL}/products/new-products`);
       setNewProducts(data);
     } catch (err) {
       setNewProductsError(
@@ -145,7 +144,11 @@ const HomePage = () => {
           <Message variant="info">No new product was found</Message>
         )}
       </Row>
-      {popularProducts.length > 0 && newProducts.length > 0 ? <Footer /> : <Footer fixed />}
+      {popularProducts.length > 0 && newProducts.length > 0 ? (
+        <Footer />
+      ) : (
+        <Footer fixed />
+      )}
     </>
   );
 };

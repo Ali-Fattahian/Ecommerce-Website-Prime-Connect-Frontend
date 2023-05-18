@@ -19,6 +19,8 @@ const OrderListPage = () => {
   const user = useSelector((state) => state.user);
   const orderState = useSelector((state) => state.orders);
   const { loading, error } = orderState;
+  const config = useSelector((state) => state.config);
+  const { baseURL } = config;
   const { userInfo } = user;
   const [orders, setOrders] = useState([]);
   const [error1, setError] = useState(null);
@@ -43,7 +45,7 @@ const OrderListPage = () => {
 
   const fetchOrders = async (token) => {
     try {
-      const { data } = await axios.get("http://localhost:8000/api/orders", {
+      const { data } = await axios.get(`${baseURL}/orders`, {
         headers: {
           Authorization: `JWT ${token}`,
           "Content-Type": "application/json",

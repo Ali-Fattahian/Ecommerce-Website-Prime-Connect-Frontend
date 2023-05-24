@@ -24,6 +24,8 @@ import MessageManagementPage from "./pages/MessageManagementPage";
 import ReceivedMessageDetailPage from "./pages/ReceivedMessageDetailPage";
 import SentMessageDetailPage from "./pages/SentMessageDetailPage";
 import DashboadPage from "./pages/Admin/DashboadPage";
+import EnterEmailPasswordForgotPage from "./pages/EnterEmailPasswordForgotPage";
+import PasswordForgotCheckPage from "./pages/PasswordForgotCheckPage";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
       <Suspense>
         <Routes fallback={<Loader />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/enter-email/" element={<EnterEmailPasswordForgotPage />} />
+          <Route path="/change-password/:uidb64/:token" element={<PasswordForgotCheckPage />} />
           <Route path="products/:productId" element={<ProductPage />} />
           <Route path="/cart/:id" element={<CartPage />} />
           <Route path="cart/" element={<CartPage />} />

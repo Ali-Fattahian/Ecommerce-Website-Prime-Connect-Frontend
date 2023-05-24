@@ -108,7 +108,7 @@ const LoginPage = () => {
             <Link to="/" className="font-family-secondary txt--blue">
               Enter as a Guest
             </Link>
-            <Link to="/" className="font-family-secondary txt--blue">
+            <Link to="/enter-email" className="font-family-secondary txt--blue">
               Forgot Your Password?
             </Link>
           </div>

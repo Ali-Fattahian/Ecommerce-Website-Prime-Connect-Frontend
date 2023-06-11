@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import Container from "react-bootstrap/Container";
 import Carousel from "react-bootstrap/Carousel";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import NavbarComponent from "../components/NavbarComponent";
-import Product from "../components/Product";
 import Rating from "../components/Rating";
 import Price from "../components/Price";
 import axios from "axios";
 import Message from "../components/Message";
 import Footer from "../components/Footer";
 import { useSelector } from "react-redux";
+import Loader from "../components/Loader";
+
+const NewProducts = React.lazy(() => import("../components/NewProducts"));
+
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [popularProducts, setPopularProducts] = useState([]);
-  const [newProducts, setNewProducts] = useState([]);
   const [popularProductsError, setPopularProductsError] = useState(null);
-  const [newProductsError, setNewProductsError] = useState(null);
   const config = useSelector((state) => state.config);
   const { baseURL } = config;
 
@@ -35,20 +35,8 @@ const HomePage = () => {
     }
   };
 
-  const fetchNewProducts = async () => {
-    try {
-      const { data } = await axios.get(`${baseURL}/products/new-products`);
-      setNewProducts(data);
-    } catch (err) {
-      setNewProductsError(
-        "There was a problem loading the products, Make sure you have a stable internet connection"
-      );
-    }
-  };
-
   useEffect(() => {
     fetchPopularProducts();
-    fetchNewProducts();
   }, []);
   return (
     <>
@@ -134,17 +122,12 @@ const HomePage = () => {
             NEW PRODUCTS
           </h2>
         </div>
-        {!newProductsError && newProducts.length > 0 ? (
-          newProducts.map((product) => (
-            <Col sm={12} md={6} lg={3} xl={3} key={product.id}>
-              <Product product={product} />
-            </Col>
-          ))
-        ) : (
-          <Message variant="info">No new product was found</Message>
-        )}
+        <Suspense fallback={<Loader />}>
+          <NewProducts />
+        </Suspense>
+
       </Row>
-      {popularProducts.length > 0 && newProducts.length > 0 ? (
+      {popularProducts.length > 0 ? (
         <Footer />
       ) : (
         <Footer fixed />

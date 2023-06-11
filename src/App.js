@@ -57,54 +57,198 @@ function App() {
           />
           <Route
             path="/enter-email/"
-            element={<EnterEmailPasswordForgotPage />}
+            element={
+              <Suspense fallback={<Loader />}>
+                <EnterEmailPasswordForgotPage />
+              </Suspense>
+            }
           />
           <Route
             path="/change-password/:uidb64/:token"
-            element={<PasswordForgotCheckPage />}
+            element={
+              <Suspense fallback={<Loader />}>
+                <PasswordForgotCheckPage />
+              </Suspense>
+            }
           />
-          <Route path="products/:productId" element={<ProductPage />} />
-          <Route path="/cart/:id" element={<CartPage />} />
-          <Route path="cart/" element={<CartPage />} />
-          <Route path="orders/:orderId" element={<OrderPage />} />
+          <Route
+            path="products/:productId"
+            element={
+              <Suspense fallback={<Loader />}>
+                <ProductPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/cart/:id"
+            element={
+              <Suspense fallback={<Loader />}>
+                <CartPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="cart/"
+            element={
+              <Suspense fallback={<Loader />}>
+                <CartPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="orders/:orderId"
+            element={
+              <Suspense fallback={<Loader />}>
+                <OrderPage />
+              </Suspense>
+            }
+          />
           <Route
             path="pay-order/:orderId"
-            element={<EnterCardInformationPage />}
+            element={
+              <Suspense fallback={<Loader />}>
+                <EnterCardInformationPage />
+              </Suspense>
+            }
           />
-          <Route path="/login/" element={<LoginPage />} />
-          <Route path="/register/" element={<RegisterPage />} />
-          <Route path="/all-products/" element={<AllProductsPage />} />
+          <Route
+            path="/login/"
+            element={
+              <Suspense fallback={<Loader />}>
+                <LoginPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/register/"
+            element={
+              <Suspense fallback={<Loader />}>
+                <RegisterPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/all-products/"
+            element={
+              <Suspense fallback={<Loader />}>
+                <AllProductsPage />
+              </Suspense>
+            }
+          />
           <Route
             path="/edit-products/:productId"
-            element={<EditProductPage />}
+            element={
+              <Suspense fallback={<Loader />}>
+                <EditProductPage />
+              </Suspense>
+            }
           />
           {/* <Route path="/profile/" element={<ProfilePage />} /> */}
-          <Route path="/shipping/" element={<ShippingPage />} />
-          <Route path="/payment/" element={<PaymentPage />} />
-          <Route path="/placeorder/" element={<PlaceOrderPage />} />
+          <Route
+            path="/shipping/"
+            element={
+              <Suspense fallback={<Loader />}>
+                <ShippingPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/payment/"
+            element={
+              <Suspense fallback={<Loader />}>
+                <PaymentPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/placeorder/"
+            element={
+              <Suspense fallback={<Loader />}>
+                <PlaceOrderPage />
+              </Suspense>
+            }
+          />
           {/* <Route path="/order/:orderId" element={<OrderPage />} /> */}
-          <Route path="/admin/user-list/" element={<UsersListPage />} />
-          <Route path="/admin/product-list/" element={<ProductsListPage />} />
-          <Route path="/admin/order-list/" element={<OrderListPage />} />
+          <Route
+            path="/admin/user-list/"
+            element={
+              <Suspense fallback={<Loader />}>
+                <UsersListPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/admin/product-list/"
+            element={
+              <Suspense fallback={<Loader />}>
+                <ProductsListPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/admin/order-list/"
+            element={
+              <Suspense fallback={<Loader />}>
+                <OrderListPage />
+              </Suspense>
+            }
+          />
           <Route
             path="admin/message-management/"
-            element={<MessageManagementPage />}
+            element={
+              <Suspense fallback={<Loader />}>
+                <MessageManagementPage />
+              </Suspense>
+            }
           />
           <Route
             path="admin/received-messages-list/:messageId/"
-            element={<ReceivedMessageDetailPage />}
+            element={
+              <Suspense fallback={<Loader />}>
+                <ReceivedMessageDetailPage />
+              </Suspense>
+            }
           />
           <Route
             path="admin/sent-messages-list/:messageId/"
-            element={<SentMessageDetailPage />}
+            element={
+              <Suspense fallback={<Loader />}>
+                <SentMessageDetailPage />
+              </Suspense>
+            }
           />
           <Route
             path="/admin/create-product/"
-            element={<CreateProductPage />}
+            element={
+              <Suspense fallback={<Loader />}>
+                <CreateProductPage />
+              </Suspense>
+            }
           />
-          <Route path="/admin/dashboard/" element={<DashboadPage />} />
-          <Route path="/users/:userId/edit" element={<EditUserProfilePage />} />
-          <Route path="*" element={<NoMatchPage />} />
+          <Route
+            path="/admin/dashboard/"
+            element={
+              <Suspense fallback={<Loader />}>
+                <DashboadPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/users/:userId/edit"
+            element={
+              <Suspense fallback={<Loader />}>
+                <EditUserProfilePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <Suspense fallback={<Loader />}>
+                <NoMatchPage />
+              </Suspense>
+            }
+          />
         </Routes>
       </Suspense>
     </Router>

@@ -1,21 +1,19 @@
-import { useNavigate } from "react-router-dom";
 import Rating from "./Rating";
 
 const Product = ({ product }) => {
-  const navigate = useNavigate();
-
   return (
     <div className="product-grid">
       <div className="product-image">
         <div className="image-container">
-          <img className="image-1" alt={product.name} src={product.image1} />
+          <img className="image-1" alt={product.name} src={product.image1} loading="lazy" />
         </div>
         {product.hasDiscount && (
           <span className="product-sale-label">Sale!</span>
         )}
         <div className="price">{product.price} $</div>
         <a
-          onClick={() => navigate(`/products/${product.id}`)}
+          // onClick={() => navigate(`/products/${product.id}`)}
+          href={`#/products/${product.id}`}
           className="product-details"
         >
           <i className="fa fa-eye"></i>

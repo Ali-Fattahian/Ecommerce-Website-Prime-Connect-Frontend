@@ -11,7 +11,7 @@ const PlaceOrderPage = React.lazy(() => import("./pages/PlaceOrderPage"));
 const RegisterPage = React.lazy(() => import("./pages/RegisterPage"));
 const ShippingPage = React.lazy(() => import("./pages/ShippingPage"));
 const PaymentPage = React.lazy(() => import("./pages/PaymentPage"));
-const AllProductsPage = React.lazy(() => import("./pages/AllProductsPage"));
+const AllProductsPage = React.lazy(() => import(/*webpackPrefetch: true*/"./pages/AllProductsPage"));
 const NoMatchPage = React.lazy(() => import("./pages/NoMatchPage"));
 const UsersListPage = React.lazy(() => import("./pages/UsersListPage"));
 const EditUserProfilePage = React.lazy(() =>
@@ -45,210 +45,59 @@ const DashboadPage = React.lazy(() => import("./pages/Admin/DashboadPage"));
 function App() {
   return (
     <Router>
-      <Suspense>
-        <Routes fallback={<Loader />}>
-          <Route
-            path="/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <HomePage />
-              </Suspense>
-            }
-          />
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
           <Route
             path="/enter-email/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <EnterEmailPasswordForgotPage />
-              </Suspense>
-            }
+            element={<EnterEmailPasswordForgotPage />}
           />
           <Route
             path="/change-password/:uidb64/:token"
-            element={
-              <Suspense fallback={<Loader />}>
-                <PasswordForgotCheckPage />
-              </Suspense>
-            }
+            element={<PasswordForgotCheckPage />}
           />
-          <Route
-            path="products/:productId"
-            element={
-              <Suspense fallback={<Loader />}>
-                <ProductPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/cart/:id"
-            element={
-              <Suspense fallback={<Loader />}>
-                <CartPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="cart/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <CartPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="orders/:orderId"
-            element={
-              <Suspense fallback={<Loader />}>
-                <OrderPage />
-              </Suspense>
-            }
-          />
+          <Route path="products/:productId" element={<ProductPage />} />
+          <Route path="/cart/:id" element={<CartPage />} />
+          <Route path="cart/" element={<CartPage />} />
+          <Route path="orders/:orderId" element={<OrderPage />} />
           <Route
             path="pay-order/:orderId"
-            element={
-              <Suspense fallback={<Loader />}>
-                <EnterCardInformationPage />
-              </Suspense>
-            }
+            element={<EnterCardInformationPage />}
           />
-          <Route
-            path="/login/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <LoginPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/register/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <RegisterPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/all-products/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <AllProductsPage />
-              </Suspense>
-            }
-          />
+          <Route path="/login/" element={<LoginPage />} />
+          <Route path="/register/" element={<RegisterPage />} />
+          <Route path="/all-products/" element={<AllProductsPage />} />
           <Route
             path="/edit-products/:productId"
-            element={
-              <Suspense fallback={<Loader />}>
-                <EditProductPage />
-              </Suspense>
-            }
+            element={<EditProductPage />}
           />
           {/* <Route path="/profile/" element={<ProfilePage />} /> */}
-          <Route
-            path="/shipping/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <ShippingPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/payment/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <PaymentPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/placeorder/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <PlaceOrderPage />
-              </Suspense>
-            }
-          />
+          <Route path="/shipping/" element={<ShippingPage />} />
+          <Route path="/payment/" element={<PaymentPage />} />
+          <Route path="/placeorder/" element={<PlaceOrderPage />} />
           {/* <Route path="/order/:orderId" element={<OrderPage />} /> */}
-          <Route
-            path="/admin/user-list/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <UsersListPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/admin/product-list/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <ProductsListPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/admin/order-list/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <OrderListPage />
-              </Suspense>
-            }
-          />
+          <Route path="/admin/user-list/" element={<UsersListPage />} />
+          <Route path="/admin/product-list/" element={<ProductsListPage />} />
+          <Route path="/admin/order-list/" element={<OrderListPage />} />
           <Route
             path="admin/message-management/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <MessageManagementPage />
-              </Suspense>
-            }
+            element={<MessageManagementPage />}
           />
           <Route
             path="admin/received-messages-list/:messageId/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <ReceivedMessageDetailPage />
-              </Suspense>
-            }
+            element={<ReceivedMessageDetailPage />}
           />
           <Route
             path="admin/sent-messages-list/:messageId/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <SentMessageDetailPage />
-              </Suspense>
-            }
+            element={<SentMessageDetailPage />}
           />
           <Route
             path="/admin/create-product/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <CreateProductPage />
-              </Suspense>
-            }
+            element={<CreateProductPage />}
           />
-          <Route
-            path="/admin/dashboard/"
-            element={
-              <Suspense fallback={<Loader />}>
-                <DashboadPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/users/:userId/edit"
-            element={
-              <Suspense fallback={<Loader />}>
-                <EditUserProfilePage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="*"
-            element={
-              <Suspense fallback={<Loader />}>
-                <NoMatchPage />
-              </Suspense>
-            }
-          />
+          <Route path="/admin/dashboard/" element={<DashboadPage />} />
+          <Route path="/users/:userId/edit" element={<EditUserProfilePage />} />
+          <Route path="*" element={<NoMatchPage />} />
         </Routes>
       </Suspense>
     </Router>

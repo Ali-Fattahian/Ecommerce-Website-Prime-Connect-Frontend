@@ -1,12 +1,29 @@
+import { createRef, useEffect, useState } from "react";
 import Rating from "./Rating";
+import ProductImageContainer from "./ProductImageContainer";
 
 const Product = ({ product }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const imageRef = createRef();
+
+  useEffect(() => {
+    if (document.readyState === "complete") {
+      setImageLoaded(true);
+    } else {
+      imageRef.current.addEventListener("load", () => {
+        setImageLoaded(true);
+      });
+    }
+  }, []);
+
   return (
     <div className="product-grid">
       <div className="product-image">
-        <div className="image-container">
-          <img className="image-1" alt={product.name} src={product.image1} loading="lazy" />
-        </div>
+        <ProductImageContainer
+          product={product}
+          imageLoaded={imageLoaded}
+          imageRef={imageRef}
+        />
         {product.hasDiscount && (
           <span className="product-sale-label">Sale!</span>
         )}

@@ -16,7 +16,6 @@ import Loader from "../components/Loader";
 
 const NewProducts = React.lazy(() => import("../components/NewProducts"));
 
-
 const HomePage = () => {
   const navigate = useNavigate();
   const [popularProducts, setPopularProducts] = useState([]);
@@ -125,13 +124,8 @@ const HomePage = () => {
         <Suspense fallback={<Loader />}>
           <NewProducts />
         </Suspense>
-
       </Row>
-      {popularProducts.length > 0 ? (
-        <Footer />
-      ) : (
-        <Footer fixed />
-      )}
+      {popularProducts.length > 0 ? <Footer /> : <Footer fixed />}
     </>
   );
 };

@@ -585,6 +585,13 @@ footer.fixed {
   overflow: hidden;
   display: block;
 }
+
+.product-image .image-container > div {
+    width: 100% !important; 
+    height: 280px !important;
+    margin: auto;
+}
+
 .product-grid .product-image img{
   width: 100%;
   height: auto;

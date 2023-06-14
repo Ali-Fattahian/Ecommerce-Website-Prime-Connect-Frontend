@@ -109,7 +109,7 @@ const HomePage = () => {
       ) : (
         <Message variant="info">No popular product was found</Message>
       )}
-      <Row id="homepage-new-products">
+      <Row id="homepage-new-products" style={{ justifyContent: 'center' }}>
         <div className="text-center p-3">
           <h2
             className="font-family-secondary border-bottom-primary d-inline-block pb-2"

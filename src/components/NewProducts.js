@@ -30,7 +30,7 @@ const NewProducts = () => {
     <>
       {!newProductsError && newProducts.length > 0 ? (
         newProducts.map((product) => (
-          <Col sm={12} md={6} lg={3} xl={3} key={product.id}>
+          <Col sm={12} md={6} lg={3} xl={3} key={product.id} style={{ maxWidth: '320px' }}>
             <Product product={product} />
           </Col>
         ))

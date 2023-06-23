@@ -16,7 +16,6 @@ const ProductImageContainer = ({ product, imageLoaded, imageRef }) => {
         className="image-1"
         alt={product.name}
         src={product.image1}
-        loading="lazy"
         ref={imageRef}
         style={{ display: `${imageLoaded ? "block" : "none"}` }}
       />

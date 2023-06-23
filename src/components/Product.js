@@ -7,13 +7,9 @@ const Product = ({ product }) => {
   const imageRef = createRef();
 
   useEffect(() => {
-    if (document.readyState === "complete") {
+    imageRef.current.addEventListener('load', () => {
       setImageLoaded(true);
-    } else {
-      imageRef.current.addEventListener("load", () => {
-        setImageLoaded(true);
       });
-    }
   }, []);
 
   return (

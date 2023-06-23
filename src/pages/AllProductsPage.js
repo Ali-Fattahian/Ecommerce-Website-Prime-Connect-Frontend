@@ -14,9 +14,8 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/esm/Button";
-import Product from "../components/Product";
-import Message from "../components/Message";
 import Footer from "../components/Footer";
+import AllProductsList from "../components/AllProductsList";
 
 const AllProductsPage = () => {
   const dispatch = useDispatch();
@@ -52,6 +51,8 @@ const AllProductsPage = () => {
   };
 
   useEffect(() => {
+    dispatch(fetchProducts());
+    
     if (allSubCategories.length === 0) {
       dispatch(fetchSubCategories()); // If the state is empty send a request maybe we have not done that before or it is actually empty in the backend
     }
@@ -63,7 +64,6 @@ const AllProductsPage = () => {
     if (brands.length === 0) {
       dispatch(fetchBrands());
     }
-    dispatch(fetchProducts());
   }, [dispatch, brands.length, allSubCategories.length, allCategories.length]);
 
   return (
@@ -201,17 +201,7 @@ const AllProductsPage = () => {
         </Col>
       </Row>
       <Row id="homepage-new-products">
-        {allProducts.length > 0 ? (
-          allProducts.map((product) => (
-            <Col sm={12} md={6} lg={4} xl={3} key={product.id} className="mb-3">
-              <Product product={product} key={product.id} />
-            </Col>
-          ))
-        ) : (
-          <Message variant="info">
-            No product was found with the current filters
-          </Message>
-        )}
+        <AllProductsList allProducts={allProducts} />
       </Row>
       {allProducts.length > 0 ? <Footer /> : <Footer fixed />}
     </>

@@ -8,6 +8,8 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Message from "../components/Message";
 import Dropdown from "react-bootstrap/Dropdown";
+import ClockIcon from "../icons/ClockIcon";
+import EllipsesIcon from "../icons/EllipsesIcon";
 
 const ReceivedMessageList = () => {
   const user = useSelector((state) => state.user);
@@ -110,7 +112,7 @@ const ReceivedMessageList = () => {
           <tr>
             <th>SENDER</th>
             <th className="text-center">
-              <i className="far fa-clock"></i>
+              <ClockIcon />
             </th>
             <th>READ</th>
             <th className="text-center">MORE</th>
@@ -148,7 +150,7 @@ const ReceivedMessageList = () => {
                       style={{ color: "var(--bs-secondary)" }}
                       id="dropdown-basic"
                     >
-                      <i className="fa fa-ellipsis-h"></i>
+                      <EllipsesIcon />
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       <Dropdown.Item onClick={() => readTheMessage(message.id)}>

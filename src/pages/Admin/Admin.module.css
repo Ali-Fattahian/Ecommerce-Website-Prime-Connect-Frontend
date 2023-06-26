@@ -74,6 +74,27 @@
   border-right: 3px solid var(--bs-primary);
 }
 
+.navbar-links__section svg {
+  fill: var(--bs-secondary);
+  transition: all ease-in-out 350ms;
+}
+
+.navbar-links__section svg:active,
+.navbar-links__section svg:hover {
+  fill: var(--bs-primary) !important;
+}
+
+.navbar-bottom svg {
+  fill: var(--bs-secondary);
+  transition: all ease-in-out 350ms;
+}
+
+.navbar-bottom svg:active,
+.navbar-bottom svg:hover {
+  fill: var(--bs-primary) !important;
+}
+
+
 .navbar-middle {
   width: 100%;
 }

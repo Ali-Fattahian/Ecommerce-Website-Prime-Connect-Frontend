@@ -328,6 +328,7 @@ footer.fixed {
 
     th {
         padding-left: 12px;
+        vertical-align: middle;
     }
 
     td {
@@ -740,6 +741,42 @@ footer.fixed {
     margin-bottom: 32px;
 }
 
+.rating-component {
+    svg {
+        color: map-get($theme-colors, 'orange');
+    }
+}
+
+.copyright-icon {
+    transform: translateX(10px);
+    width: 20px;
+    height: 20px;
+    
+    svg {
+        color: map-get($theme-colors, 'dark-blue');
+    }
+}
+
+.filter-icon {
+    svg {
+        color: map-get($theme-colors, 'black');
+    }
+}
+
+.arrow-icon {
+    svg {
+        transform: translateY(-1px);
+    }
+}
+
+.earnings-card__section .shopping-bag-icon {
+    padding: 6px 9px;
+    border-radius: 4px;
+    background-color: #432a71;
+}
+
+// =============================================================
+
 @media screen and (max-width: 1080px) {
     .charts__container {
         flex-direction: column;
@@ -922,6 +959,12 @@ footer.fixed {
 
     #product-suggestions > div {
         min-width: 250px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    #user-list__container {
+        box-shadow: none;
     }
 }
 

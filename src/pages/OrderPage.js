@@ -13,6 +13,10 @@ import Loader from "../components/Loader";
 import { getOrderDetail } from "../store/slices/orderSlice";
 import Footer from "../components/Footer";
 import NavbarComponent from "../components/NavbarComponent";
+import EnvelopeIcon from "../icons/EnvelopeIcon";
+import HashtagIcon from "../icons/HashtagIcon";
+import ShippingIcon from "../icons/ShippingIcon";
+import CreditCardIcon from "../icons/CreditCardIcon";
 
 const OrderPage = () => {
   const { orderId } = useParams();
@@ -59,7 +63,7 @@ const OrderPage = () => {
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <h2 className="font-family-secondary mb-3 txt--black">
-                    <i className="fa fa-hashtag"></i>: {orderDetail.id}
+                    <HashtagIcon />: {orderDetail.id}
                   </h2>
                   <p>
                     <strong>Name: </strong>
@@ -69,7 +73,7 @@ const OrderPage = () => {
                   </p>
                   <p>
                     <strong>
-                      <i className="fa fa-envelope"></i>
+                      <EnvelopeIcon />
                     </strong>
                     <a
                       href={`mailto:${orderDetail.user.email}`}
@@ -80,7 +84,7 @@ const OrderPage = () => {
                   </p>
                   <p>
                     <strong>
-                      <i className="fa fa-truck"></i>
+                      <ShippingIcon />
                     </strong>
                     <span className="txt--gray mx-2">
                       {orderDetail.shippingAddress.address},{" "}
@@ -106,7 +110,7 @@ const OrderPage = () => {
                   </h2>
                   <p>
                     <strong>
-                      <i className="fa fa-credit-card txt--gray"></i>
+                      <CreditCardIcon color='txt--gray' />
                     </strong>
                     <span className="txt--gray mx-2">
                       {orderDetail.paymentMethod}

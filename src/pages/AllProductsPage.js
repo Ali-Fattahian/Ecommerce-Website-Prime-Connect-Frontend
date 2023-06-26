@@ -16,6 +16,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/esm/Button";
 import Footer from "../components/Footer";
 import AllProductsList from "../components/AllProductsList";
+import FilterIcon from "../icons/FilterIcon";
 
 const AllProductsPage = () => {
   const dispatch = useDispatch();
@@ -76,10 +77,7 @@ const AllProductsPage = () => {
         <Col className="p-0">
           <Accordion id="all-products-accordion">
             <Accordion.Header className="border-bottom-lt">
-              <i
-                className="fa fa-filter"
-                style={{ fontSize: "25px", color: "var(--bs-black)" }}
-              ></i>
+              <FilterIcon />
             </Accordion.Header>
             <Accordion.Body>
               <Form

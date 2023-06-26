@@ -39,7 +39,7 @@ const TotalMonthlyEarningsCard = () => {
       {totalEarnings ? (
         <div className={classes["admin-card"]}>
           <p className="txt--black font-family-secondary m-0">
-            {Math.trunc(totalEarnings)} <i className="fa fa-usd"></i>
+            {Math.trunc(totalEarnings)} <span className="font-weight-bold px-2">$</span>
           </p>
           <p className="txt--black font-family-secondary m-0">Last 30 days</p>
         </div>

@@ -6,6 +6,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/slices/userSlice";
+import ShoppingCartIcon from "../icons/ShoppingCartIcon";
 
 const NavbarComponent = () => {
   const cart = useSelector((state) => state.cart);
@@ -57,11 +58,11 @@ const NavbarComponent = () => {
             <div id="shopping-cart-icon__container">
               <NavLink to="/cart">
                 <span
-                  className="fa-stack fa-2x has-badge"
+                  className="fa-stack has-badge"
+                  style={{ fontSize: '20px', marginBottom: '8px' }}
                   data-count={`${cartItemsNumber}`}
                 >
-                  <i className="fa fa-circle fa-stack-2x"></i>
-                  <i className="fas fa-shopping-cart fa-stack-2x"></i>
+                  <ShoppingCartIcon />
                 </span>
               </NavLink>
             </div>

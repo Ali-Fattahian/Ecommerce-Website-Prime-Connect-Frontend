@@ -14,6 +14,7 @@ import { removeFromCart, updateCart } from "../store/slices/cartSlice";
 import Message from "../components/Message";
 import Footer from "../components/Footer";
 import NavbarComponent from "../components/NavbarComponent";
+import TrashIcon from "../icons/TrashIcon";
 
 const CartPage = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -92,7 +93,7 @@ const CartPage = () => {
                         variant="light"
                         onClick={() => removeFromCartHandler(productDetail.id)}
                       >
-                        <i className="fa fa-trash"></i>
+                        <TrashIcon color='var(--bs-black)' />
                       </Button>
                     </Col>
                   </Row>

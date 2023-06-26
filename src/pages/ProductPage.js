@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/slices/cartSlice";
 import Message from "../components/Message";
 import Product from "../components/Product";
+import EditIcon from "../icons/EditIcon";
 
 const ProductPage = () => {
   const { productId } = useParams();
@@ -320,7 +321,7 @@ const ProductPage = () => {
                   setWriteReviewOpen(true);
                 }}
               >
-                <i className="fa fa-edit mx-1"></i>
+                <div className="mx-1 d-inline-block"><EditIcon /></div>
                 <span>Write your review</span>
               </p>
             </div>

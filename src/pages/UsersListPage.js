@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import Message from "../components/Message";
 import classes from "../pages/Admin/Admin.module.css";
 import SideNavbar from "../components/SideNavbar";
+import CheckIcon from "../icons/CheckIcon";
+import EllipsesIcon from "../icons/EllipsesIcon";
 
 const UsersListPage = () => {
   const dispatch = useDispatch();
@@ -67,7 +69,7 @@ const UsersListPage = () => {
                 <th>EMAIL</th>
                 <th>ADMIN</th>
                 <th className="text-center">
-                  <i className="fa fa-ellipsis-h"></i>
+                  <EllipsesIcon />
                 </th>
               </tr>
             </thead>
@@ -79,9 +81,9 @@ const UsersListPage = () => {
                   <td>{user.email}</td>
                   <td>
                     {user.isAdmin ? (
-                      <i className="fa fa-check" style={{ color: "green" }}></i>
+                      <CheckIcon color="green" />
                     ) : (
-                      <i className="fa fa-check" style={{ color: "red" }}></i>
+                      <CheckIcon color="red" />
                     )}
                   </td>
                   <td>

@@ -1,6 +1,7 @@
 import { createRef, useEffect, useState } from "react";
 import Rating from "./Rating";
 import ProductImageContainer from "./ProductImageContainer";
+import EyeIcon from "../icons/EyeIcon";
 
 const Product = ({ product }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -29,7 +30,7 @@ const Product = ({ product }) => {
           href={`#/products/${product.id}`}
           className="product-details"
         >
-          <i className="fa fa-eye"></i>
+          <EyeIcon />
         </a>
       </div>
       <div className="product-content">

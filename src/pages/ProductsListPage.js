@@ -12,6 +12,9 @@ import SideNavbar from "../components/SideNavbar";
 import { deleteProduct } from "../store/slices/productSlice";
 import Message from "../components/Message";
 import classes from "../pages/Admin/Admin.module.css";
+import EllipsesIcon from "../icons/EllipsesIcon";
+import EditIcon from "../icons/EditIcon";
+import TrashIcon from "../icons/TrashIcon";
 
 const ProductsListPage = () => {
   const navigate = useNavigate();
@@ -107,7 +110,7 @@ const ProductsListPage = () => {
                 <th>USER</th>
                 <th>COUNT IN STOCK</th>
                 <th className="text-center">
-                  <i className="fa fa-ellipsis-h"></i>
+                  <EllipsesIcon />
                 </th>
               </tr>
             </thead>
@@ -124,13 +127,7 @@ const ProductsListPage = () => {
                     <td>
                       <LinkContainer to={`/edit-products/${product.id}`}>
                         <Button variant="light" className="btn-sm">
-                          <i
-                            className="fa fa-edit"
-                            style={{
-                              fontSize: "1rem",
-                              color: "var(--bs-secondary)",
-                            }}
-                          ></i>
+                          <EditIcon />
                         </Button>
                       </LinkContainer>
                       <Button
@@ -145,13 +142,7 @@ const ProductsListPage = () => {
                           deleteProductHandler(product.id);
                         }}
                       >
-                        <i
-                          className="fa fa-trash"
-                          style={{
-                            fontSize: "1rem",
-                            color: "var(--bs-secondary)",
-                          }}
-                        ></i>
+                        <TrashIcon />
                       </Button>
                     </td>
                   </tr>

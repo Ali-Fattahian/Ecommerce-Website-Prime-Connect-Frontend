@@ -7,6 +7,9 @@ import Container from "react-bootstrap/Container";
 import Message from "../components/Message";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
+import CheckIcon from "../icons/CheckIcon";
+import EllipsesIcon from "../icons/EllipsesIcon";
+import ClockIcon from "../icons/ClockIcon";
 
 const SentMessageList = ({ refresh }) => {
   const user = useSelector((state) => state.user);
@@ -86,7 +89,7 @@ const SentMessageList = ({ refresh }) => {
           <tr>
             <th>RECIPIENT</th>
             <th className="text-center">
-              <i className="far fa-clock"></i>
+              <ClockIcon />
             </th>
             <th>READ</th>
             <th>MORE</th>
@@ -100,9 +103,9 @@ const SentMessageList = ({ refresh }) => {
                 <td>{message.createdAt.substring(0, 10)}</td>
                 <td>
                   {message.isRead ? (
-                    <i className="fa fa-check" style={{ color: "green" }}></i>
+                    <CheckIcon color='green' />
                   ) : (
-                    <i className="fa fa-check" style={{ color: "red" }}></i>
+                    <CheckIcon color='red' />
                   )}
                 </td>
                 <td>
@@ -112,7 +115,7 @@ const SentMessageList = ({ refresh }) => {
                       style={{ color: "var(--bs-secondary)" }}
                       id="dropdown-basic"
                     >
-                      <i className="fa fa-ellipsis-h"></i>
+                      <EllipsesIcon />
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       <Dropdown.Item onClick={() => readTheMessage(message.id)}>

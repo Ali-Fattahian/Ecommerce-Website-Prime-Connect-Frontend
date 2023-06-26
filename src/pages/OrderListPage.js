@@ -13,6 +13,7 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import SideNavbar from "../components/SideNavbar";
 import classes from "./Admin/Admin.module.css";
+import EllipsesIcon from "../icons/EllipsesIcon";
 
 const OrderListPage = () => {
   const navigate = useNavigate();
@@ -96,7 +97,7 @@ const OrderListPage = () => {
                   <th>METHOD</th>
                   <th>DELIVERED</th>
                   <th className="text-center">
-                    <i className="fa fa-ellipsis-h"></i>
+                    <EllipsesIcon />
                   </th>
                 </tr>
               </thead>

@@ -2,6 +2,7 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import LinkContianer from "react-router-bootstrap/LinkContainer";
 import Button from "react-bootstrap/Button";
+import XMarkIcon from "../icons/XMarkIcon";
 
 
 const GetMyOrders = ({ orders }) => {
@@ -35,7 +36,7 @@ const GetMyOrders = ({ orders }) => {
                   {order.isPaid && order.paidAt ? (
                     order.paidAt.substring(0, 10)
                   ) : (
-                    <i className="fa fa-times" style={{ color: "red" }}></i>
+                    <XMarkIcon color='red' />
                   )}
                 </td>
                 <td>

@@ -1,8 +1,11 @@
 import React from "react";
+import FilledStarIcon from "../icons/FilledStarIcon";
+import HalfStarIcon from "../icons/HalfStarIcon";
+import EmptyStarIcon from "../icons/EmptyStarIcon";
 
 const Rating = ({ ratingNum, reviewCount, noText }) => {
   ratingNum = Number(ratingNum);
-  const intPart = Math.floor(ratingNum); // Number of full stars
+  const intPart = Math.floor(ratingNum); // Number of filled stars
   const decimalPart = ratingNum - intPart; // Number of half stars
   const remaning = Math.floor(5 - ratingNum); // Number of empty stars
 
@@ -10,7 +13,7 @@ const Rating = ({ ratingNum, reviewCount, noText }) => {
   for (let i = 0; i < intPart; i++) {
     filledStars.push(
       <span className="star" key={i}>
-        <i className="fa fa-star txt--orange"></i>
+        <FilledStarIcon />
       </span>
     );
   }
@@ -19,17 +22,17 @@ const Rating = ({ ratingNum, reviewCount, noText }) => {
   for (let i = 0; i < remaning; i++) {
     emptyStars.push(
       <span className="star" key={i}>
-        <i className="far fa-star txt--orange"></i>
+        <EmptyStarIcon />
       </span>
     );
   }
 
   return (
-    <div>
+    <div className="rating-component">
       {filledStars}
       {decimalPart > 0 && (
         <span className="star" key={decimalPart}>
-          <i className="fas fa-star-half-alt txt--orange"></i>
+          <HalfStarIcon />
         </span>
       )}
       {emptyStars}

@@ -4,6 +4,8 @@ import TotalAnnualEarningsCard from "./TotalAnnualEarningsCard";
 import classes from "../../pages/Admin/Admin.module.css";
 import TotalMonthlyOrdersCard from "./TotalMonthlyOrdersCard";
 import TotalAnnualOrdersCard from "./TotalAnnualOrdersCard";
+import BillIcon from "../../icons/BillIcon";
+import ShoppingBagIcon from "../../icons/ShoppingBagIcon";
 
 const TotalOrdersEarnings = () => {
   return (
@@ -16,22 +18,14 @@ const TotalOrdersEarnings = () => {
           >
             SALES
           </p>
-          <i
-            className="far fa-money-bill-alt fa-2x"
-            style={{
-              color: "#333",
-              padding: ".5rem",
-              borderRadius: "4px",
-              backgroundColor: "#c0eef2",
-            }}
-          ></i>
+          <BillIcon />
         </div>
         <div className="d-flex gap-4 total-cards__container">
           <TotalMonthlyEarningsCard />
           <TotalAnnualEarningsCard />
         </div>
       </div>
-      <div id={classes["earnings-card__container"]}>
+      <div id={classes["earnings-card__container"]} className="earnings-card__section">
         <div className="d-flex gap-4 justify-content-between">
           <p
             className="txt--black font-family-secondary m-0"
@@ -39,15 +33,7 @@ const TotalOrdersEarnings = () => {
           >
             ORDERS
           </p>
-          <i
-            className="fa fa-shopping-bag fa-2x"
-            style={{
-              color: "#e9f8f9",
-              padding: ".5rem",
-              borderRadius: "4px",
-              backgroundColor: "#432a71",
-            }}
-          ></i>
+           <ShoppingBagIcon style={{ fill: '#e9f8f9', fontSize: '28px'} } />
         </div>
         <div className="d-flex gap-4 total-cards__container">
           <TotalMonthlyOrdersCard />

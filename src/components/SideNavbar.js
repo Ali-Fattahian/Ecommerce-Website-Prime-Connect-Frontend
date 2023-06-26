@@ -4,6 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { logout } from "../store/slices/userSlice";
+import ChartsIcon from "../icons/ChartsIcon";
+import ProfileIcon from "../icons/ProfileIcon";
+import UsersIcon from "../icons/UsersIcon";
+import ShippingIcon from "../icons/ShippingIcon";
+import ShoppingBagIcon from "../icons/ShoppingBagIcon";
+import MessagesIcon from "../icons/MessagesIcon";
+import HomeIcon from "../icons/HomeIcon";
+import LogoutIcon from "../icons/LogoutIcon";
+import RightArrowIcon from "../icons/RightArrowIcon";
+import LeftArrowIcon from "../icons/LeftArrowIcon";
 
 const SideNavbar = () => {
   const [collapsed, setCollapsed] = useState(true);
@@ -50,9 +60,9 @@ const SideNavbar = () => {
         onClick={navbarCollapaseHandler}
       >
         {collapsed ? (
-          <i className="fa fa-arrow-right"></i>
+          <RightArrowIcon />
         ) : (
-          <i className="fa fa-arrow-left"></i>
+          <LeftArrowIcon />
         )}
       </div>
       <div
@@ -81,55 +91,49 @@ const SideNavbar = () => {
           className={classes["navbar-links__section"]}
           onClick={() => navigate("/admin/dashboard/")}
         >
-          <i className="fa fa-bar-chart"></i>
+          <ChartsIcon />
           <p>Dashboard</p>
         </div>
         <div
           className={classes["navbar-links__section"]}
           onClick={() => navigate(`/users/${userInfo.id}/edit/`)}
         >
-          <i className="fa fa-address-card"></i>
+          <ProfileIcon />
           <p>Profile</p>
         </div>
         <div
           className={classes["navbar-links__section"]}
           onClick={() => navigate("/admin/user-list/")}
         >
-          <i className="fa fa-users"></i>
+          <UsersIcon />
           <p>Manage Users</p>
         </div>
         <div
           className={classes["navbar-links__section"]}
           onClick={() => navigate("/admin/product-list/")}
         >
-          <i className="fa fa-shopping-bag"></i>
+          <ShoppingBagIcon />
           <p>Manage Products</p>
         </div>
         <div
           className={classes["navbar-links__section"]}
           onClick={() => navigate("/admin/order-list/")}
         >
-          <i className="fa fa-truck" style={{ position: "relative" }}>
-            {!error && pendingRequests > 0 && (
-              <span className={classes["pending-orders"]}>
-                {pendingRequests}
-              </span>
-            )}
-          </i>
+          <ShippingIcon pendingRequests={pendingRequests} error={error} />
           <p>Manage Orders</p>
         </div>
         <div
           className={classes["navbar-links__section"]}
           onClick={() => navigate("/admin/message-management")}
         >
-          <i className="fa fa-comments"></i>
+          <MessagesIcon />
           <p>Messages</p>
         </div>
         <div
           className={classes["navbar-links__section"]}
           onClick={() => navigate("/")}
         >
-          <i className="fa fa-globe"></i>
+          <HomeIcon />
           <p>Back to Website</p>
         </div>
       </div>
@@ -138,7 +142,7 @@ const SideNavbar = () => {
         onClick={() => dispatch(logout())}
       >
         <div>
-          <i className="fa fa-sign-out"></i>
+          <LogoutIcon />
           <p>Log out</p>
         </div>
       </div>

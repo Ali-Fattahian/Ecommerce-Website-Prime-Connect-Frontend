@@ -1,9 +1,10 @@
 import React from "react";
+import CopyRightIcon from "../icons/CopyRightIcon";
 
 const Footer = ({ fixed }) => {
   return (
     <footer className={fixed ? 'fixed' : ''}>
-      <i className="far fa-copyright" style={{ color: "var(--bs-dark-blue)", transform: 'translateX(10px)' }}></i>
+      <CopyRightIcon />
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"

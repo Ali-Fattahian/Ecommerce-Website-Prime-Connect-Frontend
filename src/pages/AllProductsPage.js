@@ -53,7 +53,7 @@ const AllProductsPage = () => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-    
+
     if (allSubCategories.length === 0) {
       dispatch(fetchSubCategories()); // If the state is empty send a request maybe we have not done that before or it is actually empty in the backend
     }
@@ -75,8 +75,10 @@ const AllProductsPage = () => {
         id="all-products__filter"
       >
         <Col className="p-0">
-          <Accordion id="all-products-accordion">
-            <Accordion.Header className="border-bottom-lt">
+          <Accordion
+            id="all-products-accordion"
+          >
+            <Accordion.Header className="border-bottom-lt" aria-label="show and hide products filters">
               <FilterIcon />
             </Accordion.Header>
             <Accordion.Body>
@@ -175,10 +177,12 @@ const AllProductsPage = () => {
                     border: "none",
                   }}
                   className="w-100 mt-4"
+                  aria-label="filter products"
                 >
                   Filter
                 </Button>
                 <Button
+                  aria-label="clear products filters"
                   variant="primary"
                   onClick={() => {
                     setSearch("");

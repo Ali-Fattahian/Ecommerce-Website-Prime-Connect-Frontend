@@ -29,6 +29,7 @@ const Product = ({ product }) => {
           // onClick={() => navigate(`/products/${product.id}`)}
           href={`#/products/${product.id}`}
           className="product-details"
+          aria-label="check details"
         >
           <EyeIcon />
         </a>

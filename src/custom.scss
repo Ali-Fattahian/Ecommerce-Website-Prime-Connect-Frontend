@@ -28,8 +28,23 @@ $theme-colors: (
     "border-gray": #ddd
 );
 
+@font-face {
+    font-family: Merriweather;
+    src: url(./fonts/MerriweatherSans-VariableFont_wght.ttf)
+}
+
+@font-face {
+    font-family: Oswald;
+    src: url(./fonts/Oswald-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: Montserrat;
+    src: url(./fonts/Montserrat-VariableFont_wght.ttf);
+}
+
 .font-family-secondary {
-    font-family: 'Oswald', sans-serif; // For headlines
+    font-family: Oswald; // For headlines
 }
 
 .txt--gray {
@@ -81,7 +96,7 @@ $theme-colors: (
 }
 
 body {
-    font-family: 'Merriweather', serif !important;
+    font-family: Merriweather !important;
     font-size: 14px !important;
 }
 
@@ -106,7 +121,7 @@ body {
 }
 
 th {
-    font-family: 'Oswald', sans-serif;
+    font-family: Oswald;
 }
 
 footer {
@@ -344,7 +359,7 @@ footer.fixed {
     display: inline-block;
     vertical-align: top;
     // font-family: 'Marck Script', cursive;
-    font-family: 'Oswald', sans-serif;
+    font-family: Oswald;
     // font-family: '', cursive;
     font-size: 24px;
     line-height: 20px;
@@ -435,7 +450,7 @@ footer.fixed {
 } 
 
 #user-list-table {
-    font-family: 'Oswald', sans-serif;
+    font-family: Oswald;
 }
 
 #admin-list .form-control:focus {
@@ -458,7 +473,7 @@ footer.fixed {
 }
 
 #products-form {
-    font-family: 'Oswald', sans-serif;
+    font-family: Oswald;
 }
 
 .accordion[data-type="charts-collapse-btn"] {
@@ -572,7 +587,7 @@ footer.fixed {
 }
 
 .product-grid{
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat;
   text-align: center;
   margin: 5px 15px 0;
   border-radius: 10px;

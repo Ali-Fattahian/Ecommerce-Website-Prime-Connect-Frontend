@@ -57,13 +57,12 @@ const NavbarComponent = () => {
             </NavLink>
             <div id="shopping-cart-icon__container">
               <NavLink to="/cart">
-                <span
-                  className="fa-stack has-badge"
-                  style={{ fontSize: '20px', marginBottom: '8px' }}
-                  data-count={`${cartItemsNumber}`}
-                >
-                  <ShoppingCartIcon />
-                </span>
+                <ShoppingCartIcon>
+                  <span
+                    className="fa-stack has-badge"
+                    data-count={`${cartItemsNumber}`}
+                  ></span>
+                </ShoppingCartIcon>
               </NavLink>
             </div>
             <div

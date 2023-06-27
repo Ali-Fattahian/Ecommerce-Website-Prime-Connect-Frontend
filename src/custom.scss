@@ -784,6 +784,22 @@ footer.fixed {
     }
 }
 
+.shopping-cart {
+    display: inline-block;
+    position: relative;
+
+    span {
+        font-size: 20px;
+        position: absolute;
+        top: -5px;
+        right: -5px;
+    }
+    
+    svg {
+        font-size: 40px;
+    }
+}
+
 .earnings-card__section .shopping-bag-icon {
     padding: 6px 9px;
     border-radius: 4px;

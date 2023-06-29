@@ -250,6 +250,14 @@ footer.fixed {
     }
 }
 
+.carousel-inner, 
+.carousel-inner-container {
+    .blurhash {
+        height: 510px !important;
+        width: 510px !important;
+    }
+}
+
 .carousel-inner-container {
     display: flex;
     padding: 2rem;

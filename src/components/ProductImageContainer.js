@@ -7,6 +7,7 @@ const ProductImageContainer = ({ product, imageLoaded, imageRef }) => {
   return (
     <div className="image-container">
       <Blurhash
+        className="blurhash"
         hash={product.image_1_hash}
         resolutionX={32}
         resolutionY={32}

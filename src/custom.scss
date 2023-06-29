@@ -241,6 +241,15 @@ footer.fixed {
     bottom: -1rem !important;
 }
 
+.carousel-inner {
+    .image-container {
+        img {
+            max-width: 510px;
+            margin: auto;
+        }
+    }
+}
+
 .carousel-inner-container {
     display: flex;
     padding: 2rem;

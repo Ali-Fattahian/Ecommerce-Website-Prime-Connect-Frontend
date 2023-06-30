@@ -248,10 +248,13 @@ const ProductPage = () => {
       <Container
         id="collapse-item__container"
         className="d-flex m-0 mt-2 p-2 pb-0 align-items-center"
+        role="tablist"
       >
         <p
+          id="detail-tab-button"
           onClick={() => infoCollapseManager(setDetailOpen)}
           aria-controls="detail-fade-text"
+          role="tab"
           aria-expanded={detailOpen}
           className={`m-0 txt--gray border-right-lt pb-2 ${
             detailOpen ? "collapse-item--active" : "collapse-item"
@@ -261,9 +264,11 @@ const ProductPage = () => {
           Detail
         </p>
         <p
+          id="review-tab-button"
           onClick={() => infoCollapseManager(setReviewOpen)}
           aria-controls="review-fade"
           aria-expanded={reviewOpen}
+          role="tab"
           className={`m-0 txt--gray border-right-lt px-2 pb-2 ${
             reviewOpen ? "collapse-item--active" : "collapse-item"
           }`}
@@ -271,9 +276,11 @@ const ProductPage = () => {
           Reviews
         </p>
         <p
+          id="suggestion-tab-button"
           onClick={() => infoCollapseManager(setSuggestionOpen)}
-          aria-controls="suggestion-fade"
+          aria-controls="product-suggestions"
           aria-expanded={suggestionOpen}
+          role="tab"
           className={`m-0 txt--gray border-right-lt px-2 pb-2 ${
             suggestionOpen ? "collapse-item--active" : "collapse-item"
           }`}
@@ -291,7 +298,7 @@ const ProductPage = () => {
       </Container>
       <Row className="position-relative">
         <Fade in={detailOpen} className="position-absolute top-0 left-0">
-          <div id="detail-fade-text">
+          <div id="detail-fade-text" aria-labelledby="detail-tab-button">
             {productDetail.moreDetails ? (
               <p
                 className="p-4 border-top-lt"
@@ -311,6 +318,7 @@ const ProductPage = () => {
             <div
               className="d-flex justify-content-between w-100 align-items-center p-4 border-top-lt"
               id="review-section-top"
+              aria-labelledby="review-tab-button"
             >
               <h4 className="txt--black font-family-secondary">
                 REVIEWS - {productDetail.numReviews}
@@ -321,7 +329,9 @@ const ProductPage = () => {
                   setWriteReviewOpen(true);
                 }}
               >
-                <div className="mx-1 d-inline-block"><EditIcon /></div>
+                <div className="mx-1 d-inline-block">
+                  <EditIcon />
+                </div>
                 <span>Write your review</span>
               </p>
             </div>
@@ -439,7 +449,11 @@ const ProductPage = () => {
           className="position-absolute top-0 left-0"
           style={{ margin: "auto" }}
         >
-          <div id="product-suggestions" className="border-top-lt">
+          <div
+            id="product-suggestions"
+            className="border-top-lt"
+            aria-labelledby="suggestion-tab-button"
+          >
             {!suggestionsError && suggestions.length > 0 ? (
               suggestions.map((product) => (
                 // <Col sm={3} md={3} lg={3} xl={3} key={product.id}>

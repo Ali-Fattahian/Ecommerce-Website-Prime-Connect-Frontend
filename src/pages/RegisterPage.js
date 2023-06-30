@@ -35,7 +35,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <FormContainer className='pt-3'>
+    <FormContainer className="pt-3">
       {message && <Message variant="danger">{message}</Message>}
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
@@ -114,17 +114,32 @@ const RegisterPage = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <p style={{ fontSize: '1.2rem' }} className="txt--gray font-family-secondary d-inline-block">Have an Account?</p>
-          <Link to={redirect ? `/login?redirect=${redirect}` : "/login"} className="font-family-secondary px-2" style={{fontSize: "1.2rem"}}>
-            Sign In
-          </Link>
-        <Button type="submit" className="w-100" style={{backgroundColor: "#0095f6"}}>
+        <p
+          style={{ fontSize: "1.2rem" }}
+          className="txt--gray font-family-secondary d-inline-block"
+        >
+          Have an Account?
+        </p>
+        <Link
+          to={redirect ? `/login?redirect=${redirect}` : "/login"}
+          className="font-family-secondary px-2"
+          style={{ fontSize: "1.2rem" }}
+        >
+          Sign In
+        </Link>
+        <Button
+          type="submit"
+          className="w-100"
+          style={{
+            backgroundColor: "var(--bs-primary)",
+            color: "var(--bs-secondary)",
+          }}
+        >
           Register
         </Button>
       </Form>
       <Row className="py-3">
-        <Col>
-        </Col>
+        <Col></Col>
       </Row>
     </FormContainer>
   );

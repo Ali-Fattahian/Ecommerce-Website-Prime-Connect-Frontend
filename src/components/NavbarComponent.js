@@ -32,7 +32,6 @@ const NavbarComponent = () => {
     >
       <Container>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <h4 id="website-brand-1">PrimeConnect</h4>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav
             className="me-auto d-flex justify-content-between w-100 align-items-center"

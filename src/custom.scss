@@ -241,6 +241,14 @@ footer.fixed {
     bottom: -1rem !important;
 }
 
+.carousel-with-caption {
+    .image-container {
+        img {
+            width: 100%;
+        }
+    }
+}
+
 .carousel-inner {
     .image-container {
         img {

@@ -34,6 +34,7 @@ const HomePage = () => {
         </Suspense>
       </Row>
       {/* {popularProducts.length > 0 ? <Footer /> : <Footer fixed />} */}
+      <Footer />
     </>
   );
 };

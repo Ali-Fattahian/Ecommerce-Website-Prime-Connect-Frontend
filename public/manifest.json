@@ -3,32 +3,32 @@
   "name": "Prime Connect",
   "icons": [
     {
-      "src": "/favicons/favicon-16x16.png",
+      "src": "/static/favicons/favicon-16x16.png",
       "sizes": "16x16",
       "type": "image/png"
     },
     {
-      "src": "/favicons/favicon.ico",
+      "src": "/static/favicons/favicon.ico",
       "sizes": "48x48",
       "type": "image/png"
     },
     {
-      "src": "/favicons/apple-touch-icon.png",
+      "src": "/static/favicons/apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png"
     },
     {
-      "src": "/favicons/favicon-512.png",
+      "src": "/static/favicons/favicon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "/favicons/safari-pinned-tab.svg",
+      "src": "/static/favicons/safari-pinned-tab.svg",
       "sizes": "any",
       "purpose": "maskable"
     },
     {
-      "src": "/favicons/android-chrome-192x192.png",
+      "src": "/static/favicons/android-chrome-192x192.png",
       "sizes": "any",
       "type": "image/png"
     }

@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="description" content="Prime Connect offers the best prices, fast shipping, and 24/7 customer support. Discover a convenient and reliable way to shop for all your needs." />
+    <meta
+      name="description"
+      content="Prime Connect offers the best prices, fast shipping, and 24/7 customer support. Discover a convenient and reliable way to shop for all your needs."
+    />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -20,7 +23,7 @@
       sizes="16x16"
       href="/static/favicons/favicon-16x16.png"
     />
-    <link rel="manifest" href="/static/favicons/site.webmanifest" />
+    <!-- <link rel="manifest" href="/static/favicons/site.webmanifest" /> -->
     <link
       rel="mask-icon"
       href="/static/favicons/safari-pinned-tab.svg"
@@ -30,11 +33,25 @@
     <meta name="theme-color" content="#ffffff" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <link rel="manifest" href="/static/manifest.json" />
+    <link rel="manifest" href="/manifest.json" />
     <title>Prime Connect</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("./serviceWorker.js")
+            .then((res) => {
+              console.log("Service Worker registered, Scope:", res.scope);
+            })
+            .catch((err) => {
+              console.log("Error in registering service worker", err);
+            });
+        });
+      }
+    </script>
   </body>
 </html>

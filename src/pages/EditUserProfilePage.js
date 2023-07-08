@@ -106,7 +106,7 @@ const EditUserProfilePage = () => {
             />
           ) : (
             <Message variant="info">
-              There was a problem loading this content
+              Please wait ...
             </Message>
           )}
         </Col>

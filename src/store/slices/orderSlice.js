@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const baseURL = "https://prime-connect.onrender.com/api";
-// const baseURL = 'http://localhost:8000/api/'
+// const baseURL = "https://prime-connect.onrender.com/api";
+const baseURL = 'http://localhost:8000/api'
 
 export const orderCreate = createAsyncThunk(
   "orders/orderCreate",

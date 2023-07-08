@@ -21,14 +21,14 @@ const Price = ({ hasDiscount, discount, price, noIcon }) => {
               </p>
             </div>
           )}
-          <p className="text-decoration-line-through">${price}</p>
+          <p className="text-decoration-line-through">{price ? `$${price}` : ''}</p>
           <p>
             ${(price - price * discount * 0.01).toFixed(2)}
           </p>
         </div>
       ) : (
         <div>
-          <p>${price.toFixed(2)}</p>
+          <p>{price ? `$${price.toFixed(2)}` : ''}</p>
         </div>
       )}
     </div>

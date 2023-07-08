@@ -35,7 +35,7 @@ const NewProducts = () => {
           </Col>
         ))
       ) : (
-        <Message variant="info">No new product was found</Message>
+        <Message variant="info">{!newProductsError ? 'Please wait ...' : `${newProductsError}`}</Message>
       )}
     </>
   )

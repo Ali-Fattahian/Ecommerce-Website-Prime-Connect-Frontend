@@ -2,12 +2,13 @@
 
 ### Description
 
-Client side of Ecommerce Website project(Prime Connect). It was made using `create-react-app` and it uses redux for state management and also axios for sending asynchronous requests to the backend. This is a progressive web app with a lot of focus on better performance, accessibility, SEO and best practices (lighthouse extention).
-For better managing the redux state, redux-toolkit was used.
-For better performance, icons and fonts are local.
-Admins of the website have access to charts allowing them to make data-driven choices.
-Blurhash technology was used to encode (backend) and decode images for lazy loading and better user exprience.
-validator library was used for a client side validation of credit cards.
+Client side of Ecommerce Website project(Prime Connect). It was made using `create-react-app` and it uses redux for state management and also axios for sending asynchronous requests to the backend.
+This is a progressive web app with a lot of focus on better performance, accessibility, SEO and best practices (lighthouse extention).
+- For better managing the redux state, redux-toolkit was used.
+- For better performance, icons and fonts are local.
+- Admins of the website have access to charts allowing them to make data-driven choices.
+- Blurhash technology was used to encode (backend) and decode images for lazy loading and better user exprience.
+- validator library was used for a client side validation of credit cards.
 You can read all about the features of this project in [here](https://github.com/Ali-Fattahian/Ecommerce-Website-Prime-Connect).
 
 ### Technologies and libraries used
